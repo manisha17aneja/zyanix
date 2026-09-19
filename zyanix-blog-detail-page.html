@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How We Cut Onboarding Time by 60% — Zyanix Blog</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --orange:#F1652A; --orange-dark:#d9541f; --orange-soft:#FDE6DA;
+    --bg:#F7F3EC; --bg-alt:#F1ECE3; --card-bg:#FFFFFF;
+    --text-primary:#1E1B18; --text-secondary:#5B564F; --text-muted:#8A8478;
+    --border:#E7E0D5; --nav-bg:rgba(247,243,236,0.9);
+    --shadow: 0 10px 30px rgba(30,27,24,0.06); --icon-bg:#FBE7DC;
+    --footer-bg:#1B1815; --footer-text:#CFC9C0; --dark-panel:#14110F;
+  }
+  [data-theme="dark"]{
+    --bg:#0E0C0A; --bg-alt:#141110; --card-bg:#1A1613;
+    --text-primary:#F5F1EA; --text-secondary:#B6AFA5; --text-muted:#847D72;
+    --border:#2A2521; --nav-bg:rgba(14,12,10,0.85);
+    --shadow: 0 10px 30px rgba(0,0,0,0.5); --icon-bg:#2A1D14;
+    --footer-bg:#0A0908; --footer-text:#B6AFA5; --dark-panel:#0A0908;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background:var(--bg); color:var(--text-primary); transition:background .3s ease, color .3s ease; -webkit-font-smoothing:antialiased; overflow-x:hidden;}
+  img{max-width:100%; display:block;}
+  a{color:inherit; text-decoration:none;}
+  ul{list-style:none;}
+  .wrap{width:100%; max-width:1800px; margin:0 auto; padding:0 clamp(24px, 5vw, 90px);}
+  section{position:relative;}
+  .btn{display:inline-flex; align-items:center; gap:8px; font-weight:600; font-size:.95rem; padding:13px 24px; border-radius:8px; border:1px solid transparent; cursor:pointer; transition:transform .15s ease, box-shadow .15s ease, background .2s ease, border-color .2s ease; white-space:nowrap;}
+  .btn:active{transform:translateY(1px);}
+  .btn-primary{background:var(--orange); color:#fff;}
+  .btn-primary:hover{background:var(--orange-dark); box-shadow:0 8px 20px rgba(241,101,42,0.35);}
+  .btn-outline{background:transparent; color:var(--text-primary); border-color:var(--border);}
+  .btn-outline:hover{border-color:var(--orange); color:var(--orange);}
+  .btn svg{width:16px; height:16px; flex-shrink:0;}
+  header{position:sticky; top:0; z-index:100; background:var(--nav-bg); backdrop-filter:blur(10px); border-bottom:1px solid var(--border);}
+  .nav{display:flex; align-items:center; justify-content:space-between; padding:18px 0;}
+  .logo{display:flex; align-items:center; gap:8px; font-weight:800; font-size:1.25rem;}
+  .logo-mark{width:32px; height:32px; border-radius:8px; background:var(--orange); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:1.1rem;}
+  .nav-links{display:flex; align-items:center; gap:30px;}
+  .nav-links a{font-size:.95rem; font-weight:500; color:var(--text-secondary); position:relative; padding-bottom:6px; transition:color .2s ease;}
+  .nav-links a:hover{color:var(--text-primary);}
+  .nav-links a.active{color:var(--orange);}
+  .nav-links a.active::after{content:''; position:absolute; left:0; right:0; bottom:-2px; height:2px; background:var(--orange); border-radius:2px;}
+  .nav-right{display:flex; align-items:center; gap:16px;}
+  .theme-toggle{width:44px; height:44px; border-radius:50%; border:1px solid var(--border); background:var(--card-bg); display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; transition:border-color .2s ease, transform .2s ease;}
+  .theme-toggle:hover{border-color:var(--orange); transform:rotate(15deg);}
+  .theme-toggle svg{width:20px; height:20px; stroke:var(--text-primary);}
+  .theme-toggle .sun{display:none;}
+  [data-theme="dark"] .theme-toggle .sun{display:block;}
+  [data-theme="dark"] .theme-toggle .moon{display:none;}
+  .menu-toggle{display:none; background:none; border:none; cursor:pointer; padding:4px;}
+  .menu-toggle svg{width:26px; height:26px; stroke:var(--text-primary);}
+  .section-head{text-align:center; max-width:640px; margin:0 auto 50px;}
+  .eyebrow{color:var(--orange); font-weight:700; font-size:.82rem; letter-spacing:.02em; margin-bottom:10px; display:block;}
+  .section-head h2{font-size:2.2rem; font-weight:800; letter-spacing:-0.01em; margin-bottom:14px;}
+  .section-head h2 .accent{color:var(--orange);}
+  .section-head p{color:var(--text-secondary); line-height:1.7; font-size:1rem;}
+  .crumb-row{display:flex; justify-content:center; gap:10px; font-size:.85rem; color:var(--text-muted); margin-bottom:18px; flex-wrap:wrap;}
+  .crumb-row a{color:var(--orange); font-weight:600;}
+  .tag-row{display:flex; gap:8px; flex-wrap:wrap; justify-content:center;}
+  .tag{font-size:.72rem; font-weight:600; padding:4px 10px; border-radius:20px; background:var(--icon-bg); color:var(--orange-dark);}
+  [data-theme="dark"] .tag{color:#F5A579;}
+
+  /* SECTION 1: Article header */
+  .article-header{padding:50px 0 0; text-align:center;}
+  .article-header h1{
+    font-size:2.6rem; font-weight:800; line-height:1.25; letter-spacing:-0.01em;
+    max-width:880px; margin:18px auto 26px;
+  }
+  .article-meta{display:flex; align-items:center; justify-content:center; gap:16px; margin-bottom:40px; flex-wrap:wrap;}
+  .article-meta img{width:46px; height:46px; border-radius:50%; object-fit:cover; border:2px solid var(--border);}
+  .article-meta .am-name{font-weight:700; font-size:.92rem;}
+  .article-meta .am-sub{font-size:.8rem; color:var(--text-muted);}
+  .article-cover{max-width:1100px; margin:0 auto; border-radius:18px; overflow:hidden; border:1px solid var(--border); box-shadow:var(--shadow);}
+  .article-cover img{width:100%; height:460px; object-fit:cover;}
+  [data-theme="dark"] .article-cover img{filter:brightness(.82) saturate(.9);}
+
+  /* SECTION 2: Article body */
+  .article-body-section{padding:70px 0 90px;}
+  .article-layout{display:grid; grid-template-columns:0.7fr 2.3fr; gap:60px; max-width:1100px; margin:0 auto;}
+  .article-toc{position:sticky; top:100px; align-self:start;}
+  .article-toc h5{font-size:.8rem; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--text-muted); margin-bottom:14px;}
+  .article-toc ul{display:flex; flex-direction:column; gap:10px;}
+  .article-toc a{font-size:.86rem; color:var(--text-secondary); border-left:2px solid var(--border); padding-left:14px; transition:color .2s ease, border-color .2s ease;}
+  .article-toc a:hover{color:var(--orange); border-color:var(--orange);}
+  .article-content{font-size:1.02rem; line-height:1.85; color:var(--text-secondary);}
+  .article-content h2{font-size:1.5rem; font-weight:800; color:var(--text-primary); margin:38px 0 16px;}
+  .article-content p{margin-bottom:22px;}
+  .article-content ul{list-style:disc; padding-left:22px; margin-bottom:22px; display:flex; flex-direction:column; gap:8px;}
+  .article-content img{border-radius:14px; margin:30px 0; width:100%; height:340px; object-fit:cover; border:1px solid var(--border);}
+  [data-theme="dark"] .article-content img{filter:brightness(.82) saturate(.9);}
+  .pull-quote{
+    border-left:3px solid var(--orange); background:var(--bg-alt); border-radius:0 12px 12px 0;
+    padding:22px 26px; margin:30px 0; font-size:1.1rem; font-weight:600; color:var(--text-primary); font-style:italic;
+  }
+  .share-row{display:flex; align-items:center; gap:12px; margin-top:40px; padding-top:26px; border-top:1px solid var(--border);}
+  .share-row span{font-size:.85rem; font-weight:700; color:var(--text-secondary);}
+  .share-row a{width:38px; height:38px; border-radius:50%; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; transition:border-color .2s ease;}
+  .share-row a:hover{border-color:var(--orange);}
+  .share-row svg{width:16px; height:16px; stroke:var(--text-secondary);}
+
+  /* SECTION 3: Author bio */
+  .author-bio{background:var(--bg-alt); padding:60px 0;}
+  .bio-card{
+    max-width:800px; margin:0 auto; background:var(--card-bg); border:1px solid var(--border);
+    border-radius:18px; padding:34px; display:flex; gap:24px; align-items:center;
+  }
+  .bio-card img{width:82px; height:82px; border-radius:50%; object-fit:cover; flex-shrink:0; border:2px solid var(--border);}
+  .bio-card h4{font-size:1.1rem; font-weight:700; margin-bottom:6px;}
+  .bio-card p{font-size:.88rem; color:var(--text-secondary); line-height:1.65; margin-bottom:14px;}
+  .bio-social{display:flex; gap:10px;}
+  .bio-social a{width:32px; height:32px; border-radius:50%; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; transition:border-color .2s ease;}
+  .bio-social a:hover{border-color:var(--orange);}
+  .bio-social svg{width:14px; height:14px; stroke:var(--text-secondary);}
+
+  /* SECTION 4: Related posts */
+  .related-posts{padding:90px 0;}
+  .related-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:26px;}
+  .blog-card{background:var(--card-bg); border:1px solid var(--border); border-radius:16px; overflow:hidden; transition:transform .2s ease, box-shadow .2s ease;}
+  .blog-card:hover{transform:translateY(-5px); box-shadow:var(--shadow);}
+  .blog-thumb{height:190px; overflow:hidden;}
+  .blog-thumb img{width:100%; height:100%; object-fit:cover; transition:transform .35s ease;}
+  .blog-card:hover .blog-thumb img{transform:scale(1.07);}
+  [data-theme="dark"] .blog-thumb img{filter:saturate(.85) brightness(.85);}
+  .blog-body{padding:20px;}
+  .blog-body .tag-row{justify-content:flex-start; margin-bottom:12px;}
+  .blog-body h4{font-size:1rem; font-weight:700; line-height:1.4;}
+
+  /* SECTION 5: CTA */
+  .cta-outer{padding:0 clamp(24px, 5vw, 90px) 90px;}
+  .cta-band{max-width:1800px; margin:0 auto; border-radius:20px; background:var(--dark-panel); padding:54px 60px; display:flex; align-items:center; justify-content:space-between; gap:30px; flex-wrap:wrap; position:relative; overflow:hidden;}
+  .cta-band::after{content:''; position:absolute; right:-60px; bottom:-60px; width:260px; height:260px; background:radial-gradient(circle, rgba(241,101,42,0.5), transparent 70%);}
+  .cta-band .eyebrow{color:#F5A579;}
+  .cta-band h3{color:#fff; font-size:1.8rem; font-weight:800; margin-bottom:10px;}
+  .cta-band p{color:#C9C3B8; font-size:.95rem;}
+  .cta-content{position:relative; z-index:1; max-width:560px;}
+  .cta-band .btn{position:relative; z-index:1;}
+
+  footer{background:var(--footer-bg); color:var(--footer-text); padding:44px 0 26px;}
+  .footer-inner{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px; padding-bottom:26px; border-bottom:1px solid rgba(255,255,255,0.08);}
+  .footer-logo{display:flex; align-items:center; gap:8px; font-weight:800; font-size:1.15rem; color:#fff;}
+  .footer-links{display:flex; gap:22px; flex-wrap:wrap;}
+  .footer-links a{font-size:.88rem; color:var(--footer-text); transition:color .2s ease;}
+  .footer-links a:hover{color:#fff;}
+  .footer-social{display:flex; gap:14px;}
+  .footer-social a{width:36px; height:36px; border-radius:50%; border:1px solid rgba(255,255,255,0.12); display:flex; align-items:center; justify-content:center;}
+  .footer-social svg{width:16px; height:16px; stroke:var(--footer-text);}
+  .footer-bottom{display:flex; justify-content:space-between; padding-top:20px; font-size:.8rem; color:var(--text-muted); flex-wrap:wrap; gap:10px;}
+
+  @media (max-width: 1180px){ .related-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width: 980px){
+    .nav-links{display:none;} .menu-toggle{display:flex;}
+    .article-layout{grid-template-columns:1fr;}
+    .article-toc{position:static; margin-bottom:20px;}
+    .article-header h1{font-size:1.9rem;}
+    .article-cover img{height:280px;}
+    .bio-card{flex-direction:column; text-align:center;}
+  }
+  @media (max-width: 640px){
+    .related-grid{grid-template-columns:1fr;}
+    .cta-band{flex-direction:column; align-items:flex-start; padding:34px 26px;}
+    .footer-inner, .footer-bottom{flex-direction:column; align-items:flex-start;}
+  }
+</style>
+<link rel="stylesheet" href="theme.css">
+</head>
+<body data-theme="light">
+
+<header>
+  <nav class="nav wrap">
+    <a href="index.html" class="logo"><span class="logo-mark">Z</span> Zyanix</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="zyanix-services-page.html">Services</a></li>
+      <li><a href="zyanix-technologies-page.html">Technologies</a></li>
+      <li><a href="zyanix-case-studies-page.html">Case Studies</a></li>
+      <li><a href="zyanix-blog-page.html" class="active">Blog</a></li>
+      <li><a href="zyanix-about-page.html">About</a></li>
+      <li><a href="zyanix-contact-page.html">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+      <a href="zyanix-contact-page.html" class="btn btn-primary">Get Started
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <button class="menu-toggle" aria-label="Menu">
+        <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<!-- SECTION 1: ARTICLE HEADER -->
+<section class="article-header">
+  <div class="wrap">
+    <div class="crumb-row"><a href="index.html">Home</a><span>/</span><a href="zyanix-blog-page.html">Blog</a><span>/</span><span>Onboarding Process</span></div>
+    <div class="tag-row"><span class="tag">Engineering</span><span class="tag">Featured</span></div>
+    <h1>How We Cut Our Client Onboarding Time by 60% With a Better Discovery Process</h1>
+    <div class="article-meta">
+      <img src="https://i.pravatar.cc/100?img=68" alt="Arjun Malhotra">
+      <div style="text-align:left;">
+        <div class="am-name">Arjun Malhotra</div>
+        <div class="am-sub">Founder &amp; CEO · Sep 12, 2026 · 7 min read</div>
+      </div>
+    </div>
+    <div class="article-cover">
+      <img src="https://picsum.photos/seed/zyanix-blog-featured/1400/700" alt="Team discussing project discovery process on a whiteboard">
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: ARTICLE BODY -->
+<section class="article-body-section">
+  <div class="wrap">
+    <div class="article-layout">
+      <aside class="article-toc">
+        <h5>In This Article</h5>
+        <ul>
+          <li><a href="#problem">The Problem With Our Old Process</a></li>
+          <li><a href="#framework">The New Discovery Framework</a></li>
+          <li><a href="#results">What Changed After Rollout</a></li>
+          <li><a href="#takeaways">Key Takeaways</a></li>
+        </ul>
+      </aside>
+      <article class="article-content">
+        <h2 id="problem">The Problem With Our Old Process</h2>
+        <p>For years, every new project started the same way: a kickoff call, a rough brief, and a lot of assumptions we'd only discover were wrong three weeks in. Scope conversations kept happening mid-build instead of before it, which meant timelines slipped and trust eroded before the first milestone even shipped.</p>
+        <p>We tracked it for two quarters and found the pattern: projects that skipped a structured discovery phase took, on average, 40% longer to reach their first release than ones that didn't.</p>
+        <img src="https://picsum.photos/seed/zyanix-blog-inline-1/1000/500" alt="Team whiteboarding a project timeline">
+        <h2 id="framework">The New Discovery Framework</h2>
+        <p>So we rebuilt discovery from scratch around three non-negotiable steps before any code gets written:</p>
+        <ul>
+          <li>A structured stakeholder interview covering goals, constraints, and — critically — what "done" looks like</li>
+          <li>A written scope document both sides sign off on, including what's explicitly out of scope</li>
+          <li>A clickable low-fidelity prototype reviewed before any engineering work starts</li>
+        </ul>
+        <div class="pull-quote">"The biggest source of delay was never bad code — it was decisions we hadn't actually made yet."</div>
+        <h2 id="results">What Changed After Rollout</h2>
+        <p>Within two quarters of rolling this out across every new engagement, average time-to-first-release dropped by 60%, and client-requested scope changes mid-build fell by more than half. Just as important, clients reported feeling far more confident about what they were getting — and when.</p>
+        <h2 id="takeaways">Key Takeaways</h2>
+        <p>If there's one thing worth stealing from this process, it's this: the time you "save" by skipping discovery almost always shows up later, at a higher cost. A week of structured discovery consistently paid for itself many times over across every project we tracked.</p>
+        <div class="share-row">
+          <span>Share this article:</span>
+          <a href="#" aria-label="Share on LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+          <a href="#" aria-label="Share on Twitter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></a>
+          <a href="#" aria-label="Copy link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: AUTHOR BIO -->
+<section class="author-bio">
+  <div class="wrap">
+    <div class="bio-card">
+      <img src="https://i.pravatar.cc/200?img=68" alt="Arjun Malhotra">
+      <div>
+        <h4>Arjun Malhotra</h4>
+        <p>Founder &amp; CEO at Zyanix. Spends most days thinking about how to make software teams ship faster without breaking things — and occasionally writes it down.</p>
+        <div class="bio-social">
+          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+          <a href="#" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: RELATED POSTS -->
+<section class="related-posts">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Keep Reading</span>
+      <h2>Related <span class="accent">Articles</span></h2>
+      <p>More from the Zyanix blog on engineering, design and product.</p>
+    </div>
+    <div class="related-grid">
+      <a href="zyanix-blog-detail-page.html" class="blog-card">
+        <div class="blog-thumb"><img src="https://picsum.photos/seed/zyanix-blog-1/500/380" alt="Choosing the right database"></div>
+        <div class="blog-body">
+          <div class="tag-row"><span class="tag">Engineering</span></div>
+          <h4>Choosing the Right Database for Your Next Project</h4>
+        </div>
+      </a>
+      <a href="zyanix-blog-detail-page.html" class="blog-card">
+        <div class="blog-thumb"><img src="https://picsum.photos/seed/zyanix-blog-3/500/380" alt="MVP scoping guide"></div>
+        <div class="blog-body">
+          <div class="tag-row"><span class="tag">Product</span></div>
+          <h4>How to Scope an MVP Without Cutting the Wrong Corners</h4>
+        </div>
+      </a>
+      <a href="zyanix-blog-detail-page.html" class="blog-card">
+        <div class="blog-thumb"><img src="https://picsum.photos/seed/zyanix-blog-5/500/380" alt="Zyanix team culture"></div>
+        <div class="blog-body">
+          <div class="tag-row"><span class="tag">Company</span></div>
+          <h4>What 8 Years of Client Work Taught Us About Trust</h4>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5: CTA -->
+<div class="cta-outer">
+  <div class="cta-band">
+    <div class="cta-content">
+      <span class="eyebrow">Let's Build Together</span>
+      <h3>Ready to Turn Your Idea Into Reality?</h3>
+      <p>Get in touch with us today and let's build something amazing together.</p>
+    </div>
+    <a href="zyanix-contact-page.html" class="btn btn-primary">Get Started Free
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <a href="index.html" class="footer-logo"><span class="logo-mark">Z</span> Zyanix</a>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="zyanix-services-page.html">Services</a></li>
+        <li><a href="zyanix-technologies-page.html">Technologies</a></li>
+        <li><a href="zyanix-case-studies-page.html">Case Studies</a></li>
+        <li><a href="zyanix-blog-page.html">Blog</a></li>
+        <li><a href="zyanix-about-page.html">About</a></li>
+        <li><a href="zyanix-contact-page.html">Contact</a></li>
+      </ul>
+      <div class="footer-social">
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+        <a href="#" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Zyanix. All rights reserved.</span>
+      <span>Better Technology. A Brighter Future.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="theme.js"></script>
+</body>
+</html>
