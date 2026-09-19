@@ -59,13 +59,32 @@
 
   // ---------- Filter / category tabs (.filter-tab, .cat-tab) ----------
   function setupTabs(){
-    var groups = [document.querySelectorAll('.filter-tab'), document.querySelectorAll('.cat-tab')];
-    groups.forEach(function(tabs){
-      if(!tabs.length) return;
-      tabs.forEach(function(tab){
-        tab.addEventListener('click', function(){
-          tabs.forEach(function(t){ t.classList.remove('active'); });
-          tab.classList.add('active');
+    setupTabGroup(document.querySelectorAll('.filter-tab'), '.portfolio-grid', '.portfolio-card', 'All Projects');
+    setupTabGroup(document.querySelectorAll('.cat-tab'), '.tech-grid', '.tech-item', 'All');
+  }
+  function setupTabGroup(tabs, gridSelector, itemSelector, allValue){
+    if(!tabs.length) return;
+    var grid = document.querySelector(gridSelector);
+    if(!grid) return;
+    var items = grid.querySelectorAll(itemSelector);
+    tabs.forEach(function(tab){
+      tab.addEventListener('click', function(){
+        tabs.forEach(function(t){ t.classList.remove('active'); });
+        tab.classList.add('active');
+        var filter = tab.getAttribute('data-filter') || tab.textContent.trim();
+        items.forEach(function(item){
+          var cat = item.getAttribute('data-category');
+          var show = (filter === allValue) || (cat === filter);
+          if(show){
+            item.style.display = '';
+            requestAnimationFrame(function(){
+              item.classList.add('in-view');
+              item.style.opacity = '1';
+              item.style.transform = 'none';
+            });
+          } else {
+            item.style.display = 'none';
+          }
         });
       });
     });
@@ -123,6 +142,62 @@
     }, 2500);
   }
 
+  // ---------- Header shrink on scroll ----------
+  function setupHeaderScroll(){
+    var header = document.querySelector('header');
+    if(!header) return;
+    function onScroll(){
+      if(window.scrollY > 20){ header.classList.add('scrolled'); }
+      else { header.classList.remove('scrolled'); }
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+    onScroll();
+  }
+
+  // ---------- Hero heading word-stagger entrance ----------
+  function setupHeroWordStagger(){
+    var heading = document.querySelector('.hero h1, .page-hero h1');
+    if(!heading || heading.dataset.staggered) return;
+    heading.dataset.staggered = 'true';
+    // Split top-level text/inline content into word spans, preserving inner tags (like <span class="accent">, <br>)
+    var walker = document.createTreeWalker(heading, NodeFilter.SHOW_TEXT, null, false);
+    var textNodes = [];
+    var node;
+    while((node = walker.nextNode())){ textNodes.push(node); }
+    var delay = 0;
+    textNodes.forEach(function(tn){
+      var words = tn.textContent.split(/(\s+)/);
+      var frag = document.createDocumentFragment();
+      words.forEach(function(w){
+        if(w.trim() === ''){ frag.appendChild(document.createTextNode(w)); return; }
+        var span = document.createElement('span');
+        span.className = 'word';
+        span.textContent = w;
+        span.style.animationDelay = delay + 's';
+        delay += 0.06;
+        frag.appendChild(span);
+      });
+      tn.parentNode.replaceChild(frag, tn);
+    });
+  }
+
+  // ---------- Button ripple effect ----------
+  function setupButtonRipple(){
+    document.querySelectorAll('.btn').forEach(function(btn){
+      btn.addEventListener('click', function(e){
+        var rect = btn.getBoundingClientRect();
+        var ripple = document.createElement('span');
+        var size = Math.max(rect.width, rect.height);
+        ripple.className = 'ripple';
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+        ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+        btn.appendChild(ripple);
+        setTimeout(function(){ ripple.remove(); }, 600);
+      });
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', function(){
     setupThemeToggle();
     setupMobileNav();
@@ -130,5 +205,8 @@
     setupTabs();
     setupCounters();
     setupReveal();
+    setupHeaderScroll();
+    setupHeroWordStagger();
+    setupButtonRipple();
   });
 })();

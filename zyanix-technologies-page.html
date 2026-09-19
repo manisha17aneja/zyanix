@@ -24,7 +24,7 @@
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
-  body{font-family:'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background:var(--bg); color:var(--text-primary); transition:background .3s ease, color .3s ease; -webkit-font-smoothing:antialiased;}
+  body{font-family:'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background:var(--bg); color:var(--text-primary); transition:background .3s ease, color .3s ease; -webkit-font-smoothing:antialiased; overflow-x:hidden;}
   img{max-width:100%; display:block;}
   a{color:inherit; text-decoration:none;}
   ul{list-style:none;}
@@ -153,9 +153,9 @@
 
 <header>
   <nav class="nav wrap">
-    <a href="zyanix-landing-page.html" class="logo"><span class="logo-mark">Z</span> Zyanix</a>
+    <a href="index.html" class="logo"><span class="logo-mark">Z</span> Zyanix</a>
     <ul class="nav-links">
-      <li><a href="zyanix-landing-page.html">Home</a></li>
+      <li><a href="index.html">Home</a></li>
       <li><a href="zyanix-services-page.html">Services</a></li>
       <li><a href="zyanix-technologies-page.html" class="active">Technologies</a></li>
       <li><a href="zyanix-case-studies-page.html">Case Studies</a></li>
@@ -181,7 +181,7 @@
 <!-- SECTION 1: PAGE HERO -->
 <section class="page-hero">
   <div class="wrap">
-    <div class="crumb-row"><a href="zyanix-landing-page.html">Home</a><span>/</span><span>Technologies</span></div>
+    <div class="crumb-row"><a href="index.html">Home</a><span>/</span><span>Technologies</span></div>
     <span class="badge"><span class="dot"></span> Our Tech Stack</span>
     <h1>Modern Technologies, <span class="accent">Built to Last</span></h1>
     <p class="lead">We choose proven, well-supported tools over trendy ones — so what we build for you keeps running smoothly for years, not just until launch day.</p>
@@ -206,32 +206,32 @@
       <p>A curated, battle-tested toolkit spanning frontend, backend, mobile, cloud and design.</p>
     </div>
     <div class="cat-tabs">
-      <span class="cat-tab active">All</span>
-      <span class="cat-tab">Frontend</span>
-      <span class="cat-tab">Backend</span>
-      <span class="cat-tab">Mobile</span>
-      <span class="cat-tab">Cloud &amp; DevOps</span>
-      <span class="cat-tab">Design</span>
+      <span class="cat-tab active" data-filter="All">All</span>
+      <span class="cat-tab" data-filter="Frontend">Frontend</span>
+      <span class="cat-tab" data-filter="Backend">Backend</span>
+      <span class="cat-tab" data-filter="Mobile">Mobile</span>
+      <span class="cat-tab" data-filter="Cloud &amp; DevOps">Cloud &amp; DevOps</span>
+      <span class="cat-tab" data-filter="Design">Design</span>
     </div>
     <div class="tech-grid">
-      <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" alt="React"><span>React</span></div>
-      <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg" alt="Next.js"><span>Next.js</span></div>
-      <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vuejs/vuejs-original.svg" alt="Vue.js"><span>Vue.js</span></div>
-      <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" alt="TypeScript"><span>TypeScript</span></div>
-      <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" alt="Node.js"><span>Node.js</span></div>
-      <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python"><span>Python</span></div>
-      <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/django/django-plain.svg" alt="Django"><span>Django</span></div>
-      <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flutter/flutter-original.svg" alt="Flutter"><span>Flutter</span></div>
-      <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" alt="React Native"><span>React Native</span></div>
-      <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/swift/swift-original.svg" alt="Swift"><span>Swift</span></div>
-      <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kotlin/kotlin-original.svg" alt="Kotlin"><span>Kotlin</span></div>
-      <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" alt="AWS"><span>AWS</span></div>
-      <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecloud/googlecloud-original.svg" alt="Google Cloud"><span>Google Cloud</span></div>
-      <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" alt="Docker"><span>Docker</span></div>
-      <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-plain.svg" alt="Kubernetes"><span>Kubernetes</span></div>
-      <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" alt="PostgreSQL"><span>PostgreSQL</span></div>
-      <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg" alt="MongoDB"><span>MongoDB</span></div>
-      <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg" alt="Figma"><span>Figma</span></div>
+      <div class="tech-item" data-category="Frontend"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" alt="React"><span>React</span></div>
+      <div class="tech-item" data-category="Frontend"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg" alt="Next.js"><span>Next.js</span></div>
+      <div class="tech-item" data-category="Frontend"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vuejs/vuejs-original.svg" alt="Vue.js"><span>Vue.js</span></div>
+      <div class="tech-item" data-category="Frontend"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" alt="TypeScript"><span>TypeScript</span></div>
+      <div class="tech-item" data-category="Backend"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" alt="Node.js"><span>Node.js</span></div>
+      <div class="tech-item" data-category="Backend"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python"><span>Python</span></div>
+      <div class="tech-item" data-category="Backend"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/django/django-plain.svg" alt="Django"><span>Django</span></div>
+      <div class="tech-item" data-category="Mobile"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flutter/flutter-original.svg" alt="Flutter"><span>Flutter</span></div>
+      <div class="tech-item" data-category="Mobile"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" alt="React Native"><span>React Native</span></div>
+      <div class="tech-item" data-category="Mobile"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/swift/swift-original.svg" alt="Swift"><span>Swift</span></div>
+      <div class="tech-item" data-category="Mobile"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kotlin/kotlin-original.svg" alt="Kotlin"><span>Kotlin</span></div>
+      <div class="tech-item" data-category="Cloud &amp; DevOps"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" alt="AWS"><span>AWS</span></div>
+      <div class="tech-item" data-category="Cloud &amp; DevOps"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecloud/googlecloud-original.svg" alt="Google Cloud"><span>Google Cloud</span></div>
+      <div class="tech-item" data-category="Cloud &amp; DevOps"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" alt="Docker"><span>Docker</span></div>
+      <div class="tech-item" data-category="Cloud &amp; DevOps"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-plain.svg" alt="Kubernetes"><span>Kubernetes</span></div>
+      <div class="tech-item" data-category="Backend"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" alt="PostgreSQL"><span>PostgreSQL</span></div>
+      <div class="tech-item" data-category="Backend"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg" alt="MongoDB"><span>MongoDB</span></div>
+      <div class="tech-item" data-category="Design"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg" alt="Figma"><span>Figma</span></div>
     </div>
   </div>
 </section>
@@ -306,9 +306,9 @@
 <footer>
   <div class="wrap">
     <div class="footer-inner">
-      <a href="zyanix-landing-page.html" class="footer-logo"><span class="logo-mark">Z</span> Zyanix</a>
+      <a href="index.html" class="footer-logo"><span class="logo-mark">Z</span> Zyanix</a>
       <ul class="footer-links">
-        <li><a href="zyanix-landing-page.html">Home</a></li>
+        <li><a href="index.html">Home</a></li>
         <li><a href="zyanix-services-page.html">Services</a></li>
         <li><a href="zyanix-technologies-page.html">Technologies</a></li>
         <li><a href="zyanix-case-studies-page.html">Case Studies</a></li>
