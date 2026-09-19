@@ -1,0 +1,102 @@
+/* ============================================================
+   theme.css — SHARED file used by every Zyanix page.
+   Handles: mobile nav dropdown, scroll-reveal animations,
+   small shared micro-interactions.
+   Edit this ONE file to change dark/light behaviour or
+   animations across the whole site.
+   ============================================================ */
+
+/* Smooth theme transition site-wide */
+body, header, footer, .card-bg, .btn{
+  transition: background .3s ease, color .3s ease, border-color .3s ease;
+}
+
+/* ---------- Mobile nav dropdown ---------- */
+@media (max-width: 980px){
+  .nav-links{
+    display:none;
+    position:fixed;
+    top:74px; left:0; right:0;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:0;
+    background:var(--card-bg);
+    border-bottom:1px solid var(--border);
+    box-shadow:var(--shadow);
+    padding:10px clamp(24px,5vw,90px) 18px;
+    z-index:99;
+  }
+  .nav-links.mobile-open{display:flex;}
+  .nav-links a{
+    width:100%; padding:14px 0; border-bottom:1px solid var(--border);
+    font-size:1rem;
+  }
+  .nav-links li{width:100%;}
+  .nav-links li:last-child a{border-bottom:none;}
+  .menu-toggle{display:flex;}
+  .menu-toggle .icon-close{display:none;}
+  .menu-toggle.open .icon-menu{display:none;}
+  .menu-toggle.open .icon-close{display:block;}
+}
+
+/* ---------- Scroll reveal animation ---------- */
+/* Elements matching this selector list fade + rise into view. */
+.service-card, .dservice-card, .project-card, .portfolio-card,
+.team-card, .value-card, .tech-item, .layer-card, .price-card,
+.test-card, .stat-item, .office-card, .faq-item, .hs-item,
+.hero-copy, .hero-visual, .section-head, .story-image, .story-copy,
+.fc-image, .fc-copy, .contact-info-card, .contact-form-card,
+.spotlight-card, .why-copy, .why-image, .approach-copy, .approach-image{
+  opacity:0;
+  transform:translateY(26px);
+  transition:opacity .65s cubic-bezier(.2,.7,.2,1), transform .65s cubic-bezier(.2,.7,.2,1);
+}
+.service-card.in-view, .dservice-card.in-view, .project-card.in-view, .portfolio-card.in-view,
+.team-card.in-view, .value-card.in-view, .tech-item.in-view, .layer-card.in-view, .price-card.in-view,
+.test-card.in-view, .stat-item.in-view, .office-card.in-view, .faq-item.in-view, .hs-item.in-view,
+.hero-copy.in-view, .hero-visual.in-view, .section-head.in-view, .story-image.in-view, .story-copy.in-view,
+.fc-image.in-view, .fc-copy.in-view, .contact-info-card.in-view, .contact-form-card.in-view,
+.spotlight-card.in-view, .why-copy.in-view, .why-image.in-view, .approach-copy.in-view, .approach-image.in-view{
+  opacity:1;
+  transform:translateY(0);
+}
+/* stagger children of grids a little */
+.service-grid > *:nth-child(2), .dservice-grid > *:nth-child(2), .work-grid > *:nth-child(2),
+.portfolio-grid > *:nth-child(2), .team-grid > *:nth-child(2), .values-grid > *:nth-child(2),
+.tech-grid > *:nth-child(2), .layer-grid > *:nth-child(2), .pricing-grid > *:nth-child(2),
+.test-grid > *:nth-child(2), .stats-grid > *:nth-child(2), .office-grid > *:nth-child(2){ transition-delay:.08s; }
+.service-grid > *:nth-child(3), .dservice-grid > *:nth-child(3), .work-grid > *:nth-child(3),
+.portfolio-grid > *:nth-child(3), .team-grid > *:nth-child(3), .values-grid > *:nth-child(3),
+.tech-grid > *:nth-child(3), .layer-grid > *:nth-child(3), .pricing-grid > *:nth-child(3),
+.test-grid > *:nth-child(3), .stats-grid > *:nth-child(3), .office-grid > *:nth-child(3){ transition-delay:.16s; }
+.service-grid > *:nth-child(4), .dservice-grid > *:nth-child(4), .team-grid > *:nth-child(4),
+.values-grid > *:nth-child(4), .tech-grid > *:nth-child(4), .layer-grid > *:nth-child(4),
+.stats-grid > *:nth-child(4){ transition-delay:.24s; }
+.service-grid > *:nth-child(5), .dservice-grid > *:nth-child(5), .tech-grid > *:nth-child(5){ transition-delay:.32s; }
+.service-grid > *:nth-child(6), .dservice-grid > *:nth-child(6), .tech-grid > *:nth-child(6){ transition-delay:.4s; }
+
+@media (prefers-reduced-motion: reduce){
+  .service-card, .dservice-card, .project-card, .portfolio-card,
+  .team-card, .value-card, .tech-item, .layer-card, .price-card,
+  .test-card, .stat-item, .office-card, .faq-item, .hs-item,
+  .hero-copy, .hero-visual, .section-head, .story-image, .story-copy,
+  .fc-image, .fc-copy, .contact-info-card, .contact-form-card,
+  .spotlight-card, .why-copy, .why-image, .approach-copy, .approach-image{
+    opacity:1; transform:none; transition:none;
+  }
+}
+
+/* ---------- Small shared micro-interactions ---------- */
+.btn{ transition: transform .15s ease, box-shadow .15s ease, background .2s ease, border-color .2s ease; }
+.btn-primary:active{ transform:translateY(1px) scale(.98); }
+
+.logo .logo-mark{ transition:transform .3s ease; }
+.logo:hover .logo-mark{ transform:rotate(-8deg) scale(1.06); }
+
+/* underline sweep on footer links */
+.footer-links a{ position:relative; }
+.footer-links a::after{
+  content:''; position:absolute; left:0; bottom:-3px; width:0; height:1px;
+  background:var(--orange); transition:width .25s ease;
+}
+.footer-links a:hover::after{ width:100%; }

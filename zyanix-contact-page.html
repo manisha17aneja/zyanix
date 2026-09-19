@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us — Zyanix</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --orange:#F1652A; --orange-dark:#d9541f; --orange-soft:#FDE6DA;
+    --bg:#F7F3EC; --bg-alt:#F1ECE3; --card-bg:#FFFFFF;
+    --text-primary:#1E1B18; --text-secondary:#5B564F; --text-muted:#8A8478;
+    --border:#E7E0D5; --nav-bg:rgba(247,243,236,0.9);
+    --shadow: 0 10px 30px rgba(30,27,24,0.06); --icon-bg:#FBE7DC;
+    --footer-bg:#1B1815; --footer-text:#CFC9C0; --dark-panel:#14110F;
+  }
+  [data-theme="dark"]{
+    --bg:#0E0C0A; --bg-alt:#141110; --card-bg:#1A1613;
+    --text-primary:#F5F1EA; --text-secondary:#B6AFA5; --text-muted:#847D72;
+    --border:#2A2521; --nav-bg:rgba(14,12,10,0.85);
+    --shadow: 0 10px 30px rgba(0,0,0,0.5); --icon-bg:#2A1D14;
+    --footer-bg:#0A0908; --footer-text:#B6AFA5; --dark-panel:#0A0908;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background:var(--bg); color:var(--text-primary); transition:background .3s ease, color .3s ease; -webkit-font-smoothing:antialiased;}
+  img{max-width:100%; display:block;}
+  a{color:inherit; text-decoration:none;}
+  ul{list-style:none;}
+  .wrap{width:100%; max-width:1800px; margin:0 auto; padding:0 clamp(24px, 5vw, 90px);}
+  section{position:relative;}
+  .btn{display:inline-flex; align-items:center; gap:8px; font-weight:600; font-size:.95rem; padding:13px 24px; border-radius:8px; border:1px solid transparent; cursor:pointer; transition:transform .15s ease, box-shadow .15s ease, background .2s ease, border-color .2s ease; white-space:nowrap;}
+  .btn:active{transform:translateY(1px);}
+  .btn-primary{background:var(--orange); color:#fff; width:100%; justify-content:center;}
+  .btn-primary:hover{background:var(--orange-dark); box-shadow:0 8px 20px rgba(241,101,42,0.35);}
+  .btn-outline{background:transparent; color:var(--text-primary); border-color:var(--border);}
+  .btn-outline:hover{border-color:var(--orange); color:var(--orange);}
+  .btn svg{width:16px; height:16px; flex-shrink:0;}
+  header{position:sticky; top:0; z-index:100; background:var(--nav-bg); backdrop-filter:blur(10px); border-bottom:1px solid var(--border);}
+  .nav{display:flex; align-items:center; justify-content:space-between; padding:18px 0;}
+  .logo{display:flex; align-items:center; gap:8px; font-weight:800; font-size:1.25rem;}
+  .logo-mark{width:32px; height:32px; border-radius:8px; background:var(--orange); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:1.1rem;}
+  .nav-links{display:flex; align-items:center; gap:34px;}
+  .nav-links a{font-size:.95rem; font-weight:500; color:var(--text-secondary); position:relative; padding-bottom:6px; transition:color .2s ease;}
+  .nav-links a:hover{color:var(--text-primary);}
+  .nav-links a.active{color:var(--orange);}
+  .nav-links a.active::after{content:''; position:absolute; left:0; right:0; bottom:-2px; height:2px; background:var(--orange); border-radius:2px;}
+  .nav-right{display:flex; align-items:center; gap:16px;}
+  .nav-right .btn-primary{width:auto;}
+  .theme-toggle{width:44px; height:44px; border-radius:50%; border:1px solid var(--border); background:var(--card-bg); display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; transition:border-color .2s ease, transform .2s ease;}
+  .theme-toggle:hover{border-color:var(--orange); transform:rotate(15deg);}
+  .theme-toggle svg{width:20px; height:20px; stroke:var(--text-primary);}
+  .theme-toggle .sun{display:none;}
+  [data-theme="dark"] .theme-toggle .sun{display:block;}
+  [data-theme="dark"] .theme-toggle .moon{display:none;}
+  .menu-toggle{display:none; background:none; border:none; cursor:pointer; padding:4px;}
+  .menu-toggle svg{width:26px; height:26px; stroke:var(--text-primary);}
+  .section-head{text-align:center; max-width:640px; margin:0 auto 50px;}
+  .eyebrow{color:var(--orange); font-weight:700; font-size:.82rem; letter-spacing:.02em; margin-bottom:10px; display:block;}
+  .section-head h2{font-size:2.2rem; font-weight:800; letter-spacing:-0.01em; margin-bottom:14px;}
+  .section-head h2 .accent{color:var(--orange);}
+  .section-head p{color:var(--text-secondary); line-height:1.7; font-size:1rem;}
+  .badge{display:inline-flex; align-items:center; gap:8px; background:var(--icon-bg); color:var(--orange-dark); font-size:.8rem; font-weight:600; padding:7px 14px; border-radius:20px; margin-bottom:22px;}
+  [data-theme="dark"] .badge{color:#F5A579;}
+  .badge .dot{width:6px; height:6px; border-radius:50%; background:var(--orange);}
+  .crumb-row{display:flex; justify-content:center; gap:10px; font-size:.85rem; color:var(--text-muted); margin-bottom:8px;}
+  .crumb-row a{color:var(--orange); font-weight:600;}
+
+  /* SECTION 1: Page hero */
+  .page-hero{padding:80px 0 60px; text-align:center;}
+  .page-hero h1{font-size:3rem; font-weight:800; letter-spacing:-0.02em; line-height:1.15; max-width:820px; margin:0 auto 20px;}
+  .page-hero h1 .accent{color:var(--orange);}
+  .page-hero p.lead{font-size:1.08rem; color:var(--text-secondary); line-height:1.7; max-width:600px; margin:0 auto;}
+
+  /* SECTION 2: Contact form + info */
+  .contact-main{background:var(--bg-alt); padding:80px 0 90px;}
+  .contact-grid{display:grid; grid-template-columns:1fr 1.3fr; gap:40px; align-items:start;}
+  .contact-info-card{background:var(--card-bg); border:1px solid var(--border); border-radius:16px; padding:34px 28px;}
+  .contact-info-card h3{font-size:1.2rem; font-weight:700; margin-bottom:10px;}
+  .contact-info-card > p{color:var(--text-secondary); font-size:.9rem; line-height:1.6; margin-bottom:26px;}
+  .info-item{display:flex; gap:14px; align-items:flex-start; margin-bottom:22px;}
+  .info-icon{width:42px; height:42px; border-radius:10px; background:var(--icon-bg); flex-shrink:0; display:flex; align-items:center; justify-content:center;}
+  .info-icon svg{width:19px; height:19px; stroke:var(--orange);}
+  .info-item h5{font-size:.88rem; font-weight:700; margin-bottom:3px;}
+  .info-item p{font-size:.85rem; color:var(--text-secondary); margin:0;}
+  .info-social{display:flex; gap:10px; margin-top:6px;}
+  .info-social a{width:36px; height:36px; border-radius:50%; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; transition:border-color .2s ease;}
+  .info-social a:hover{border-color:var(--orange);}
+  .info-social svg{width:16px; height:16px; stroke:var(--text-secondary);}
+
+  .contact-form-card{background:var(--card-bg); border:1px solid var(--border); border-radius:16px; padding:34px 32px;}
+  .contact-form-card h3{font-size:1.2rem; font-weight:700; margin-bottom:24px;}
+  .form-row{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:18px;}
+  .form-group{display:flex; flex-direction:column; gap:8px;}
+  .form-group.full{grid-column:1 / -1;}
+  .form-group label{font-size:.85rem; font-weight:600; color:var(--text-secondary);}
+  .form-group input, .form-group select, .form-group textarea{
+    background:var(--bg); border:1px solid var(--border); border-radius:8px;
+    padding:12px 14px; font-family:inherit; font-size:.9rem; color:var(--text-primary);
+    outline:none; transition:border-color .2s ease;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus{border-color:var(--orange);}
+  .form-group textarea{resize:vertical; min-height:110px;}
+
+  /* SECTION 3: Office locations */
+  .offices{padding:90px 0;}
+  .office-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+  .office-card{background:var(--card-bg); border:1px solid var(--border); border-radius:16px; overflow:hidden; transition:transform .2s ease, box-shadow .2s ease;}
+  .office-card:hover{transform:translateY(-4px); box-shadow:var(--shadow);}
+  .office-thumb{height:170px; overflow:hidden;}
+  .office-thumb img{width:100%; height:100%; object-fit:cover;}
+  [data-theme="dark"] .office-thumb img{filter:brightness(.8) saturate(.9);}
+  .office-body{padding:22px;}
+  .office-body h4{font-size:1.02rem; font-weight:700; margin-bottom:8px;}
+  .office-body p{font-size:.85rem; color:var(--text-secondary); line-height:1.6; margin-bottom:4px;}
+
+  /* SECTION 4: FAQ */
+  .faq{background:var(--bg-alt); padding:90px 0;}
+  .faq-list{max-width:760px; margin:0 auto;}
+  .faq-item{background:var(--card-bg); border:1px solid var(--border); border-radius:12px; margin-bottom:14px; overflow:hidden;}
+  .faq-q{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:20px 22px; cursor:pointer; font-weight:700; font-size:.98rem;}
+  .faq-q .plus{width:26px; height:26px; border-radius:50%; background:var(--icon-bg); flex-shrink:0; display:flex; align-items:center; justify-content:center; position:relative; transition:transform .25s ease;}
+  .faq-q .plus::before, .faq-q .plus::after{content:''; position:absolute; background:var(--orange); border-radius:2px;}
+  .faq-q .plus::before{width:11px; height:2px;}
+  .faq-q .plus::after{width:2px; height:11px; transition:opacity .2s ease;}
+  .faq-item.open .plus{transform:rotate(180deg);}
+  .faq-item.open .plus::after{opacity:0;}
+  .faq-a{max-height:0; overflow:hidden; transition:max-height .3s ease;}
+  .faq-a p{padding:0 22px 20px; color:var(--text-secondary); font-size:.9rem; line-height:1.7;}
+  .faq-item.open .faq-a{max-height:200px;}
+
+  /* SECTION 5: CTA */
+  .cta-outer{padding:0 clamp(24px, 5vw, 90px) 90px;}
+  .cta-band{max-width:1800px; margin:0 auto; border-radius:20px; background:var(--dark-panel); padding:54px 60px; display:flex; align-items:center; justify-content:space-between; gap:30px; flex-wrap:wrap; position:relative; overflow:hidden;}
+  .cta-band::after{content:''; position:absolute; right:-60px; bottom:-60px; width:260px; height:260px; background:radial-gradient(circle, rgba(241,101,42,0.5), transparent 70%);}
+  .cta-band .eyebrow{color:#F5A579;}
+  .cta-band h3{color:#fff; font-size:1.8rem; font-weight:800; margin-bottom:10px;}
+  .cta-band p{color:#C9C3B8; font-size:.95rem;}
+  .cta-content{position:relative; z-index:1; max-width:560px;}
+  .cta-band .btn{position:relative; z-index:1; width:auto;}
+
+  footer{background:var(--footer-bg); color:var(--footer-text); padding:44px 0 26px;}
+  .footer-inner{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px; padding-bottom:26px; border-bottom:1px solid rgba(255,255,255,0.08);}
+  .footer-logo{display:flex; align-items:center; gap:8px; font-weight:800; font-size:1.15rem; color:#fff;}
+  .footer-links{display:flex; gap:26px; flex-wrap:wrap;}
+  .footer-links a{font-size:.88rem; color:var(--footer-text); transition:color .2s ease;}
+  .footer-links a:hover{color:#fff;}
+  .footer-social{display:flex; gap:14px;}
+  .footer-social a{width:36px; height:36px; border-radius:50%; border:1px solid rgba(255,255,255,0.12); display:flex; align-items:center; justify-content:center;}
+  .footer-social svg{width:16px; height:16px; stroke:var(--footer-text);}
+  .footer-bottom{display:flex; justify-content:space-between; padding-top:20px; font-size:.8rem; color:var(--text-muted); flex-wrap:wrap; gap:10px;}
+
+  @media (max-width: 980px){
+    .nav-links{display:none;} .menu-toggle{display:flex;}
+    .contact-grid{grid-template-columns:1fr;}
+    .office-grid{grid-template-columns:repeat(2,1fr);}
+    .page-hero h1{font-size:2.3rem;}
+  }
+  @media (max-width: 640px){
+    .form-row{grid-template-columns:1fr;}
+    .office-grid{grid-template-columns:1fr;}
+    .cta-band{flex-direction:column; align-items:flex-start; padding:34px 26px;}
+    .footer-inner, .footer-bottom{flex-direction:column; align-items:flex-start;}
+    .contact-form-card, .contact-info-card{padding:26px 20px;}
+  }
+</style>
+<link rel="stylesheet" href="theme.css">
+</head>
+<body data-theme="light">
+
+<header>
+  <nav class="nav wrap">
+    <a href="zyanix-landing-page.html" class="logo"><span class="logo-mark">Z</span> Zyanix</a>
+    <ul class="nav-links">
+      <li><a href="zyanix-landing-page.html">Home</a></li>
+      <li><a href="zyanix-services-page.html">Services</a></li>
+      <li><a href="zyanix-technologies-page.html">Technologies</a></li>
+      <li><a href="zyanix-case-studies-page.html">Case Studies</a></li>
+      <li><a href="zyanix-about-page.html">About</a></li>
+      <li><a href="zyanix-contact-page.html" class="active">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+      <a href="#contact-form" class="btn btn-primary">Get Started
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <button class="menu-toggle" aria-label="Menu">
+        <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<!-- SECTION 1: PAGE HERO -->
+<section class="page-hero">
+  <div class="wrap">
+    <div class="crumb-row"><a href="zyanix-landing-page.html">Home</a><span>/</span><span>Contact</span></div>
+    <span class="badge"><span class="dot"></span> Get In Touch</span>
+    <h1>Let's Talk About <span class="accent">Your Project</span></h1>
+    <p class="lead">Whether you have a detailed brief or just an early idea, our team usually replies within one business day.</p>
+  </div>
+</section>
+
+<!-- SECTION 2: CONTACT FORM + INFO -->
+<section class="contact-main" id="contact-form">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div class="contact-info-card">
+        <h3>Contact Information</h3>
+        <p>Reach out directly or fill out the form — either way, a real person will get back to you.</p>
+        <div class="info-item">
+          <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6l-10 7L2 6"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg></div>
+          <div><h5>Email</h5><p>hello@zyanix.com</p></div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+          <div><h5>Phone</h5><p>+91 98765 43210</p></div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><h5>Office</h5><p>DLF Cyber City, Gurugram, Haryana, India</p></div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div><h5>Working Hours</h5><p>Mon – Fri, 9:00 AM – 7:00 PM IST</p></div>
+        </div>
+        <div class="info-social">
+          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+          <a href="#" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        </div>
+      </div>
+
+      <div class="contact-form-card">
+        <h3>Send Us a Message</h3>
+        <form onsubmit="event.preventDefault(); alert('Thanks! This is a demo form — hook it up to your backend or a form service to receive submissions.');">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fname">Full Name</label>
+              <input type="text" id="fname" placeholder="John Doe" required>
+            </div>
+            <div class="form-group">
+              <label for="femail">Email Address</label>
+              <input type="email" id="femail" placeholder="john@company.com" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fphone">Phone Number</label>
+              <input type="tel" id="fphone" placeholder="+91 98765 43210">
+            </div>
+            <div class="form-group">
+              <label for="fservice">Service Needed</label>
+              <select id="fservice">
+                <option>Web Development</option>
+                <option>Mobile App Development</option>
+                <option>Cloud &amp; DevOps</option>
+                <option>UI/UX Design</option>
+                <option>Digital Transformation</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group full">
+              <label for="fmessage">Tell Us About Your Project</label>
+              <textarea id="fmessage" placeholder="A few lines about what you're building, timeline and budget..." required></textarea>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Send Message
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: OFFICE LOCATIONS -->
+<section class="offices">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Our Offices</span>
+      <h2>Find Us <span class="accent">Around the World</span></h2>
+      <p>Remote-first, with hubs in three cities to serve clients across time zones.</p>
+    </div>
+    <div class="office-grid">
+      <div class="office-card">
+        <div class="office-thumb"><img src="https://picsum.photos/seed/zyanix-gurugram/500/350" alt="Gurugram office"></div>
+        <div class="office-body">
+          <h4>Gurugram, India</h4>
+          <p>DLF Cyber City, Sector 24</p>
+          <p>+91 98765 43210</p>
+        </div>
+      </div>
+      <div class="office-card">
+        <div class="office-thumb"><img src="https://picsum.photos/seed/zyanix-dubai/500/350" alt="Dubai office"></div>
+        <div class="office-body">
+          <h4>Dubai, UAE</h4>
+          <p>Business Bay, Sheikh Zayed Road</p>
+          <p>+971 4 123 4567</p>
+        </div>
+      </div>
+      <div class="office-card">
+        <div class="office-thumb"><img src="https://picsum.photos/seed/zyanix-london/500/350" alt="London office"></div>
+        <div class="office-body">
+          <h4>London, UK</h4>
+          <p>Shoreditch High Street</p>
+          <p>+44 20 7946 0958</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: FAQ -->
+<section class="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Got Questions?</span>
+      <h2>Frequently Asked <span class="accent">Questions</span></h2>
+      <p>Quick answers before you reach out.</p>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q"><span>How soon will I hear back after submitting the form?</span><span class="plus"></span></div>
+        <div class="faq-a"><p>We reply within one business day, usually faster during working hours (Mon–Fri, 9 AM–7 PM IST).</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span>Do you take on short-term or one-off projects?</span><span class="plus"></span></div>
+        <div class="faq-a"><p>Yes — we work on everything from a single landing page to multi-year platform builds.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span>Can we schedule a call before committing?</span><span class="plus"></span></div>
+        <div class="faq-a"><p>Of course. Mention it in the message field and we'll set up a free 30-minute discovery call.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span>Do you sign NDAs before discussing project details?</span><span class="plus"></span></div>
+        <div class="faq-a"><p>Yes, we're happy to sign an NDA before any detailed discussion — just let us know.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5: CTA -->
+<div class="cta-outer">
+  <div class="cta-band">
+    <div class="cta-content">
+      <span class="eyebrow">Prefer to Talk Directly?</span>
+      <h3>Book a Free 30-Minute Call</h3>
+      <p>Skip the form and grab a slot on our calendar to discuss your project live.</p>
+    </div>
+    <a href="#contact-form" class="btn btn-primary">Book a Call
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <a href="zyanix-landing-page.html" class="footer-logo"><span class="logo-mark">Z</span> Zyanix</a>
+      <ul class="footer-links">
+        <li><a href="zyanix-landing-page.html">Home</a></li>
+        <li><a href="zyanix-services-page.html">Services</a></li>
+        <li><a href="zyanix-technologies-page.html">Technologies</a></li>
+        <li><a href="zyanix-case-studies-page.html">Case Studies</a></li>
+        <li><a href="zyanix-about-page.html">About</a></li>
+        <li><a href="zyanix-contact-page.html">Contact</a></li>
+      </ul>
+      <div class="footer-social">
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+        <a href="#" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Zyanix. All rights reserved.</span>
+      <span>Better Technology. A Brighter Future.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="theme.js"></script>
+
+</body>
+</html>

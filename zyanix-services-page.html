@@ -172,6 +172,12 @@
   }
   .hs-num{font-size:1.6rem; font-weight:800; color:var(--orange);}
   .hs-label{font-size:.8rem; color:var(--text-secondary); margin-top:4px;}
+  .hero-banner-image{
+    margin:44px auto 0; max-width:1200px; border-radius:18px; overflow:hidden;
+    border:1px solid var(--border); box-shadow:var(--shadow);
+  }
+  .hero-banner-image img{width:100%; height:340px; object-fit:cover;}
+  [data-theme="dark"] .hero-banner-image img{filter:brightness(.82) saturate(.9);}
 
   /* ============ SECTION 2: Detailed Services Grid ============ */
   .detailed-services{background:var(--bg-alt); padding:90px 0;}
@@ -310,6 +316,7 @@
     .footer-inner, .footer-bottom{flex-direction:column; align-items:flex-start;}
   }
 </style>
+<link rel="stylesheet" href="theme.css">
 </head>
 <body data-theme="light">
 
@@ -320,22 +327,23 @@
     </a>
     <ul class="nav-links">
       <li><a href="zyanix-landing-page.html">Home</a></li>
-      <li><a href="#" class="active">Services</a></li>
-      <li><a href="#">Technologies</a></li>
+      <li><a href="zyanix-services-page.html" class="active">Services</a></li>
+      <li><a href="zyanix-technologies-page.html">Technologies</a></li>
       <li><a href="zyanix-landing-page.html#work">Case Studies</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Contact</a></li>
+      <li><a href="zyanix-about-page.html">About</a></li>
+      <li><a href="zyanix-contact-page.html">Contact</a></li>
     </ul>
     <div class="nav-right">
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
         <svg class="moon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
         <svg class="sun" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
       </button>
-      <a href="#" class="btn btn-primary">Get Started
+      <a href="zyanix-contact-page.html" class="btn btn-primary">Get Started
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </a>
       <button class="menu-toggle" aria-label="Menu">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
   </nav>
@@ -352,13 +360,16 @@
       <a href="#pricing" class="btn btn-primary">View Pricing
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </a>
-      <a href="#" class="btn btn-outline">Talk to Our Team</a>
+      <a href="zyanix-contact-page.html" class="btn btn-outline">Talk to Our Team</a>
     </div>
     <div class="hero-stats-strip">
       <div class="hs-item"><div class="hs-num">180+</div><div class="hs-label">Projects Delivered</div></div>
       <div class="hs-item"><div class="hs-num">120+</div><div class="hs-label">Happy Clients</div></div>
       <div class="hs-item"><div class="hs-num">8+</div><div class="hs-label">Years Experience</div></div>
       <div class="hs-item"><div class="hs-num">15+</div><div class="hs-label">Countries Served</div></div>
+    </div>
+    <div class="hero-banner-image">
+      <img src="https://picsum.photos/seed/zyanix-services-hero/1400/500" alt="Zyanix services overview banner">
     </div>
   </div>
 </section>
@@ -487,7 +498,7 @@
           <li><span class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>2 weeks delivery</li>
           <li><span class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>30 days support</li>
         </ul>
-        <a href="#" class="btn btn-outline">Choose Starter</a>
+        <a href="zyanix-contact-page.html" class="btn btn-outline">Choose Starter</a>
       </div>
       <div class="price-card featured">
         <span class="price-badge">Most Popular</span>
@@ -500,7 +511,7 @@
           <li><span class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>6–8 weeks delivery</li>
           <li><span class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>90 days support</li>
         </ul>
-        <a href="#" class="btn btn-primary">Choose Growth</a>
+        <a href="zyanix-contact-page.html" class="btn btn-primary">Choose Growth</a>
       </div>
       <div class="price-card">
         <div class="price-plan">Enterprise</div>
@@ -512,7 +523,7 @@
           <li><span class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Flexible timeline</li>
           <li><span class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>SLA-backed support</li>
         </ul>
-        <a href="#" class="btn btn-outline">Contact Sales</a>
+        <a href="zyanix-contact-page.html" class="btn btn-outline">Contact Sales</a>
       </div>
     </div>
   </div>
@@ -526,7 +537,7 @@
       <h3>Ready to Turn Your Idea Into Reality?</h3>
       <p>Get in touch with us today and let's build something amazing together.</p>
     </div>
-    <a href="#" class="btn btn-primary">Get Started Free
+    <a href="zyanix-contact-page.html" class="btn btn-primary">Get Started Free
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
     </a>
   </div>
@@ -538,11 +549,11 @@
       <a href="zyanix-landing-page.html" class="footer-logo"><span class="logo-mark">Z</span> Zyanix</a>
       <ul class="footer-links">
         <li><a href="zyanix-landing-page.html">Home</a></li>
-        <li><a href="#">Services</a></li>
-        <li><a href="#">Technologies</a></li>
+        <li><a href="zyanix-services-page.html">Services</a></li>
+        <li><a href="zyanix-technologies-page.html">Technologies</a></li>
         <li><a href="zyanix-landing-page.html#work">Case Studies</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="zyanix-about-page.html">About</a></li>
+        <li><a href="zyanix-contact-page.html">Contact</a></li>
       </ul>
       <div class="footer-social">
         <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
@@ -558,14 +569,7 @@
   </div>
 </footer>
 
-<script>
-  const toggle = document.getElementById('themeToggle');
-  const body = document.body;
-  toggle.addEventListener('click', () => {
-    const current = body.getAttribute('data-theme');
-    body.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
-  });
-</script>
+<script src="theme.js"></script>
 
 </body>
 </html>
