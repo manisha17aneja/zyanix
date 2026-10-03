@@ -1,0 +1,47 @@
+/* ============================================================
+   google-apps-script.txt
+   ------------------------------------------------------------
+   HOW TO USE:
+   1. Create a new Google Sheet (this is where submissions land).
+   2. In that Sheet, go to Extensions → Apps Script.
+   3. Delete any starter code and paste EVERYTHING below.
+   4. Click Deploy → New deployment.
+        - Type: "Web app"
+        - Execute as: "Me"
+        - Who has access: "Anyone"
+   5. Click Deploy, authorize the permissions it asks for.
+   6. Copy the "Web app URL" it gives you — that's your
+      CONFIG.googleScriptUrl value in contact.js.
+   7. Back in the Sheet, the first row of headers is added
+      automatically the first time a submission comes in.
+   ============================================================ */
+
+function doPost(e) {
+  try {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    var data = JSON.parse(e.postData.contents);
+
+    // Add header row once, if the sheet is empty
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow(['Submitted At', 'Name', 'Email', 'Phone', 'Service', 'Message']);
+    }
+
+    sheet.appendRow([
+      data.submittedAt || new Date().toISOString(),
+      data.name || '',
+      data.email || '',
+      data.phone || '',
+      data.service || '',
+      data.message || ''
+    ]);
+
+    return ContentService
+      .createTextOutput(JSON.stringify({ result: 'success' }))
+      .setMimeType(ContentService.MimeType.JSON);
+
+  } catch (err) {
+    return ContentService
+      .createTextOutput(JSON.stringify({ result: 'error', message: err.toString() }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}

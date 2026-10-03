@@ -11,32 +11,122 @@ body, header, footer, .card-bg, .btn{
   transition: background .3s ease, color .3s ease, border-color .3s ease;
 }
 
-/* ---------- Mobile nav dropdown ---------- */
-@media (max-width: 980px){
-  .nav-links{
-    display:none;
-    position:fixed;
-    top:74px; left:0; right:0;
-    flex-direction:column;
-    align-items:flex-start;
-    gap:0;
-    background:var(--card-bg);
-    border-bottom:1px solid var(--border);
-    box-shadow:var(--shadow);
-    padding:10px clamp(24px,5vw,90px) 18px;
-    z-index:99;
-  }
-  .nav-links.mobile-open{display:flex;}
-  .nav-links a{
-    width:100%; padding:14px 0; border-bottom:1px solid var(--border);
-    font-size:1rem;
-  }
-  .nav-links li{width:100%;}
-  .nav-links li:last-child a{border-bottom:none;}
-  .menu-toggle{display:flex;}
-  .menu-toggle .icon-close{display:none;}
-  .menu-toggle.open .icon-menu{display:none;}
-  .menu-toggle.open .icon-close{display:block;}
+/* ---------- Services mega-menu (desktop) ---------- */
+.nav-links li.has-mega{ position:relative; }
+.nav-links li.has-mega > a{ display:flex; align-items:center; gap:5px; }
+.nav-links li.has-mega .chevron{ width:14px; height:14px; transition:transform .25s ease; }
+.nav-links li.has-mega.mega-hover .chevron,
+.nav-links li.has-mega.mega-open .chevron{ transform:rotate(180deg); }
+
+/* .mega-menu itself has NO gap from the nav link (top:100%) so the mouse
+   never crosses a "dead zone" that isn't part of the hoverable box — the
+   18px visual gap is simulated with padding-top instead, on the inner card. */
+.mega-menu{
+  position:absolute; top:100%; left:50%; transform:translateX(-50%);
+  width:min(900px, 90vw);
+  padding-top:18px;
+  opacity:0; visibility:hidden; pointer-events:none;
+  transition:opacity .22s ease, visibility .22s ease;
+  z-index:200;
+}
+.nav-links li.has-mega.mega-hover .mega-menu,
+.nav-links li.has-mega.mega-open .mega-menu{
+  opacity:1; visibility:visible; pointer-events:auto;
+}
+
+.mega-menu-inner{
+  background:var(--card-bg);
+  border:1px solid var(--border);
+  border-radius:16px;
+  box-shadow:0 20px 50px rgba(0,0,0,0.15);
+  display:grid; grid-template-columns:260px 1fr;
+  overflow:hidden;
+  transform:translateY(8px);
+  transition:transform .22s ease;
+}
+[data-theme="dark"] .mega-menu-inner{ box-shadow:0 20px 50px rgba(0,0,0,0.5); }
+.nav-links li.has-mega.mega-hover .mega-menu-inner,
+.nav-links li.has-mega.mega-open .mega-menu-inner{
+  transform:translateY(0);
+}
+
+.mega-promo{
+  background:var(--dark-panel);
+  padding:32px 28px;
+  display:flex; flex-direction:column; justify-content:center;
+  position:relative; overflow:hidden;
+}
+.mega-promo::after{
+  content:''; position:absolute; right:-40px; bottom:-40px; width:160px; height:160px;
+  background:radial-gradient(circle, rgba(var(--accent-rgb),0.45), transparent 70%);
+}
+.mega-promo h4{
+  color:#fff; font-size:1.15rem; font-weight:800; line-height:1.35; margin-bottom:12px;
+  position:relative; z-index:1;
+}
+.mega-promo p{
+  color:#C9C3B8; font-size:.85rem; line-height:1.6; margin-bottom:20px;
+  position:relative; z-index:1;
+}
+.mega-promo .btn{ position:relative; z-index:1; width:fit-content; font-size:.85rem; padding:11px 20px; }
+
+.mega-links{
+  display:grid; grid-template-columns:repeat(3, 1fr); gap:20px;
+  padding:32px 28px;
+}
+.mega-col h5{
+  font-size:.75rem; font-weight:700; text-transform:uppercase; letter-spacing:.04em;
+  color:var(--text-muted); margin-bottom:14px;
+}
+.mega-col ul{ display:flex; flex-direction:column; gap:12px; }
+.mega-col a{
+  font-size:.86rem; color:var(--text-secondary); font-weight:500;
+  transition:color .2s ease, padding-left .2s ease;
+  display:inline-block;
+}
+.mega-col a:hover{ color:var(--orange); padding-left:4px; }
+
+/* Industries mega-menu — intentionally different from Services:
+   no dark promo panel, instead a clean icon-grid of industry cards. */
+.mega-menu--industries{ width:min(760px, 92vw); }
+.mega-menu-inner--industries{
+  display:block; grid-template-columns:none;
+  background:var(--card-bg);
+  padding:28px 30px;
+}
+.industries-head{
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom:18px; padding-bottom:16px; border-bottom:1px solid var(--border);
+}
+.industries-head h5{ font-size:.95rem; font-weight:700; color:var(--text-primary); }
+.industries-head a{ font-size:.82rem; font-weight:600; color:var(--orange); }
+.industries-head a:hover{ text-decoration:underline; }
+
+.industries-grid{
+  display:grid; grid-template-columns:repeat(2, 1fr); gap:10px;
+}
+.industry-card{
+  display:flex; align-items:flex-start; gap:12px;
+  padding:12px; border-radius:10px;
+  transition:background .18s ease, transform .18s ease;
+}
+.industry-card:hover{ background:var(--bg-alt); transform:translateX(3px); }
+.industry-icon{
+  width:38px; height:38px; border-radius:10px; flex-shrink:0;
+  background:var(--icon-bg); display:flex; align-items:center; justify-content:center;
+}
+.industry-icon svg{ width:18px; height:18px; stroke:var(--orange); }
+.industry-text{ display:flex; flex-direction:column; gap:2px; }
+.industry-text strong{ font-size:.86rem; font-weight:700; color:var(--text-primary); }
+.industry-text span{ font-size:.76rem; color:var(--text-muted); line-height:1.4; }
+
+@media (max-width: 1180px){
+  .mega-menu{ width:min(720px, 92vw); }
+  .mega-links{ grid-template-columns:repeat(2, 1fr); }
+  .mega-menu--industries{ width:min(600px, 92vw); }
+}
+@media (max-width: 640px){
+  .industries-grid{ grid-template-columns:1fr; }
 }
 
 /* ---------- Scroll reveal animation ---------- */
@@ -46,7 +136,8 @@ body, header, footer, .card-bg, .btn{
 .test-card, .stat-item, .office-card, .faq-item, .hs-item,
 .hero-copy, .hero-visual, .section-head, .story-image, .story-copy,
 .fc-image, .fc-copy, .contact-info-card, .contact-form-card,
-.spotlight-card, .why-copy, .why-image, .approach-copy, .approach-image{
+.spotlight-card, .why-copy, .why-image, .approach-copy, .approach-image,
+.blog-card, .featured-card, .result-item, .bio-card{
   opacity:0;
   transform:translateY(26px);
   transition:opacity .65s cubic-bezier(.2,.7,.2,1), transform .65s cubic-bezier(.2,.7,.2,1);
@@ -56,7 +147,8 @@ body, header, footer, .card-bg, .btn{
 .test-card.in-view, .stat-item.in-view, .office-card.in-view, .faq-item.in-view, .hs-item.in-view,
 .hero-copy.in-view, .hero-visual.in-view, .section-head.in-view, .story-image.in-view, .story-copy.in-view,
 .fc-image.in-view, .fc-copy.in-view, .contact-info-card.in-view, .contact-form-card.in-view,
-.spotlight-card.in-view, .why-copy.in-view, .why-image.in-view, .approach-copy.in-view, .approach-image.in-view{
+.spotlight-card.in-view, .why-copy.in-view, .why-image.in-view, .approach-copy.in-view, .approach-image.in-view,
+.blog-card.in-view, .featured-card.in-view, .result-item.in-view, .bio-card.in-view{
   opacity:1;
   transform:translateY(0);
 }
@@ -64,16 +156,20 @@ body, header, footer, .card-bg, .btn{
 .service-grid > *:nth-child(2), .dservice-grid > *:nth-child(2), .work-grid > *:nth-child(2),
 .portfolio-grid > *:nth-child(2), .team-grid > *:nth-child(2), .values-grid > *:nth-child(2),
 .tech-grid > *:nth-child(2), .layer-grid > *:nth-child(2), .pricing-grid > *:nth-child(2),
-.test-grid > *:nth-child(2), .stats-grid > *:nth-child(2), .office-grid > *:nth-child(2){ transition-delay:.08s; }
+.test-grid > *:nth-child(2), .stats-grid > *:nth-child(2), .office-grid > *:nth-child(2),
+.blog-grid > *:nth-child(2), .related-grid > *:nth-child(2), .results-grid > *:nth-child(2){ transition-delay:.08s; }
 .service-grid > *:nth-child(3), .dservice-grid > *:nth-child(3), .work-grid > *:nth-child(3),
 .portfolio-grid > *:nth-child(3), .team-grid > *:nth-child(3), .values-grid > *:nth-child(3),
 .tech-grid > *:nth-child(3), .layer-grid > *:nth-child(3), .pricing-grid > *:nth-child(3),
-.test-grid > *:nth-child(3), .stats-grid > *:nth-child(3), .office-grid > *:nth-child(3){ transition-delay:.16s; }
+.test-grid > *:nth-child(3), .stats-grid > *:nth-child(3), .office-grid > *:nth-child(3),
+.blog-grid > *:nth-child(3), .related-grid > *:nth-child(3), .results-grid > *:nth-child(3){ transition-delay:.16s; }
 .service-grid > *:nth-child(4), .dservice-grid > *:nth-child(4), .team-grid > *:nth-child(4),
 .values-grid > *:nth-child(4), .tech-grid > *:nth-child(4), .layer-grid > *:nth-child(4),
-.stats-grid > *:nth-child(4){ transition-delay:.24s; }
-.service-grid > *:nth-child(5), .dservice-grid > *:nth-child(5), .tech-grid > *:nth-child(5){ transition-delay:.32s; }
-.service-grid > *:nth-child(6), .dservice-grid > *:nth-child(6), .tech-grid > *:nth-child(6){ transition-delay:.4s; }
+.stats-grid > *:nth-child(4), .blog-grid > *:nth-child(4), .portfolio-grid > *:nth-child(4){ transition-delay:.24s; }
+.service-grid > *:nth-child(5), .dservice-grid > *:nth-child(5), .tech-grid > *:nth-child(5),
+.blog-grid > *:nth-child(5), .portfolio-grid > *:nth-child(5){ transition-delay:.32s; }
+.service-grid > *:nth-child(6), .dservice-grid > *:nth-child(6), .tech-grid > *:nth-child(6),
+.blog-grid > *:nth-child(6), .portfolio-grid > *:nth-child(6){ transition-delay:.4s; }
 
 @media (prefers-reduced-motion: reduce){
   .service-card, .dservice-card, .project-card, .portfolio-card,
@@ -81,7 +177,8 @@ body, header, footer, .card-bg, .btn{
   .test-card, .stat-item, .office-card, .faq-item, .hs-item,
   .hero-copy, .hero-visual, .section-head, .story-image, .story-copy,
   .fc-image, .fc-copy, .contact-info-card, .contact-form-card,
-  .spotlight-card, .why-copy, .why-image, .approach-copy, .approach-image{
+  .spotlight-card, .why-copy, .why-image, .approach-copy, .approach-image,
+  .blog-card, .featured-card, .result-item, .bio-card{
     opacity:1; transform:none; transition:none;
   }
 }
@@ -114,7 +211,7 @@ header.scrolled .nav{ padding-top:12px; padding-bottom:12px; }
   transform:scale(0); animation:rippleAnim .55s ease-out forwards;
   pointer-events:none;
 }
-.btn-outline .ripple{ background:rgba(241,101,42,0.25); }
+.btn-outline .ripple{ background:rgba(var(--accent-rgb),0.25); }
 @keyframes rippleAnim{ to{ transform:scale(2.6); opacity:0; } }
 
 /* ---------- Image zoom-in reveal on cards already present; add subtle tilt ---------- */
@@ -140,3 +237,271 @@ header.scrolled .nav{ padding-top:12px; padding-bottom:12px; }
   background:var(--orange); transition:width .25s ease;
 }
 .footer-links a:hover::after{ width:100%; }
+
+/* ============================================================
+   HEADER ALIGNMENT FIX — every top-level nav item (plain links AND
+   mega-menu links with the chevron) now share one flex baseline,
+   so they sit on a single straight line.
+   ============================================================ */
+.nav{ gap:20px; }
+.nav-links{ display:flex; align-items:center; gap:clamp(16px, 2vw, 34px); flex-wrap:nowrap; margin:0; padding:0; }
+.nav-links > li{ display:flex; align-items:center; height:100%; }
+.nav-links > li > a{
+  display:inline-flex; align-items:center; gap:5px;
+  padding:8px 0; line-height:1.2; white-space:nowrap;
+}
+.nav-links > li > a.active::after{ bottom:2px; }
+.nav-links > li > a:not(.active)::after{ bottom:2px; }
+.nav-right{ flex-shrink:0; }
+.logo{ flex-shrink:0; white-space:nowrap; }
+/* keep mega-menu inner links free of the top-level underline effects */
+.nav-links .mega-menu a{ padding-bottom:0; }
+.nav-links .mega-menu a::after{ display:none; }
+
+/* ============================================================
+   FLOATING CONTACT TAB + POPUP FORM (right side, every page)
+   ============================================================ */
+.zx-contact-tab{
+  position:fixed; right:0; top:50%; z-index:150;
+  transform:translateY(-50%);
+  display:flex; align-items:center; gap:8px;
+  writing-mode:vertical-rl; text-orientation:mixed;
+  background:var(--orange); color:#fff; border:none; cursor:pointer;
+  padding:18px 12px; border-radius:12px 0 0 12px;
+  font:600 .88rem 'Inter', sans-serif; letter-spacing:.04em;
+  box-shadow:-6px 8px 24px rgba(var(--accent-rgb),.35);
+  transition:padding .2s ease, background .2s ease;
+  animation:zxTabPulse 3.2s ease-in-out infinite;
+}
+.zx-contact-tab svg{ width:18px; height:18px; transform:rotate(90deg); flex-shrink:0; }
+.zx-contact-tab:hover{ background:var(--orange-dark); padding-right:18px; animation-play-state:paused; }
+@keyframes zxTabPulse{
+  0%,100%{ box-shadow:-6px 8px 24px rgba(var(--accent-rgb),.35), 0 0 0 0 rgba(var(--accent-rgb),.45); }
+  50%{ box-shadow:-6px 8px 24px rgba(var(--accent-rgb),.35), 0 0 0 10px rgba(var(--accent-rgb),0); }
+}
+@media (max-width:640px){
+  .zx-contact-tab{ top:auto; bottom:90px; transform:none; padding:14px 9px; font-size:.8rem; }
+}
+
+body.zx-modal-open{ overflow:hidden; }
+.zx-modal{ position:fixed; inset:0; z-index:500; display:flex; align-items:center; justify-content:center; padding:20px; visibility:hidden; opacity:0; transition:opacity .25s ease, visibility .25s ease; }
+.zx-modal.open{ visibility:visible; opacity:1; }
+.zx-modal-backdrop{ position:absolute; inset:0; background:rgba(10,8,6,.62); backdrop-filter:blur(3px); }
+.zx-modal-card{
+  position:relative; width:min(560px, 100%); max-height:92vh; overflow:auto;
+  background:var(--card-bg); color:var(--text-primary);
+  border:1px solid var(--border); border-radius:18px; padding:34px 32px;
+  box-shadow:0 30px 70px rgba(0,0,0,.35);
+  transform:translateY(24px) scale(.97); transition:transform .3s cubic-bezier(.2,.7,.2,1);
+}
+.zx-modal.open .zx-modal-card{ transform:none; }
+.zx-modal-close{ position:absolute; top:12px; right:14px; width:36px; height:36px; border-radius:50%; border:1px solid var(--border); background:var(--bg-alt); color:var(--text-primary); font-size:1.4rem; line-height:1; cursor:pointer; transition:transform .2s ease, border-color .2s ease; }
+.zx-modal-close:hover{ transform:rotate(90deg); border-color:var(--orange); }
+.zx-modal-card h3{ font-size:1.4rem; font-weight:800; margin-bottom:6px; padding-right:40px; }
+.zx-modal-sub{ color:var(--text-secondary); font-size:.9rem; margin-bottom:22px; }
+.zx-modal-card form{ display:grid; gap:14px; }
+.zx-row{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.zx-modal-card label{ display:flex; flex-direction:column; gap:6px; font-size:.82rem; font-weight:600; color:var(--text-secondary); }
+.zx-modal-card input, .zx-modal-card select, .zx-modal-card textarea{
+  font:inherit; font-size:.92rem; font-weight:400; color:var(--text-primary);
+  background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:11px 13px; outline:none; width:100%;
+  transition:border-color .2s ease;
+}
+.zx-modal-card textarea{ resize:vertical; min-height:96px; }
+.zx-modal-card input:focus, .zx-modal-card select:focus, .zx-modal-card textarea:focus{ border-color:var(--orange); }
+.zx-modal-card .btn{ justify-content:center; }
+.zx-status{ font-size:.86rem; font-weight:600; border-radius:8px; }
+.zx-status.ok, .zx-status.err{ padding:11px 14px; }
+.zx-status.ok{ background:rgba(34,197,94,.12); color:#16a34a; }
+.zx-status.err{ background:rgba(220,53,69,.12); color:#dc3545; }
+@media (max-width:560px){ .zx-row{ grid-template-columns:1fr; } .zx-modal-card{ padding:28px 20px; } }
+
+/* ============================================================
+   MOVING OBJECTS — floating shapes injected by theme.js into
+   hero sections + CTA bands, plus bobbing cards and a ticker.
+   ============================================================ */
+.has-fx{ position:relative; }
+.has-fx > *:not(.fx-layer){ position:relative; z-index:1; }
+.fx-layer{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+.fx{ position:absolute; display:block; opacity:.55; will-change:transform; }
+.fx-ring{ border:3px solid var(--orange); border-radius:50%; opacity:.35; }
+.fx-dot{ background:var(--orange); border-radius:50%; opacity:.4; }
+.fx-square{ border:3px solid var(--orange); border-radius:8px; opacity:.28; }
+.fx-blob{ background:radial-gradient(circle, rgba(var(--accent-rgb),.28), transparent 70%); border-radius:50%; opacity:1; filter:blur(4px); }
+.fx-plus{ width:22px; height:22px; opacity:.4; }
+.fx-plus::before,.fx-plus::after{ content:''; position:absolute; background:var(--orange); border-radius:2px; }
+.fx-plus::before{ left:0; right:0; top:50%; height:3px; margin-top:-1.5px; }
+.fx-plus::after{ top:0; bottom:0; left:50%; width:3px; margin-left:-1.5px; }
+.cta-band .fx-layer .fx{ opacity:.25; }
+.fx-a{ animation:fxFloatA 9s ease-in-out infinite; }
+.fx-b{ animation:fxFloatB 12s ease-in-out infinite; }
+.fx-c{ animation:fxSpin 22s linear infinite; }
+.fx-d{ animation:fxDrift 16s ease-in-out infinite; }
+@keyframes fxFloatA{ 0%,100%{ transform:translate(0,0) rotate(0); } 50%{ transform:translate(14px,-26px) rotate(12deg); } }
+@keyframes fxFloatB{ 0%,100%{ transform:translate(0,0) scale(1); } 50%{ transform:translate(-22px,18px) scale(1.12); } }
+@keyframes fxSpin{ to{ transform:rotate(360deg); } }
+@keyframes fxDrift{ 0%,100%{ transform:translate(0,0); } 33%{ transform:translate(30px,-12px); } 66%{ transform:translate(-18px,16px); } }
+
+/* hero floating cards bob gently */
+.float-card.fc-1{ animation:fxFloatA 7s ease-in-out infinite; }
+.float-card.fc-2{ animation:fxFloatB 8.5s ease-in-out infinite; }
+.float-card.fc-3{ animation:fxFloatA 9.5s ease-in-out infinite reverse; }
+.device-mock{ animation:fxBob 6s ease-in-out infinite; }
+@keyframes fxBob{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-8px); } }
+.service-card:hover .service-icon, .dservice-card:hover .dservice-icon{ animation:fxWiggle .6s ease; }
+@keyframes fxWiggle{ 0%,100%{ transform:rotate(0); } 25%{ transform:rotate(-10deg) scale(1.08); } 75%{ transform:rotate(10deg) scale(1.08); } }
+.logo-mark{ animation:fxBob 4s ease-in-out infinite; }
+
+/* technology ticker (home page) */
+.ticker{ overflow:hidden; border-top:1px solid var(--border); border-bottom:1px solid var(--border); background:var(--card-bg); padding:18px 0; }
+.ticker-track{ display:flex; gap:48px; width:max-content; animation:tickerMove 32s linear infinite; }
+.ticker:hover .ticker-track{ animation-play-state:paused; }
+.ticker-track span{ font-weight:700; font-size:.95rem; color:var(--text-muted); display:flex; align-items:center; gap:48px; white-space:nowrap; }
+.ticker-track span::after{ content:'✦'; color:var(--orange); font-size:.8rem; }
+@keyframes tickerMove{ to{ transform:translateX(-50%); } }
+
+@media (prefers-reduced-motion: reduce){
+  .fx, .float-card, .device-mock, .logo-mark, .zx-contact-tab, .ticker-track{ animation:none !important; }
+}
+
+/* Mega menus: anchor to the header bar (centered on screen) instead of the
+   individual nav item, so they never get cut off at the screen edge. */
+.nav{ position:relative; }
+.nav-links li.has-mega{ position:static; }
+.nav-links .mega-menu .btn-primary{ color:#fff; }
+.nav-links .mega-menu .btn-primary:hover{ color:#fff; }
+
+
+/* ============================================================
+   FIX 2 — mega menu closing / clicks skipped
+   Cause: the menu was anchored to the header bar but the nav item only
+   covered the text, leaving a ~25px "dead zone" between them. Moving the
+   mouse down crossed it, the menu closed mid-click and the click fell
+   through. Now: (a) the header padding lives INSIDE each nav item so the
+   item reaches the bottom of the bar, and (b) the menu closes with a
+   short delay, so a quick slip off the edge doesn't kill it.
+   ============================================================ */
+.nav, header.scrolled .nav{ padding-top:0 !important; padding-bottom:0 !important; }
+.nav-links{ align-self:stretch; }
+.nav-links > li{ padding:18px 0; transition:padding .3s ease; }
+header.scrolled .nav-links > li{ padding:12px 0; }
+.nav-right, .logo{ padding:18px 0; transition:padding .3s ease; }
+header.scrolled .nav-right, header.scrolled .logo{ padding:12px 0; }
+
+.mega-menu{ transition:opacity .2s ease, visibility .2s ease; }
+/* menu overlaps the nav item by 6px so there is never a hairline gap */
+.nav-links .mega-menu{ top:calc(100% - 6px); padding-top:24px; }
+.mega-menu-inner{ position:relative; }
+
+
+/* ============================================================
+   FIX 3 — "Contact Us Now!" button inside the Services mega menu
+   (was being squashed by the generic .nav-links a rules)
+   ============================================================ */
+.nav-links .mega-promo .btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  width:fit-content; padding:13px 24px; line-height:1.2;
+  font-size:.9rem; font-weight:700; border-radius:10px;
+  background:var(--orange); color:#fff; border:1px solid var(--orange);
+  box-shadow:0 8px 20px rgba(var(--accent-rgb),.35);
+  transition:transform .15s ease, box-shadow .2s ease, background .2s ease;
+}
+.nav-links .mega-promo .btn:hover{
+  background:var(--orange-dark); color:#fff; transform:translateY(-2px);
+  box-shadow:0 12px 26px rgba(var(--accent-rgb),.5); padding-left:24px;
+}
+.nav-links .mega-promo .btn::after{ display:none; }
+
+/* Fallbacks for the colour palette system (palettes.js overrides these) */
+:root{ --accent-rgb:241,101,42; --accent-light:#F5A579; }
+
+
+/* ============================================================
+   RESPONSIVE HEADER
+   > 1100px : full desktop bar with hover mega menus
+   <= 1100px: logo + theme toggle + hamburger; the menu slides down as
+              a scrollable panel and Services / Industries become
+              tap-to-expand accordions (tap the arrow to expand,
+              tap the word to open the page).
+   ============================================================ */
+@media (min-width:1101px) and (max-width:1320px){
+  .nav-links{ gap:clamp(12px,1.5vw,24px); }
+  .nav-links > li > a{ font-size:.9rem; }
+  .nav-right{ gap:12px; }
+  .nav-right .btn{ padding:11px 16px; font-size:.88rem; }
+}
+.nav-cta-mobile{ display:none; }
+
+@media (max-width:1100px){
+  header .nav{ min-height:64px; gap:12px; }
+  header .logo, header .nav-right{ padding:10px 0; }
+  header .nav-right{ gap:10px; }
+  header .menu-toggle{ display:flex; align-items:center; justify-content:center; width:44px; height:44px; border:1px solid var(--border); border-radius:50%; background:var(--card-bg); padding:0; }
+  header .menu-toggle svg{ width:22px; height:22px; stroke:var(--text-primary); }
+  header .menu-toggle .icon-close{ display:none; }
+  header .menu-toggle.open .icon-menu{ display:none; }
+  header .menu-toggle.open .icon-close{ display:block; }
+
+  header .nav-links{
+    display:none; position:fixed; left:0; right:0; top:var(--header-h, 66px);
+    max-height:calc(100vh - var(--header-h, 66px)); max-height:calc(100dvh - var(--header-h, 66px));
+    overflow-y:auto; -webkit-overflow-scrolling:touch; overscroll-behavior:contain;
+    flex-direction:column; align-items:stretch; align-self:auto; gap:0; flex-wrap:nowrap;
+    background:var(--card-bg); border-bottom:1px solid var(--border); box-shadow:0 18px 30px rgba(0,0,0,.12);
+    padding:4px clamp(20px,5vw,60px) 22px; z-index:99;
+  }
+  header .nav-links.mobile-open{ display:flex; }
+  header .nav-links > li{ display:block; width:100%; height:auto; padding:0; border-bottom:1px solid var(--border); }
+  header .nav-links > li > a{ display:flex; align-items:center; justify-content:space-between; width:100%; padding:15px 0; font-size:1rem; white-space:normal; }
+  header .nav-links > li > a::after{ display:none; }
+  header .nav-links > li > a.active{ color:var(--orange); }
+
+  header .nav-links li.has-mega .chevron{ display:block; flex-shrink:0; width:36px; height:36px; padding:9px; margin:-8px -9px -8px 8px; border-radius:10px; background:var(--bg-alt); transition:transform .25s ease, background .2s ease; }
+  header .nav-links li.has-mega.mega-hover .chevron{ transform:none; }
+  header .nav-links li.has-mega.mega-open .chevron{ transform:rotate(180deg); background:var(--icon-bg); }
+
+  /* mega menus become in-flow accordions */
+  header .nav-links .mega-menu{
+    display:none !important; position:static; transform:none; width:100%; padding:0 0 12px;
+    opacity:1; visibility:visible; pointer-events:auto;
+  }
+  header .nav-links li.has-mega.mega-open .mega-menu{ display:block !important; }
+  header .nav-links li.has-mega.mega-hover:not(.mega-open) .mega-menu{ display:none !important; }
+  header .mega-menu-inner{ display:block; transform:none !important; box-shadow:none; border:none; background:transparent; border-radius:0; overflow:visible; }
+  header .mega-promo{ display:none; }
+  header .mega-links{ display:block; padding:0; }
+  header .mega-col{ margin:0 0 10px; }
+  header .mega-col h5{ margin:6px 0 2px; font-size:.72rem; }
+  header .nav-links .mega-menu a{ display:block; width:100%; padding:9px 0 9px 12px; border:none; font-size:.93rem; color:var(--text-secondary); }
+  header .nav-links .mega-menu a:hover{ color:var(--orange); }
+  header .industries-head{ padding:2px 0 6px 12px; }
+  header .industries-head a{ padding:0; font-size:.85rem; color:var(--orange); }
+  header .industries-grid{ display:grid; grid-template-columns:1fr 1fr; gap:4px 12px; padding:0; }
+  header .nav-links .industry-card{ display:flex; align-items:center; gap:10px; padding:8px 0 8px 12px; }
+  header .nav-links .industry-card .industry-text span{ display:none; }
+
+  .nav-cta-mobile{ display:block; border-bottom:none !important; padding-top:16px !important; }
+  header .nav-links .nav-cta-mobile .btn{ justify-content:center; width:100%; padding:14px 20px; color:#fff; font-size:1rem; border-bottom:none; }
+}
+@media (max-width:640px){
+  header .industries-grid{ grid-template-columns:1fr; }
+}
+@media (max-width:520px){
+  header .nav-right .btn{ display:none; }
+  header .logo{ font-size:1.12rem; }
+}
+@media (max-width:360px){
+  header .logo{ font-size:1.02rem; gap:6px; }
+  header .nav-right{ gap:6px; }
+  header .theme-toggle, header .menu-toggle{ width:40px; height:40px; }
+}
+body.zx-nav-open{ overflow:hidden; }
+
+/* Very small phones: fewer columns so cards never push the page sideways */
+@media (max-width:440px){
+  .service-grid{ grid-template-columns:1fr !important; }
+  .tech-grid{ grid-template-columns:repeat(2,1fr) !important; }
+  .tech-item{ min-width:0; }
+}
+body.zx-nav-open #zx-palette-fab, body.zx-nav-open .zx-contact-tab{ display:none; }
+@media (min-width:521px){ header .nav-links .nav-cta-mobile{ display:none; } }

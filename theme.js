@@ -116,26 +116,45 @@
   }
 
   // ---------- Scroll reveal ----------
-  function setupReveal(){
-    var selector = '.service-card, .dservice-card, .project-card, .portfolio-card, ' +
-      '.team-card, .value-card, .tech-item, .layer-card, .price-card, ' +
-      '.test-card, .stat-item, .office-card, .faq-item, .hs-item, ' +
-      '.hero-copy, .hero-visual, .section-head, .story-image, .story-copy, ' +
-      '.fc-image, .fc-copy, .contact-info-card, .contact-form-card, ' +
-      '.spotlight-card, .why-copy, .why-image, .approach-copy, .approach-image';
-    var els = document.querySelectorAll(selector);
+  // Selector list lives in one place so theme.css and this file stay in sync.
+  var REVEAL_SELECTOR = '.service-card, .dservice-card, .project-card, .portfolio-card, ' +
+    '.team-card, .value-card, .tech-item, .layer-card, .price-card, ' +
+    '.test-card, .stat-item, .office-card, .faq-item, .hs-item, ' +
+    '.hero-copy, .hero-visual, .section-head, .story-image, .story-copy, ' +
+    '.fc-image, .fc-copy, .contact-info-card, .contact-form-card, ' +
+    '.spotlight-card, .why-copy, .why-image, .approach-copy, .approach-image, ' +
+    '.blog-card, .featured-card, .result-item, .bio-card';
+
+  var revealObserver = null;
+
+  // Call this any time new matching elements are added to the page
+  // (e.g. after blog.js / case-studies.js render cards from JSON data).
+  // It's safe to call repeatedly — already-animated elements are skipped.
+  function setupReveal(root){
+    root = root || document;
+    var els = root.querySelectorAll(REVEAL_SELECTOR);
     if(!els.length) return;
+
     if('IntersectionObserver' in window){
-      var obs = new IntersectionObserver(function(entries){
-        entries.forEach(function(entry){
-          if(entry.isIntersecting){
-            entry.target.classList.add('in-view');
-            obs.unobserve(entry.target);
-          }
-        });
-      }, {threshold:0.12});
-      els.forEach(function(el){ obs.observe(el); });
+      if(!revealObserver){
+        revealObserver = new IntersectionObserver(function(entries){
+          entries.forEach(function(entry){
+            if(entry.isIntersecting){
+              entry.target.classList.add('in-view');
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        }, {threshold:0.12});
+      }
+      els.forEach(function(el){
+        if(el.dataset.revealBound) return; // already observed once, skip
+        el.dataset.revealBound = 'true';
+        revealObserver.observe(el);
+      });
+    } else {
+      els.forEach(function(el){ el.classList.add('in-view'); });
     }
+
     // Safety net: if something goes wrong, never leave content invisible
     setTimeout(function(){
       els.forEach(function(el){ el.classList.add('in-view'); });
@@ -198,6 +217,50 @@
     });
   }
 
+
+  // ---------- Floating decorative objects (hero sections + CTA bands) ----------
+  // Add class "no-fx" to any section to skip it.
+  var FX_PRESETS = [
+    ['fx-blob fx-d', 'width:260px;height:260px;left:-60px;top:10%'],
+    ['fx-ring fx-a', 'width:70px;height:70px;left:8%;bottom:12%'],
+    ['fx-dot fx-b', 'width:14px;height:14px;left:42%;top:14%'],
+    ['fx-plus fx-c', 'right:10%;top:16%'],
+    ['fx-square fx-a', 'width:34px;height:34px;right:5%;bottom:18%'],
+    ['fx-dot fx-a', 'width:10px;height:10px;right:28%;bottom:10%'],
+    ['fx-ring fx-b', 'width:40px;height:40px;left:28%;top:6%'],
+    ['fx-blob fx-b', 'width:220px;height:220px;right:-50px;bottom:-40px']
+  ];
+  function setupFX(root){
+    root = root || document;
+    var targets = root.querySelectorAll('.hero, .page-hero, .cta-band');
+    targets.forEach(function(el){
+      if(el.dataset.fx || el.classList.contains('no-fx')) return;
+      el.dataset.fx = '1';
+      el.classList.add('has-fx');
+      var layer = document.createElement('div');
+      layer.className = 'fx-layer';
+      layer.setAttribute('aria-hidden', 'true');
+      var count = el.classList.contains('cta-band') ? 4 : FX_PRESETS.length;
+      for(var i = 0; i < count; i++){
+        var s = document.createElement('span');
+        s.className = 'fx ' + FX_PRESETS[i][0];
+        s.style.cssText = FX_PRESETS[i][1] + ';animation-delay:' + (i * -1.3) + 's';
+        layer.appendChild(s);
+      }
+      el.insertBefore(layer, el.firstChild);
+    });
+  }
+  window.ZyanixFX = { refresh: function(){ setupFX(); } };
+
+  // Public API: page-specific scripts (blog.js, case-studies.js, blog-detail.js,
+  // project-detail.js) call this right after they inject new cards/sections via
+  // innerHTML, so those elements fade in instead of staying stuck invisible.
+  window.ZyanixTheme = {
+    refreshReveal: function(root){ setupReveal(root); },
+    refreshCounters: function(){ setupCounters(); },
+    refreshButtonRipple: function(){ setupButtonRipple(); }
+  };
+
   document.addEventListener('DOMContentLoaded', function(){
     setupThemeToggle();
     setupMobileNav();
@@ -208,5 +271,6 @@
     setupHeaderScroll();
     setupHeroWordStagger();
     setupButtonRipple();
+    setupFX();
   });
 })();

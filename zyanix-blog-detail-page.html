@@ -33,7 +33,7 @@
   .btn{display:inline-flex; align-items:center; gap:8px; font-weight:600; font-size:.95rem; padding:13px 24px; border-radius:8px; border:1px solid transparent; cursor:pointer; transition:transform .15s ease, box-shadow .15s ease, background .2s ease, border-color .2s ease; white-space:nowrap;}
   .btn:active{transform:translateY(1px);}
   .btn-primary{background:var(--orange); color:#fff;}
-  .btn-primary:hover{background:var(--orange-dark); box-shadow:0 8px 20px rgba(241,101,42,0.35);}
+  .btn-primary:hover{background:var(--orange-dark); box-shadow:0 8px 20px rgba(var(--accent-rgb),0.35);}
   .btn-outline{background:transparent; color:var(--text-primary); border-color:var(--border);}
   .btn-outline:hover{border-color:var(--orange); color:var(--orange);}
   .btn svg{width:16px; height:16px; flex-shrink:0;}
@@ -64,7 +64,7 @@
   .crumb-row a{color:var(--orange); font-weight:600;}
   .tag-row{display:flex; gap:8px; flex-wrap:wrap; justify-content:center;}
   .tag{font-size:.72rem; font-weight:600; padding:4px 10px; border-radius:20px; background:var(--icon-bg); color:var(--orange-dark);}
-  [data-theme="dark"] .tag{color:#F5A579;}
+  [data-theme="dark"] .tag{color:var(--accent-light);}
 
   /* SECTION 1: Article header */
   .article-header{padding:50px 0 0; text-align:center;}
@@ -134,8 +134,8 @@
   /* SECTION 5: CTA */
   .cta-outer{padding:0 clamp(24px, 5vw, 90px) 90px;}
   .cta-band{max-width:1800px; margin:0 auto; border-radius:20px; background:var(--dark-panel); padding:54px 60px; display:flex; align-items:center; justify-content:space-between; gap:30px; flex-wrap:wrap; position:relative; overflow:hidden;}
-  .cta-band::after{content:''; position:absolute; right:-60px; bottom:-60px; width:260px; height:260px; background:radial-gradient(circle, rgba(241,101,42,0.5), transparent 70%);}
-  .cta-band .eyebrow{color:#F5A579;}
+  .cta-band::after{content:''; position:absolute; right:-60px; bottom:-60px; width:260px; height:260px; background:radial-gradient(circle, rgba(var(--accent-rgb),0.5), transparent 70%);}
+  .cta-band .eyebrow{color:var(--accent-light);}
   .cta-band h3{color:#fff; font-size:1.8rem; font-weight:800; margin-bottom:10px;}
   .cta-band p{color:#C9C3B8; font-size:.95rem;}
   .cta-content{position:relative; z-index:1; max-width:560px;}
@@ -168,115 +168,36 @@
   }
 </style>
 <link rel="stylesheet" href="theme.css">
+<script src="industries.js"></script>
+<script src="services.js"></script>
+<script src="layout.js"></script>
+<script src="palettes.js"></script>
 </head>
 <body data-theme="light">
 
-<header>
-  <nav class="nav wrap">
-    <a href="index.html" class="logo"><span class="logo-mark">Z</span> Zyanix</a>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="zyanix-services-page.html">Services</a></li>
-      <li><a href="zyanix-technologies-page.html">Technologies</a></li>
-      <li><a href="zyanix-case-studies-page.html">Case Studies</a></li>
-      <li><a href="zyanix-blog-page.html" class="active">Blog</a></li>
-      <li><a href="zyanix-about-page.html">About</a></li>
-      <li><a href="zyanix-contact-page.html">Contact</a></li>
-    </ul>
-    <div class="nav-right">
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-      </button>
-      <a href="zyanix-contact-page.html" class="btn btn-primary">Get Started
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </a>
-      <button class="menu-toggle" aria-label="Menu">
-        <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-        <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
-    </div>
-  </nav>
-</header>
+<div id="site-header"></div>
+<script>ZyanixLayout.renderHeader('blog');</script>
 
-<!-- SECTION 1: ARTICLE HEADER -->
+<!-- SECTION 1: ARTICLE HEADER (rendered dynamically from posts.json) -->
 <section class="article-header">
-  <div class="wrap">
-    <div class="crumb-row"><a href="index.html">Home</a><span>/</span><a href="zyanix-blog-page.html">Blog</a><span>/</span><span>Onboarding Process</span></div>
-    <div class="tag-row"><span class="tag">Engineering</span><span class="tag">Featured</span></div>
-    <h1>How We Cut Our Client Onboarding Time by 60% With a Better Discovery Process</h1>
-    <div class="article-meta">
-      <img src="https://i.pravatar.cc/100?img=68" alt="Arjun Malhotra">
-      <div style="text-align:left;">
-        <div class="am-name">Arjun Malhotra</div>
-        <div class="am-sub">Founder &amp; CEO · Sep 12, 2026 · 7 min read</div>
-      </div>
-    </div>
-    <div class="article-cover">
-      <img src="https://picsum.photos/seed/zyanix-blog-featured/1400/700" alt="Team discussing project discovery process on a whiteboard">
-    </div>
+  <div class="wrap" id="articleHeaderContainer">
+    <p style="text-align:center; color:var(--text-muted);">Loading article…</p>
   </div>
 </section>
 
-<!-- SECTION 2: ARTICLE BODY -->
+<!-- SECTION 2: ARTICLE BODY (rendered dynamically) -->
 <section class="article-body-section">
   <div class="wrap">
-    <div class="article-layout">
-      <aside class="article-toc">
-        <h5>In This Article</h5>
-        <ul>
-          <li><a href="#problem">The Problem With Our Old Process</a></li>
-          <li><a href="#framework">The New Discovery Framework</a></li>
-          <li><a href="#results">What Changed After Rollout</a></li>
-          <li><a href="#takeaways">Key Takeaways</a></li>
-        </ul>
-      </aside>
-      <article class="article-content">
-        <h2 id="problem">The Problem With Our Old Process</h2>
-        <p>For years, every new project started the same way: a kickoff call, a rough brief, and a lot of assumptions we'd only discover were wrong three weeks in. Scope conversations kept happening mid-build instead of before it, which meant timelines slipped and trust eroded before the first milestone even shipped.</p>
-        <p>We tracked it for two quarters and found the pattern: projects that skipped a structured discovery phase took, on average, 40% longer to reach their first release than ones that didn't.</p>
-        <img src="https://picsum.photos/seed/zyanix-blog-inline-1/1000/500" alt="Team whiteboarding a project timeline">
-        <h2 id="framework">The New Discovery Framework</h2>
-        <p>So we rebuilt discovery from scratch around three non-negotiable steps before any code gets written:</p>
-        <ul>
-          <li>A structured stakeholder interview covering goals, constraints, and — critically — what "done" looks like</li>
-          <li>A written scope document both sides sign off on, including what's explicitly out of scope</li>
-          <li>A clickable low-fidelity prototype reviewed before any engineering work starts</li>
-        </ul>
-        <div class="pull-quote">"The biggest source of delay was never bad code — it was decisions we hadn't actually made yet."</div>
-        <h2 id="results">What Changed After Rollout</h2>
-        <p>Within two quarters of rolling this out across every new engagement, average time-to-first-release dropped by 60%, and client-requested scope changes mid-build fell by more than half. Just as important, clients reported feeling far more confident about what they were getting — and when.</p>
-        <h2 id="takeaways">Key Takeaways</h2>
-        <p>If there's one thing worth stealing from this process, it's this: the time you "save" by skipping discovery almost always shows up later, at a higher cost. A week of structured discovery consistently paid for itself many times over across every project we tracked.</p>
-        <div class="share-row">
-          <span>Share this article:</span>
-          <a href="#" aria-label="Share on LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
-          <a href="#" aria-label="Share on Twitter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></a>
-          <a href="#" aria-label="Copy link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>
-        </div>
-      </article>
-    </div>
+    <div class="article-layout" id="articleBodyContainer"></div>
   </div>
 </section>
 
-<!-- SECTION 3: AUTHOR BIO -->
+<!-- SECTION 3: AUTHOR BIO (rendered dynamically) -->
 <section class="author-bio">
-  <div class="wrap">
-    <div class="bio-card">
-      <img src="https://i.pravatar.cc/200?img=68" alt="Arjun Malhotra">
-      <div>
-        <h4>Arjun Malhotra</h4>
-        <p>Founder &amp; CEO at Zyanix. Spends most days thinking about how to make software teams ship faster without breaking things — and occasionally writes it down.</p>
-        <div class="bio-social">
-          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
-          <a href="#" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></a>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div class="wrap" id="authorBioContainer"></div>
 </section>
 
-<!-- SECTION 4: RELATED POSTS -->
+<!-- SECTION 4: RELATED POSTS (rendered dynamically) -->
 <section class="related-posts">
   <div class="wrap">
     <div class="section-head">
@@ -284,29 +205,7 @@
       <h2>Related <span class="accent">Articles</span></h2>
       <p>More from the Zyanix blog on engineering, design and product.</p>
     </div>
-    <div class="related-grid">
-      <a href="zyanix-blog-detail-page.html" class="blog-card">
-        <div class="blog-thumb"><img src="https://picsum.photos/seed/zyanix-blog-1/500/380" alt="Choosing the right database"></div>
-        <div class="blog-body">
-          <div class="tag-row"><span class="tag">Engineering</span></div>
-          <h4>Choosing the Right Database for Your Next Project</h4>
-        </div>
-      </a>
-      <a href="zyanix-blog-detail-page.html" class="blog-card">
-        <div class="blog-thumb"><img src="https://picsum.photos/seed/zyanix-blog-3/500/380" alt="MVP scoping guide"></div>
-        <div class="blog-body">
-          <div class="tag-row"><span class="tag">Product</span></div>
-          <h4>How to Scope an MVP Without Cutting the Wrong Corners</h4>
-        </div>
-      </a>
-      <a href="zyanix-blog-detail-page.html" class="blog-card">
-        <div class="blog-thumb"><img src="https://picsum.photos/seed/zyanix-blog-5/500/380" alt="Zyanix team culture"></div>
-        <div class="blog-body">
-          <div class="tag-row"><span class="tag">Company</span></div>
-          <h4>What 8 Years of Client Work Taught Us About Trust</h4>
-        </div>
-      </a>
-    </div>
+    <div class="related-grid" id="relatedPostsContainer"></div>
   </div>
 </section>
 
@@ -324,33 +223,11 @@
   </div>
 </div>
 
-<footer>
-  <div class="wrap">
-    <div class="footer-inner">
-      <a href="index.html" class="footer-logo"><span class="logo-mark">Z</span> Zyanix</a>
-      <ul class="footer-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="zyanix-services-page.html">Services</a></li>
-        <li><a href="zyanix-technologies-page.html">Technologies</a></li>
-        <li><a href="zyanix-case-studies-page.html">Case Studies</a></li>
-        <li><a href="zyanix-blog-page.html">Blog</a></li>
-        <li><a href="zyanix-about-page.html">About</a></li>
-        <li><a href="zyanix-contact-page.html">Contact</a></li>
-      </ul>
-      <div class="footer-social">
-        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
-        <a href="#" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></a>
-        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
-        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg></a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>© 2025 Zyanix. All rights reserved.</span>
-      <span>Better Technology. A Brighter Future.</span>
-    </div>
-  </div>
-</footer>
+<div id="site-footer"></div>
+<script>ZyanixLayout.renderFooter();</script>
 
 <script src="theme.js"></script>
+<script src="posts.js"></script>
+<script src="blog-detail.js"></script>
 </body>
 </html>
