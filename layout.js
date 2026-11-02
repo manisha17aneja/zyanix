@@ -19,13 +19,13 @@
 
   var NAV_ITEMS = [
     { key: 'home', label: 'Home', href: 'index.html' },
-    { key: 'services', label: 'Services', href: 'zyanix-services-page.html', megaMenu: 'services' },
-    { key: 'industries', label: 'Industries', href: 'zyanix-industry-detail-page.html', megaMenu: 'industries' },
-    { key: 'technologies', label: 'Technologies', href: 'zyanix-technologies-page.html' },
-    { key: 'case-studies', label: 'Case Studies', href: 'zyanix-case-studies-page.html' },
-    { key: 'blog', label: 'Blog', href: 'zyanix-blog-page.html' },
-    { key: 'about', label: 'About', href: 'zyanix-about-page.html' },
-    { key: 'contact', label: 'Contact', href: 'zyanix-contact-page.html' }
+    { key: 'services', label: 'Services', href: 'services.html', megaMenu: 'services' },
+    { key: 'industries', label: 'Industries', href: 'industries.html', megaMenu: 'industries' },
+    { key: 'technologies', label: 'Technologies', href: 'technologies.html' },
+    { key: 'case-studies', label: 'Case Studies', href: 'case-studies.html' },
+    { key: 'blog', label: 'Blog', href: 'blog.html' },
+    { key: 'about', label: 'About', href: 'about.html' },
+    { key: 'contact', label: 'Contact', href: 'contact.html' }
   ];
 
   // Services mega-menu content now comes from services.js (window.ZYANIX_SERVICES).
@@ -37,7 +37,7 @@
       return {
         title: g,
         links: services.filter(function(sv){ return sv.group === g; }).map(function(sv){
-          return { label: sv.name, href: 'zyanix-service-detail-page.html?service=' + sv.slug };
+          return { label: sv.name, href: 'service.html?service=' + sv.slug };
         })
       };
     });
@@ -57,7 +57,7 @@
           '<div class="mega-promo">' +
             '<h4>Hire The Best-In-Class Developers!</h4>' +
             '<p>Our team uses the most advanced technical skills to build fast, scalable and user-friendly digital products.</p>' +
-            '<a href="zyanix-contact-page.html" class="btn btn-primary" data-open-contact>Contact Us Now!</a>' +
+            '<a href="contact.html" class="btn btn-primary" data-open-contact>Contact Us Now!</a>' +
           '</div>' +
           '<div class="mega-links">' + columnsHTML + '</div>' +
         '</div>' +
@@ -85,7 +85,7 @@
         '<div class="mega-menu-inner mega-menu-inner--industries">' +
           '<div class="industries-head">' +
             '<h5>Industries We Serve</h5>' +
-            '<a href="zyanix-industry-detail-page.html">View all industries →</a>' +
+            '<a href="industries.html">View all industries →</a>' +
           '</div>' +
           '<div class="industries-grid">' + cardsHTML + '</div>' +
         '</div>' +
@@ -94,7 +94,7 @@
   }
 
   function renderHeader(activeKey, ctaHref){
-    ctaHref = ctaHref || 'zyanix-contact-page.html';
+    ctaHref = ctaHref || 'contact.html';
     var navLinksHTML = NAV_ITEMS.map(function(item){
       var activeClass = item.key === activeKey ? ' class="active"' : '';
       if(item.megaMenu === 'services'){
@@ -141,6 +141,15 @@
       var header = document.createElement('header');
       header.innerHTML = html;
       container.replaceWith(header);
+      // Accessibility: "skip to content" link for keyboard / screen-reader users
+      var skip = document.createElement('a');
+      skip.className = 'skip-link'; skip.href = '#'; skip.textContent = 'Skip to main content';
+      skip.addEventListener('click', function(e){
+        e.preventDefault();
+        var m = document.querySelector('main');
+        if(m){ m.setAttribute('tabindex', '-1'); m.focus(); m.scrollIntoView(); }
+      });
+      header.parentNode.insertBefore(skip, header);
       setupMegaMenuToggle(header);
       setupHeaderResponsive(header);
     }
@@ -155,18 +164,30 @@
     var CLOSE_DELAY = 220; // ms — forgives a quick slip off the edge while moving the mouse
 
     items.forEach(function(item){
-      var timer = null;
+      var timer = null, switchTimer = null;
       function closeOthers(){ items.forEach(function(i){ if(i !== item){ i.classList.remove('mega-hover','mega-open'); } }); }
+      function otherIsOpen(){
+        return Array.prototype.some.call(items, function(i){ return i !== item && i.classList.contains('mega-hover'); });
+      }
 
-      // Hover with "intent": opens instantly, closes only after a short delay,
-      // and re-entering the item OR its menu (a child) cancels the close.
+      // Hover with "intent":
+      //  - first menu opens instantly
+      //  - closes only after a short delay, and re-entering the item OR its menu cancels it
+      //  - if another menu is already open, switching to this one waits ~170ms, so
+      //    a mouse that only PASSES OVER this label on its way to the open menu
+      //    does not swap the menus underneath it.
       item.addEventListener('mouseenter', function(){
         if(window.innerWidth <= 1100) return; // mobile uses tap-to-expand only
         clearTimeout(timer);
-        closeOthers();
-        item.classList.add('mega-hover');
+        clearTimeout(switchTimer);
+        if(otherIsOpen()){
+          switchTimer = setTimeout(function(){ closeOthers(); item.classList.add('mega-hover'); }, 170);
+        } else {
+          item.classList.add('mega-hover');
+        }
       });
       item.addEventListener('mouseleave', function(){
+        clearTimeout(switchTimer);
         clearTimeout(timer);
         timer = setTimeout(function(){ item.classList.remove('mega-hover'); }, CLOSE_DELAY);
       });
@@ -400,4 +421,36 @@
     renderHeader: renderHeader,
     renderFooter: renderFooter
   };
+})();
+
+/* Photo fit: every photo shows completely in any box size (no cutting).
+   If a box shape differs from the photo shape, the full photo is shown
+   and the empty sides are filled with a soft blurred copy of the same photo. */
+(function () {
+  var css = document.createElement('style');
+  css.textContent =
+    '.zx-fit{position:relative;overflow:hidden;isolation:isolate}' +
+    '.zx-fit::before{content:"";position:absolute;inset:-24px;background:var(--zx-photo) center/cover no-repeat;filter:blur(22px) saturate(1.1);opacity:.9;z-index:0}' +
+    '.zx-fit>img.zx-full{position:relative;z-index:1;/*object-fit:contain!important;*/transform:none!important;background:transparent!important}';
+  document.head.appendChild(css);
+  function fit(img) {
+    if (!img.naturalWidth || !/images\/(illustrations|avatars)\//.test(img.src)) return;
+    var box = img.parentElement, r = img.getBoundingClientRect();
+    if (!box || r.width < 90 || r.height < 90) return; // tiny round avatars are already square
+    var diff = Math.abs((r.width / r.height) / (img.naturalWidth / img.naturalHeight) - 1);
+    var on = diff > 0.03;
+    img.classList.toggle('zx-full', on);
+    box.classList.toggle('zx-fit', on);
+    if (on) box.style.setProperty('--zx-photo', 'url("' + img.currentSrc + '")');
+  }
+  function run() {
+    [].forEach.call(document.images, function (img) {
+      if (img.complete) fit(img); else img.addEventListener('load', function () { fit(img); }, { once: true });
+    });
+  }
+  var t; function later() { clearTimeout(t); t = setTimeout(run, 120); }
+  document.addEventListener('DOMContentLoaded', run);
+  window.addEventListener('load', run);
+  window.addEventListener('resize', later);
+  new MutationObserver(later).observe(document.documentElement, { childList: true, subtree: true });
 })();

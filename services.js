@@ -1,7 +1,7 @@
 /* ============================================================
    services.js — single source of data for the Services mega-menu
    (layout.js) AND the Service Detail page
-   (zyanix-service-detail-page.html?service=<slug>).
+   (service.html?service=<slug>).
    Add a service here and it appears in the menu + gets its own
    detail page automatically.
    ============================================================ */

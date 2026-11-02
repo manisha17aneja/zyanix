@@ -1,5 +1,5 @@
 /* ============================================================
-   blog.js — powers the BLOG LISTING page (zyanix-blog-page.html).
+   blog.js — powers the BLOG LISTING page (blog.html).
    All post data comes from posts.js (window.ZYANIX_POSTS) — add,
    edit, or remove posts there and this page updates
    automatically, no HTML editing needed.
@@ -16,7 +16,7 @@
 
   function blogCardHTML(post){
     return (
-      '<a href="zyanix-blog-detail-page.html?post=' + encodeURIComponent(post.slug) + '" class="blog-card" data-category="' + post.category + '">' +
+      '<a href="post.html?post=' + post.slug + '" class="blog-card" data-category="' + post.category + '">' +
         '<div class="blog-thumb"><img src="' + post.thumb + '" alt="' + post.title + '" loading="lazy"></div>' +
         '<div class="blog-body">' +
           '<div class="tag-row"><span class="tag">' + post.category + '</span></div>' +
@@ -33,7 +33,7 @@
 
   function featuredHTML(post){
     return (
-      '<a href="zyanix-blog-detail-page.html?post=' + encodeURIComponent(post.slug) + '" class="featured-card">' +
+      '<a href="post.html?post=' + post.slug + '" class="featured-card">' +
         '<div class="featured-thumb"><img src="' + post.cover + '" alt="' + post.title + '"></div>' +
         '<div class="featured-body">' +
           '<div class="tag-row">' + post.tags.map(function(t){ return '<span class="tag">' + t + '</span>'; }).join('') + '</div>' +

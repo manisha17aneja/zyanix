@@ -1,7 +1,7 @@
 /* ============================================================
    industries.js — single source of data for the Industries
    mega-menu (layout.js) AND the Industry Detail page
-   (zyanix-industry-detail-page.html?industry=<slug>).
+   (industries.html?industry=<slug>).
 
    Add, edit, or remove an industry by editing the array below
    — the header updates automatically on every page, no HTML
@@ -18,7 +18,7 @@ window.ZYANIX_INDUSTRIES = [
     projects: ["fintech-payments-app", "business-analytics-dashboard"],
     name: "FinTech & Banking",
     blurb: "Secure payments, lending and banking platforms.",
-    href: "zyanix-industry-detail-page.html?industry=fintech",
+    href: "industries.html?industry=fintech",
     icon: '<path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>'
   },
   {
@@ -31,7 +31,7 @@ window.ZYANIX_INDUSTRIES = [
     projects: ["telehealth-booking-app", "business-analytics-dashboard"],
     name: "Healthcare",
     blurb: "Telehealth, booking and patient-record systems.",
-    href: "zyanix-industry-detail-page.html?industry=healthcare",
+    href: "industries.html?industry=healthcare",
     icon: '<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/><path d="M12 8v6M9 11h6"/>'
   },
   {
@@ -41,10 +41,10 @@ window.ZYANIX_INDUSTRIES = [
     solutions: ["Custom storefronts and marketplaces", "Unified inventory and order management", "Personalised recommendations and search", "Payment, shipping and ERP integrations"],
     stats: [["3.2x", "Lead growth"], ["+28%", "Checkout conversion"], ["99.9%", "Uptime"]],
     tech: ["Next.js", "Node.js", "Stripe", "Algolia", "AWS"],
-    projects: ["auto-marketplace-platform", "business-analytics-dashboard"],
+    projects: ["ecommerce-store-platform", "auto-marketplace-platform"],
     name: "E-commerce & Retail",
     blurb: "Storefronts, marketplaces and inventory systems.",
-    href: "zyanix-industry-detail-page.html?industry=ecommerce-retail",
+    href: "industries.html?industry=ecommerce-retail",
     icon: '<circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>'
   },
   {
@@ -54,10 +54,10 @@ window.ZYANIX_INDUSTRIES = [
     solutions: ["Live GPS fleet tracking", "Route optimisation and dispatch", "Warehouse and inventory management", "Driver apps with proof of delivery"],
     stats: [["22%", "Lower delivery cost"], ["Real-time", "Shipment tracking"], ["50%", "Less paperwork"]],
     tech: ["React", "Node.js", "MQTT", "PostgreSQL", "Google Maps"],
-    projects: ["logistics-tracking-platform", "business-analytics-dashboard"],
+    projects: ["autoflow-automation-platform", "logistics-tracking-platform"],
     name: "Logistics & Supply Chain",
     blurb: "Fleet tracking, routing and warehouse platforms.",
-    href: "zyanix-industry-detail-page.html?industry=logistics",
+    href: "industries.html?industry=logistics",
     icon: '<rect x="1" y="7" width="15" height="13" rx="1"/><path d="M16 11h4l3 3v6h-7z"/><circle cx="6.5" cy="20.5" r="1.5"/><circle cx="18.5" cy="20.5" r="1.5"/>'
   },
   {
@@ -70,7 +70,7 @@ window.ZYANIX_INDUSTRIES = [
     projects: ["auto-marketplace-platform", "business-analytics-dashboard"],
     name: "Real Estate",
     blurb: "Listings, virtual tours and property management.",
-    href: "zyanix-industry-detail-page.html?industry=real-estate",
+    href: "industries.html?industry=real-estate",
     icon: '<path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9 21v-6h6v6"/>'
   },
   {
@@ -80,10 +80,10 @@ window.ZYANIX_INDUSTRIES = [
     solutions: ["Course and cohort management", "Live classes and recorded lessons", "Quizzes, assessments and certificates", "Student and parent progress dashboards"],
     stats: [["85%", "Course completion"], ["10k+", "Concurrent learners"], ["4.8/5", "Learner rating"]],
     tech: ["React", "Node.js", "WebRTC", "PostgreSQL", "Firebase"],
-    projects: ["fitness-mobile-app", "business-analytics-dashboard"],
+    projects: ["edulead-crm-platform", "fitness-mobile-app"],
     name: "Education & EdTech",
     blurb: "Learning platforms, courses and student portals.",
-    href: "zyanix-industry-detail-page.html?industry=edtech",
+    href: "industries.html?industry=edtech",
     icon: '<path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/>'
   },
   {
@@ -96,7 +96,7 @@ window.ZYANIX_INDUSTRIES = [
     projects: ["auto-marketplace-platform", "logistics-tracking-platform"],
     name: "Automotive",
     blurb: "Marketplaces, dealer tools and fleet dashboards.",
-    href: "zyanix-industry-detail-page.html?industry=automotive",
+    href: "industries.html?industry=automotive",
     icon: '<path d="M5 17h14M5 17a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM19 17a2 2 0 1 0 4 0 2 2 0 0 0-4 0Z"/><path d="M3 17V10l2-5h12l3 5v7"/>'
   },
   {
@@ -109,7 +109,7 @@ window.ZYANIX_INDUSTRIES = [
     projects: ["fitness-mobile-app", "auto-marketplace-platform"],
     name: "Travel & Hospitality",
     blurb: "Booking engines, itineraries and guest apps.",
-    href: "zyanix-industry-detail-page.html?industry=travel-hospitality",
+    href: "industries.html?industry=travel-hospitality",
     icon: '<path d="M2 16l20-7-7 20-3-8-8-3Z"/>'
   }
 ];

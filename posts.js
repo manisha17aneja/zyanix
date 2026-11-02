@@ -1,6 +1,7 @@
 window.ZYANIX_POSTS = [
   {
     "slug": "onboarding-process",
+    "seoTitle": "Cut Client Onboarding Time by 60%",
     "title": "How We Cut Our Client Onboarding Time by 60% With a Better Discovery Process",
     "excerpt": "A behind-the-scenes look at the discovery framework we built after years of scope creep, missed timelines and mismatched expectations \u2014 and how it changed the way we kick off every project.",
     "category": "Engineering",
@@ -8,15 +9,15 @@ window.ZYANIX_POSTS = [
       "Engineering",
       "Featured"
     ],
-    "cover": "images/illustrations/blog-onboarding.png",
-    "thumb": "images/illustrations/blog-onboarding.png",
+    "cover": "images/illustrations/blog-onboarding.jpg",
+    "thumb": "images/illustrations/blog-onboarding.jpg",
     "featured": true,
     "date": "2026-09-12",
     "readTime": "7 min read",
     "author": {
       "name": "James Whitfield",
       "role": "Founder & CEO",
-      "avatar": "images/avatars/james-whitfield.png",
+      "avatar": "images/avatars/james-whitfield.jpg",
       "bio": "Founder & CEO at Zyanix. Spends most days thinking about how to make software teams ship faster without breaking things \u2014 and occasionally writes it down."
     },
     "content": [
@@ -35,7 +36,7 @@ window.ZYANIX_POSTS = [
       },
       {
         "type": "image",
-        "src": "images/illustrations/blog-onboarding.png",
+        "src": "images/illustrations/inline-onboarding.jpg",
         "alt": "Team whiteboarding a project timeline"
       },
       {
@@ -81,21 +82,22 @@ window.ZYANIX_POSTS = [
   },
   {
     "slug": "choosing-database",
+    "seoTitle": "Choosing the Right Database for Your Project",
     "title": "Choosing the Right Database for Your Next Project",
     "excerpt": "SQL vs NoSQL isn't the real question \u2014 here's the framework we actually use.",
     "category": "Engineering",
     "tags": [
       "Engineering"
     ],
-    "cover": "images/illustrations/blog-database.png",
-    "thumb": "images/illustrations/blog-database.png",
+    "cover": "images/illustrations/blog-database.jpg",
+    "thumb": "images/illustrations/blog-database.jpg",
     "featured": false,
     "date": "2026-08-28",
     "readTime": "6 min read",
     "author": {
       "name": "Daniel Cooper",
       "role": "Lead Engineer",
-      "avatar": "images/avatars/daniel-cooper.png",
+      "avatar": "images/avatars/daniel-cooper.jpg",
       "bio": "Lead Engineer at Zyanix, obsessed with boring, reliable infrastructure and hates being paged at 3am."
     },
     "content": [
@@ -114,7 +116,7 @@ window.ZYANIX_POSTS = [
       },
       {
         "type": "image",
-        "src": "images/illustrations/blog-database.png",
+        "src": "images/illustrations/inline-database.jpg",
         "alt": "Database schema diagram on a whiteboard"
       },
       {
@@ -143,21 +145,22 @@ window.ZYANIX_POSTS = [
   },
   {
     "slug": "design-systems-scale",
+    "seoTitle": "Building Design Systems That Scale",
     "title": "Building Design Systems That Actually Scale",
     "excerpt": "Why most design systems fail after six months, and how to build one that doesn't.",
     "category": "Design",
     "tags": [
       "Design"
     ],
-    "cover": "images/illustrations/blog-design-systems.png",
-    "thumb": "images/illustrations/blog-design-systems.png",
+    "cover": "images/illustrations/blog-design-systems.jpg",
+    "thumb": "images/illustrations/blog-design-systems.jpg",
     "featured": false,
     "date": "2026-08-15",
     "readTime": "5 min read",
     "author": {
       "name": "Olivia Bennett",
       "role": "Head of Design",
-      "avatar": "images/avatars/olivia-bennett.png",
+      "avatar": "images/avatars/olivia-bennett.jpg",
       "bio": "Head of Design at Zyanix, building interfaces and design systems that hold up under real product pressure."
     },
     "content": [
@@ -172,7 +175,7 @@ window.ZYANIX_POSTS = [
       },
       {
         "type": "image",
-        "src": "images/illustrations/blog-design-systems.png",
+        "src": "images/illustrations/inline-design-systems.jpg",
         "alt": "Design system component library on a screen"
       },
       {
@@ -200,21 +203,22 @@ window.ZYANIX_POSTS = [
   },
   {
     "slug": "mvp-scoping-guide",
+    "seoTitle": "How to Scope an MVP Without Cutting Corners",
     "title": "How to Scope an MVP Without Cutting the Wrong Corners",
     "excerpt": "A practical checklist for deciding what makes v1 and what waits for v2.",
     "category": "Product",
     "tags": [
       "Product"
     ],
-    "cover": "images/illustrations/blog-mvp-scoping.png",
-    "thumb": "images/illustrations/blog-mvp-scoping.png",
+    "cover": "images/illustrations/blog-mvp-scoping.jpg",
+    "thumb": "images/illustrations/blog-mvp-scoping.jpg",
     "featured": false,
     "date": "2026-08-02",
     "readTime": "8 min read",
     "author": {
       "name": "Sophie Turner",
       "role": "Project Manager",
-      "avatar": "images/avatars/sophie-turner.png",
+      "avatar": "images/avatars/sophie-turner.jpg",
       "bio": "Project Manager at Zyanix, keeping timelines honest and scope conversations happening early, not late."
     },
     "content": [
@@ -229,7 +233,7 @@ window.ZYANIX_POSTS = [
       },
       {
         "type": "image",
-        "src": "images/illustrations/blog-mvp-scoping.png",
+        "src": "images/illustrations/inline-mvp.jpg",
         "alt": "Team planning MVP scope on sticky notes"
       },
       {
@@ -257,21 +261,22 @@ window.ZYANIX_POSTS = [
   },
   {
     "slug": "cicd-pipeline-setup",
+    "seoTitle": "Setting Up a CI/CD Pipeline Your Team Will Use",
     "title": "Setting Up a CI/CD Pipeline That Your Team Will Actually Use",
     "excerpt": "The automation habits that separate fast-moving teams from stuck ones.",
     "category": "Engineering",
     "tags": [
       "Engineering"
     ],
-    "cover": "images/illustrations/blog-cicd.png",
-    "thumb": "images/illustrations/blog-cicd.png",
+    "cover": "images/illustrations/blog-cicd.jpg",
+    "thumb": "images/illustrations/blog-cicd.jpg",
     "featured": false,
     "date": "2026-07-19",
     "readTime": "7 min read",
     "author": {
       "name": "Daniel Cooper",
       "role": "Lead Engineer",
-      "avatar": "images/avatars/daniel-cooper.png",
+      "avatar": "images/avatars/daniel-cooper.jpg",
       "bio": "Lead Engineer at Zyanix, obsessed with boring, reliable infrastructure and hates being paged at 3am."
     },
     "content": [
@@ -286,7 +291,7 @@ window.ZYANIX_POSTS = [
       },
       {
         "type": "image",
-        "src": "images/illustrations/blog-cicd.png",
+        "src": "images/illustrations/inline-cicd.jpg",
         "alt": "CI/CD pipeline dashboard on a monitor"
       },
       {
@@ -314,21 +319,22 @@ window.ZYANIX_POSTS = [
   },
   {
     "slug": "client-trust-8-years",
+    "seoTitle": "What 8 Years of Client Work Taught Us About Trust",
     "title": "What 8 Years of Client Work Taught Us About Trust",
     "excerpt": "The unglamorous habits that keep long-term clients coming back.",
     "category": "Company",
     "tags": [
       "Company"
     ],
-    "cover": "images/illustrations/blog-client-trust.png",
-    "thumb": "images/illustrations/blog-client-trust.png",
+    "cover": "images/illustrations/blog-client-trust.jpg",
+    "thumb": "images/illustrations/blog-client-trust.jpg",
     "featured": false,
     "date": "2026-07-03",
     "readTime": "4 min read",
     "author": {
       "name": "James Whitfield",
       "role": "Founder & CEO",
-      "avatar": "images/avatars/james-whitfield.png",
+      "avatar": "images/avatars/james-whitfield.jpg",
       "bio": "Founder & CEO at Zyanix. Spends most days thinking about how to make software teams ship faster without breaking things \u2014 and occasionally writes it down."
     },
     "content": [
@@ -343,7 +349,7 @@ window.ZYANIX_POSTS = [
       },
       {
         "type": "image",
-        "src": "images/illustrations/blog-client-trust.png",
+        "src": "images/illustrations/inline-client-trust.jpg",
         "alt": "Team meeting with a long-term client"
       },
       {
@@ -371,21 +377,22 @@ window.ZYANIX_POSTS = [
   },
   {
     "slug": "accessibility-guide",
+    "seoTitle": "Web Accessibility: A Practical Starting Guide",
     "title": "Accessibility Isn't Optional: A Practical Starting Guide",
     "excerpt": "Small changes that make a real difference for real users.",
     "category": "Design",
     "tags": [
       "Design"
     ],
-    "cover": "images/illustrations/blog-accessibility.png",
-    "thumb": "images/illustrations/blog-accessibility.png",
+    "cover": "images/illustrations/blog-accessibility.jpg",
+    "thumb": "images/illustrations/blog-accessibility.jpg",
     "featured": false,
     "date": "2026-06-21",
     "readTime": "6 min read",
     "author": {
       "name": "Olivia Bennett",
       "role": "Head of Design",
-      "avatar": "images/avatars/olivia-bennett.png",
+      "avatar": "images/avatars/olivia-bennett.jpg",
       "bio": "Head of Design at Zyanix, building interfaces and design systems that hold up under real product pressure."
     },
     "content": [
@@ -400,7 +407,7 @@ window.ZYANIX_POSTS = [
       },
       {
         "type": "image",
-        "src": "images/illustrations/blog-accessibility.png",
+        "src": "images/illustrations/inline-accessibility.jpg",
         "alt": "Designer reviewing color contrast on a screen"
       },
       {

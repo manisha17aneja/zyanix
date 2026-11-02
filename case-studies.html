@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en" data-seo-list="projects">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --orange:#F1652A; --orange-dark:#d9541f; --orange-soft:#FDE6DA;
+    --bg:#F7F3EC; --bg-alt:#F1ECE3; --card-bg:#FFFFFF;
+    --text-primary:#1E1B18; --text-secondary:#5B564F; --text-muted:#8A8478;
+    --border:#E7E0D5; --nav-bg:rgba(247,243,236,0.9);
+    --shadow: 0 10px 30px rgba(30,27,24,0.06); --icon-bg:#FBE7DC;
+    --footer-bg:#1B1815; --footer-text:#CFC9C0; --dark-panel:#14110F;
+  }
+  [data-theme="dark"]{
+    --bg:#0E0C0A; --bg-alt:#141110; --card-bg:#1A1613;
+    --text-primary:#F5F1EA; --text-secondary:#B6AFA5; --text-muted:#847D72;
+    --border:#2A2521; --nav-bg:rgba(14,12,10,0.85);
+    --shadow: 0 10px 30px rgba(0,0,0,0.5); --icon-bg:#2A1D14;
+    --footer-bg:#0A0908; --footer-text:#B6AFA5; --dark-panel:#0A0908;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background:var(--bg); color:var(--text-primary); transition:background .3s ease, color .3s ease; -webkit-font-smoothing:antialiased; overflow-x:hidden;}
+  img{max-width:100%; display:block;}
+  a{color:inherit; text-decoration:none;}
+  ul{list-style:none;}
+  .wrap{width:100%; max-width:1800px; margin:0 auto; padding:0 clamp(24px, 5vw, 90px);}
+  section{position:relative;}
+  .btn{display:inline-flex; align-items:center; gap:8px; font-weight:600; font-size:.95rem; padding:13px 24px; border-radius:8px; border:1px solid transparent; cursor:pointer; transition:transform .15s ease, box-shadow .15s ease, background .2s ease, border-color .2s ease; white-space:nowrap;}
+  .btn:active{transform:translateY(1px);}
+  .btn-primary{background:var(--orange); color:#fff;}
+  .btn-primary:hover{background:var(--orange-dark); box-shadow:0 8px 20px rgba(var(--accent-rgb),0.35);}
+  .btn-outline{background:transparent; color:var(--text-primary); border-color:var(--border);}
+  .btn-outline:hover{border-color:var(--orange); color:var(--orange);}
+  .btn svg{width:16px; height:16px; flex-shrink:0;}
+  header{position:sticky; top:0; z-index:100; background:var(--nav-bg); backdrop-filter:blur(10px); border-bottom:1px solid var(--border);}
+  .nav{display:flex; align-items:center; justify-content:space-between; padding:18px 0;}
+  .logo{display:flex; align-items:center; gap:8px; font-weight:800; font-size:1.25rem;}
+  .logo-mark{width:32px; height:32px; border-radius:8px; background:var(--orange); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:1.1rem;}
+  .nav-links{display:flex; align-items:center; gap:34px;}
+  .nav-links a{font-size:.95rem; font-weight:500; color:var(--text-secondary); position:relative; padding-bottom:6px; transition:color .2s ease;}
+  .nav-links a:hover{color:var(--text-primary);}
+  .nav-links a.active{color:var(--orange);}
+  .nav-links a.active::after{content:''; position:absolute; left:0; right:0; bottom:-2px; height:2px; background:var(--orange); border-radius:2px;}
+  .nav-right{display:flex; align-items:center; gap:16px;}
+  .theme-toggle{width:44px; height:44px; border-radius:50%; border:1px solid var(--border); background:var(--card-bg); display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; transition:border-color .2s ease, transform .2s ease;}
+  .theme-toggle:hover{border-color:var(--orange); transform:rotate(15deg);}
+  .theme-toggle svg{width:20px; height:20px; stroke:var(--text-primary);}
+  .theme-toggle .sun{display:none;}
+  [data-theme="dark"] .theme-toggle .sun{display:block;}
+  [data-theme="dark"] .theme-toggle .moon{display:none;}
+  .menu-toggle{display:none; background:none; border:none; cursor:pointer; padding:4px;}
+  .menu-toggle svg{width:26px; height:26px; stroke:var(--text-primary);}
+  .section-head{text-align:center; max-width:640px; margin:0 auto 50px;}
+  .eyebrow{color:var(--orange); font-weight:700; font-size:.82rem; letter-spacing:.02em; margin-bottom:10px; display:block;}
+  .section-head h2{font-size:2.2rem; font-weight:800; letter-spacing:-0.01em; margin-bottom:14px;}
+  .section-head h2 .accent{color:var(--orange);}
+  .section-head p{color:var(--text-secondary); line-height:1.7; font-size:1rem;}
+  .badge{display:inline-flex; align-items:center; gap:8px; background:var(--icon-bg); color:var(--orange-dark); font-size:.8rem; font-weight:600; padding:7px 14px; border-radius:20px; margin-bottom:22px;}
+  [data-theme="dark"] .badge{color:var(--accent-light);}
+  .badge .dot{width:6px; height:6px; border-radius:50%; background:var(--orange);}
+  .crumb-row{display:flex; justify-content:center; gap:10px; font-size:.85rem; color:var(--text-muted); margin-bottom:8px;}
+  .crumb-row a{color:var(--orange); font-weight:600;}
+  .feat-check{width:20px; height:20px; border-radius:50%; background:var(--orange); flex-shrink:0; display:flex; align-items:center; justify-content:center;}
+  .feat-check svg{width:11px; height:11px; stroke:#fff; stroke-width:3.5;}
+
+  /* SECTION 1: Page hero */
+  .page-hero{padding:80px 0 60px; text-align:center;}
+  .page-hero h1{font-size:3rem; font-weight:800; letter-spacing:-0.02em; line-height:1.15; max-width:820px; margin:0 auto 20px;}
+  .page-hero h1 .accent{color:var(--orange);}
+  .page-hero p.lead{font-size:1.08rem; color:var(--text-secondary); line-height:1.7; max-width:600px; margin:0 auto 34px;}
+  .hero-stats-strip{display:grid; grid-template-columns:repeat(4,1fr); gap:20px; max-width:900px; margin:0 auto;}
+  .hs-item{background:var(--card-bg); border:1px solid var(--border); border-radius:14px; padding:20px 10px; text-align:center;}
+  .hs-num{font-size:1.6rem; font-weight:800; color:var(--orange);}
+  .hs-label{font-size:.8rem; color:var(--text-secondary); margin-top:4px;}
+
+  /* SECTION 2: Portfolio grid */
+  .portfolio{background:var(--bg-alt); padding:80px 0 90px;}
+  .filter-tabs{display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin-bottom:44px;}
+  .filter-tab{padding:9px 20px; border-radius:24px; border:1px solid var(--border); background:var(--card-bg); font-size:.85rem; font-weight:600; color:var(--text-secondary); cursor:pointer; transition:all .2s ease;}
+  .filter-tab.active, .filter-tab:hover{background:var(--orange); color:#fff; border-color:var(--orange);}
+  .portfolio-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:26px;}
+  .portfolio-card{background:var(--card-bg); border:1px solid var(--border); border-radius:16px; overflow:hidden; transition:transform .2s ease, box-shadow .2s ease;}
+  .portfolio-card:hover{transform:translateY(-5px); box-shadow:var(--shadow);}
+  .portfolio-thumb{height:210px; position:relative; overflow:hidden;}
+  .portfolio-thumb img{width:100%; /*height:100%;*/ object-fit:cover; transition:transform .35s ease;}
+  .portfolio-card:hover .portfolio-thumb img{transform:scale(1.07);}
+  [data-theme="dark"] .portfolio-thumb img{filter:saturate(.85) brightness(.85);}
+  .portfolio-info{padding:22px;}
+  .portfolio-info h4{font-size:1.05rem; font-weight:700; margin-bottom:8px;}
+  .portfolio-info p{font-size:.87rem; color:var(--text-secondary); line-height:1.6; margin-bottom:16px;}
+  .tag-row{display:flex; gap:8px; flex-wrap:wrap;}
+  .tag{font-size:.72rem; font-weight:600; padding:4px 10px; border-radius:20px; background:var(--icon-bg); color:var(--orange-dark);}
+  [data-theme="dark"] .tag{color:var(--accent-light);}
+
+  /* SECTION 3: Featured case study */
+  .featured-case{padding:90px 0;}
+  .fc-inner{display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center;}
+  .fc-image{border-radius:16px; overflow:hidden; border:1px solid var(--border); box-shadow:var(--shadow);}
+  .fc-image img{width:100%; height:400px; object-fit:cover;}
+  [data-theme="dark"] .fc-image img{filter:brightness(.82) saturate(.9);}
+  .fc-copy .tag-row{margin-bottom:18px;}
+  .fc-copy h2{font-size:2rem; font-weight:800; line-height:1.25; margin-bottom:16px;}
+  .fc-copy > p{color:var(--text-secondary); line-height:1.75; margin-bottom:26px;}
+  .fc-results{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:28px;}
+  .fc-result{background:var(--card-bg); border:1px solid var(--border); border-radius:12px; padding:16px 10px; text-align:center;}
+  .fc-result .num{font-size:1.4rem; font-weight:800; color:var(--orange);}
+  .fc-result .lbl{font-size:.76rem; color:var(--text-muted); margin-top:4px;}
+
+  /* SECTION 4: Testimonial spotlight */
+  .spotlight{background:var(--bg-alt); padding:90px 0;}
+  .spotlight-card{
+    max-width:900px; margin:0 auto; text-align:center; background:var(--card-bg);
+    border:1px solid var(--border); border-radius:20px; padding:56px 50px; position:relative;
+  }
+  .spotlight-quote{color:var(--orange); font-size:3rem; font-weight:800; line-height:1; margin-bottom:14px; display:block;}
+  .spotlight-card p{font-size:1.2rem; line-height:1.7; color:var(--text-primary); font-weight:500; margin-bottom:28px;}
+  .spotlight-author{display:flex; align-items:center; justify-content:center; gap:14px;}
+  .spotlight-author img{width:52px; height:52px; border-radius:50%; object-fit:cover; border:2px solid var(--border);}
+  .spotlight-author .sa-name{font-weight:700; font-size:.95rem;}
+  .spotlight-author .sa-role{font-size:.8rem; color:var(--text-muted);}
+
+  /* SECTION 5: CTA */
+  .cta-outer{padding:0 clamp(24px, 5vw, 90px) 90px;}
+  .cta-band{max-width:1800px; margin:0 auto; border-radius:20px; background:var(--dark-panel); padding:54px 60px; display:flex; align-items:center; justify-content:space-between; gap:30px; flex-wrap:wrap; position:relative; overflow:hidden;}
+  .cta-band::after{content:''; position:absolute; right:-60px; bottom:-60px; width:260px; height:260px; background:radial-gradient(circle, rgba(var(--accent-rgb),0.5), transparent 70%);}
+  .cta-band .eyebrow{color:var(--accent-light);}
+  .cta-band h3{color:#fff; font-size:1.8rem; font-weight:800; margin-bottom:10px;}
+  .cta-band p{color:#C9C3B8; font-size:.95rem;}
+  .cta-content{position:relative; z-index:1; max-width:560px;}
+  .cta-band .btn{position:relative; z-index:1;}
+
+  footer{background:var(--footer-bg); color:var(--footer-text); padding:44px 0 26px;}
+  .footer-inner{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px; padding-bottom:26px; border-bottom:1px solid rgba(255,255,255,0.08);}
+  .footer-logo{display:flex; align-items:center; gap:8px; font-weight:800; font-size:1.15rem; color:#fff;}
+  .footer-links{display:flex; gap:26px; flex-wrap:wrap;}
+  .footer-links a{font-size:.88rem; color:var(--footer-text); transition:color .2s ease;}
+  .footer-links a:hover{color:#fff;}
+  .footer-social{display:flex; gap:14px;}
+  .footer-social a{width:36px; height:36px; border-radius:50%; border:1px solid rgba(255,255,255,0.12); display:flex; align-items:center; justify-content:center;}
+  .footer-social svg{width:16px; height:16px; stroke:var(--footer-text);}
+  .footer-bottom{display:flex; justify-content:space-between; padding-top:20px; font-size:.8rem; color:var(--text-muted); flex-wrap:wrap; gap:10px;}
+
+  @media (max-width: 980px){
+    .nav-links{display:none;} .menu-toggle{display:flex;}
+    .portfolio-grid{grid-template-columns:repeat(2,1fr);}
+    .fc-inner{grid-template-columns:1fr;} .fc-image{order:-1;}
+    .fc-results{grid-template-columns:repeat(3,1fr);}
+    .hero-stats-strip{grid-template-columns:repeat(2,1fr);}
+    .page-hero h1{font-size:2.3rem;}
+    .spotlight-card{padding:40px 26px;}
+  }
+  @media (max-width: 640px){
+    .portfolio-grid{grid-template-columns:1fr;}
+    .fc-results{grid-template-columns:1fr;}
+    .hero-stats-strip{grid-template-columns:repeat(2,1fr);}
+    .cta-band{flex-direction:column; align-items:flex-start; padding:34px 26px;}
+    .footer-inner, .footer-bottom{flex-direction:column; align-items:flex-start;}
+    .spotlight-quote{font-size:2.2rem;}
+    .spotlight-card p{font-size:1.05rem;}
+  }
+</style>
+<link rel="stylesheet" href="theme.css">
+<script src="industries.js"></script>
+<script src="services.js"></script>
+<script src="seo.js"></script>
+<script src="layout.js"></script>
+<script src="palettes.js"></script>
+<!--SEO:START-->
+<title>Case Studies &amp; Client Success Stories | Zyanix</title>
+<meta name="description" content="See how Zyanix helped clients launch marketplaces, fintech, healthtech and analytics products, with real results, timelines and technology details.">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<link rel="canonical" href="https://www.zyanix.com/case-studies.html">
+<meta property="og:site_name" content="Zyanix">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Case Studies &amp; Client Success Stories | Zyanix">
+<meta property="og:description" content="See how Zyanix helped clients launch marketplaces, fintech, healthtech and analytics products, with real results, timelines and technology details.">
+<meta property="og:url" content="https://www.zyanix.com/case-studies.html">
+<meta property="og:image" content="https://www.zyanix.com/images/og-default.jpg">
+<meta property="og:image:alt" content="Case Studies &amp; Client Success Stories | Zyanix">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Case Studies &amp; Client Success Stories | Zyanix">
+<meta name="twitter:description" content="See how Zyanix helped clients launch marketplaces, fintech, healthtech and analytics products, with real results, timelines and technology details.">
+<meta name="twitter:image" content="https://www.zyanix.com/images/og-default.jpg">
+<meta name="theme-color" content="#F1652A">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Case Studies & Client Success Stories | Zyanix","description":"See how Zyanix helped clients launch marketplaces, fintech, healthtech and analytics products, with real results, timelines and technology details.","url":"https://www.zyanix.com/case-studies.html","isPartOf":{"@id":"https://www.zyanix.com/#website"},"about":{"@id":"https://www.zyanix.com/#organization"},"inLanguage":"en"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.zyanix.com/index.html"},{"@type":"ListItem","position":2,"name":"Case Studies","item":"https://www.zyanix.com/case-studies.html"}]}</script>
+<!--SEO:END-->
+</head>
+<body data-theme="light">
+
+<div id="site-header"></div>
+<script>ZyanixLayout.renderHeader('case-studies');</script>
+<!--ZXNAV:START-->
+<noscript><nav aria-label="Site"><ul><li><a href="index.html">Home</a></li><li><a href="services.html">Services</a></li><li><a href="industries.html">Industries</a></li><li><a href="technologies.html">Technologies</a></li><li><a href="case-studies.html">Case Studies</a></li><li><a href="blog.html">Blog</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></nav></noscript>
+<!--ZXNAV:END-->
+<main>
+
+<!-- SECTION 1: PAGE HERO -->
+<section class="page-hero">
+  <div class="wrap">
+    <div class="crumb-row"><a href="index.html">Home</a><span>/</span><span>Case Studies</span></div>
+    <span class="badge"><span class="dot"></span> Our Work</span>
+    <h1>Real Projects, <span class="accent">Real Results</span></h1>
+    <p class="lead">A look at the products we've designed, built and shipped for startups and enterprises across industries.</p>
+    <div class="hero-stats-strip">
+      <div class="hs-item"><div class="hs-num">180+</div><div class="hs-label">Projects Delivered</div></div>
+      <div class="hs-item"><div class="hs-num">120+</div><div class="hs-label">Happy Clients</div></div>
+      <div class="hs-item"><div class="hs-num">98%</div><div class="hs-label">On-Time Delivery</div></div>
+      <div class="hs-item"><div class="hs-num">15+</div><div class="hs-label">Countries Served</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: PORTFOLIO GRID (rendered dynamically from projects.js) -->
+<section class="portfolio">
+  <div class="wrap">
+    <div class="filter-tabs">
+      <span class="filter-tab active" data-filter="All Projects">All Projects</span>
+      <span class="filter-tab" data-filter="Web Apps">Web Apps</span>
+      <span class="filter-tab" data-filter="Mobile Apps">Mobile Apps</span>
+      <span class="filter-tab" data-filter="Cloud &amp; DevOps">Cloud &amp; DevOps</span>
+      <span class="filter-tab" data-filter="UI/UX">UI/UX</span>
+    </div>
+    <div class="portfolio-grid" id="portfolioGridContainer">
+      <a href="project.html?project=autoflow-automation-platform" class="portfolio-card in-view" data-category="Cloud & DevOps" style="opacity:1; transform:none;">
+        <div class="portfolio-thumb"><img src="images/illustrations/project-autoflow.jpg" alt="AutoFlow CRM — Automotive Operating System" loading="lazy"></div>
+        <div class="portfolio-info">
+          <h4>AutoFlow CRM — Automotive Operating System</h4>
+          <p>Full-stack automotive dealership operating system unifying lead routing, conflict-free test drives, live inventory, and service workshop bays.</p>
+          <div class="tag-row"><span class="tag">Automotive CRM</span><span class="tag">PostgreSQL RLS</span><span class="tag">Next.js</span></div>
+        </div>
+      </a>
+      <a href="project.html?project=ecommerce-store-platform" class="portfolio-card in-view" data-category="Web Apps" style="opacity:1; transform:none;">
+        <div class="portfolio-thumb"><img src="images/illustrations/project-ecommerce-store.jpg" alt="LuxeStore E-Commerce Store" loading="lazy"></div>
+        <div class="portfolio-info">
+          <h4>LuxeStore E-Commerce Store</h4>
+          <p>High-converting headless e-commerce store with sub-second page loads, personalized recommendations, and instant checkout.</p>
+          <div class="tag-row"><span class="tag">E-Commerce</span><span class="tag">Next.js</span><span class="tag">Shopify</span></div>
+        </div>
+      </a>
+      <a href="project.html?project=edulead-crm-platform" class="portfolio-card in-view" data-category="Web Apps" style="opacity:1; transform:none;">
+        <div class="portfolio-thumb"><img src="images/illustrations/project-edu-lead.jpg" alt="EduLead Student CRM" loading="lazy"></div>
+        <div class="portfolio-info">
+          <h4>EduLead Student CRM</h4>
+          <p>Comprehensive lead capture, admission tracking, and counselor allocation platform designed for education providers.</p>
+          <div class="tag-row"><span class="tag">EdTech</span><span class="tag">Web App</span><span class="tag">PostgreSQL</span></div>
+        </div>
+      </a>
+      <a href="project.html?project=fitness-mobile-app" class="portfolio-card in-view" data-category="Mobile Apps" style="opacity:1; transform:none;">
+        <div class="portfolio-thumb"><img src="images/illustrations/project-fitness-app.jpg" alt="Fitness Mobile App" loading="lazy"></div>
+        <div class="portfolio-info">
+          <h4>Fitness Mobile App</h4>
+          <p>Workout tracking and coaching app with live progress syncing across devices.</p>
+          <div class="tag-row"><span class="tag">Mobile App</span><span class="tag">React Native</span></div>
+        </div>
+      </a>
+      <a href="project.html?project=business-analytics-dashboard" class="portfolio-card in-view" data-category="Web Apps" style="opacity:1; transform:none;">
+        <div class="portfolio-thumb"><img src="images/illustrations/project-analytics-dashboard.jpg" alt="Business Analytics Dashboard" loading="lazy"></div>
+        <div class="portfolio-info">
+          <h4>Business Analytics Dashboard</h4>
+          <p>A unified reporting dashboard turning raw business data into clear insights.</p>
+          <div class="tag-row"><span class="tag">Web App</span><span class="tag">React</span></div>
+        </div>
+      </a>
+      <a href="project.html?project=fintech-payments-app" class="portfolio-card in-view" data-category="Mobile Apps" style="opacity:1; transform:none;">
+        <div class="portfolio-thumb"><img src="images/illustrations/project-fintech-app.jpg" alt="Fintech Payments App" loading="lazy"></div>
+        <div class="portfolio-info">
+          <h4>Fintech Payments App</h4>
+          <p>Secure peer-to-peer payments app with instant transfers and fraud checks.</p>
+          <div class="tag-row"><span class="tag">Mobile App</span><span class="tag">Flutter</span></div>
+        </div>
+      </a>
+      <a href="project.html?project=logistics-tracking-platform" class="portfolio-card in-view" data-category="Cloud & DevOps" style="opacity:1; transform:none;">
+        <div class="portfolio-thumb"><img src="images/illustrations/project-logistics.jpg" alt="Logistics Tracking Platform" loading="lazy"></div>
+        <div class="portfolio-info">
+          <h4>Logistics Tracking Platform</h4>
+          <p>Fleet and shipment tracking system with live maps and delivery alerts.</p>
+          <div class="tag-row"><span class="tag">Web App</span><span class="tag">Cloud</span></div>
+        </div>
+      </a>
+      <a href="project.html?project=telehealth-booking-app" class="portfolio-card in-view" data-category="UI/UX" style="opacity:1; transform:none;">
+        <div class="portfolio-thumb"><img src="images/illustrations/project-telehealth.jpg" alt="Telehealth Booking App" loading="lazy"></div>
+        <div class="portfolio-info">
+          <h4>Telehealth Booking App</h4>
+          <p>Appointment booking and video consultation app for a healthcare network.</p>
+          <div class="tag-row"><span class="tag">Mobile App</span><span class="tag">UI/UX</span></div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: FEATURED CASE STUDY (rendered dynamically) -->
+<section class="featured-case">
+  <div class="wrap fc-inner" id="featuredCaseContainer"></div>
+</section>
+
+<!-- SECTION 4: TESTIMONIAL SPOTLIGHT (rendered dynamically) -->
+<section class="spotlight">
+  <div class="wrap">
+    <div class="spotlight-card" id="spotlightContainer"></div>
+  </div>
+</section>
+
+<!-- SECTION 5: CTA -->
+<div class="cta-outer">
+  <div class="cta-band">
+    <div class="cta-content">
+      <span class="eyebrow">Let's Build Together</span>
+      <h3>Want Results Like These for Your Business?</h3>
+      <p>Tell us about your project and let's map out what a great launch looks like for you.</p>
+    </div>
+    <a href="contact.html" class="btn btn-primary">Start a Project
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+</div>
+
+</main>
+<div id="site-footer"></div>
+<script>ZyanixLayout.renderFooter();</script>
+
+<script src="theme.js"></script>
+<script src="projects.js"></script>
+<script src="case-studies.js"></script>
+
+</body>
+</html>

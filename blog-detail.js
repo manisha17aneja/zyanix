@@ -1,9 +1,9 @@
 /* ============================================================
    blog-detail.js — powers the BLOG DETAIL page
-   (zyanix-blog-detail-page.html).
+   (post.html).
 
    Which article shows is decided by the URL, e.g.:
-     zyanix-blog-detail-page.html?post=onboarding-process
+     post.html?post=onboarding-process
 
    Every "Read Article" / blog card link across the site already
    links with the right ?post= slug — you only need to add new
@@ -20,6 +20,7 @@
   }
 
   function getSlugFromUrl(){
+    if(window.ZX_FIXED && window.ZX_FIXED.post) return window.ZX_FIXED.post;
     var params = new URLSearchParams(window.location.search);
     return params.get('post');
   }
@@ -45,7 +46,7 @@
     var container = document.getElementById('articleHeaderContainer');
     if(!container) return;
     container.innerHTML =
-      '<div class="crumb-row"><a href="index.html">Home</a><span>/</span><a href="zyanix-blog-page.html">Blog</a><span>/</span><span>' + post.category + '</span></div>' +
+      '<div class="crumb-row"><a href="index.html">Home</a><span>/</span><a href="blog.html">Blog</a><span>/</span><span>' + post.category + '</span></div>' +
       '<div class="tag-row">' + post.tags.map(function(t){ return '<span class="tag">' + t + '</span>'; }).join('') + '</div>' +
       '<h1>' + post.title + '</h1>' +
       '<div class="article-meta">' +
@@ -56,7 +57,23 @@
         '</div>' +
       '</div>' +
       '<div class="article-cover"><img src="' + post.cover + '" alt="' + post.title + '"></div>';
-    document.title = post.title + ' — Zyanix Blog';
+    var SEO = window.ZyanixSEO;
+    if(SEO){
+      var u = SEO.PATH.post(post.slug);
+      SEO.set({
+        title: (post.seoTitle || post.title) + ' | Zyanix Blog',
+        description: (function(){ var d = SEO.clean(post.seoDescription || post.excerpt); return d.length < 110 ? d + ' Read the full article on the Zyanix blog, written by our engineering and design team.' : d; })(),
+        path: u, type: 'article', image: post.cover,
+        ld: [
+          { '@context':'https://schema.org', '@type':'BlogPosting', headline: SEO.clean(post.title), description: SEO.clean(post.excerpt),
+            image: SEO.abs(post.cover), datePublished: post.date, dateModified: post.date, mainEntityOfPage: SEO.abs(u), url: SEO.abs(u),
+            articleSection: post.category, keywords: (post.tags || []).join(', '),
+            author: { '@type':'Person', name: post.author.name, jobTitle: post.author.role },
+            publisher: { '@id': SEO.ORG_ID }, inLanguage: 'en' },
+          SEO.breadcrumbs([['Home','index.html'],['Blog','blog.html'],[post.title, u]])
+        ]
+      });
+    } else { document.title = post.title + ' — Zyanix Blog'; }
   }
 
   function renderBody(post){
@@ -97,7 +114,7 @@
 
   function relatedCardHTML(post){
     return (
-      '<a href="zyanix-blog-detail-page.html?post=' + encodeURIComponent(post.slug) + '" class="blog-card">' +
+      '<a href="post.html?post=' + post.slug + '" class="blog-card">' +
         '<div class="blog-thumb"><img src="' + post.thumb + '" alt="' + post.title + '" loading="lazy"></div>' +
         '<div class="blog-body">' +
           '<div class="tag-row"><span class="tag">' + post.category + '</span></div>' +
@@ -117,13 +134,14 @@
   }
 
   function renderNotFound(){
+    if(window.ZyanixSEO) window.ZyanixSEO.noindex('Article not found — Zyanix');
     var header = document.getElementById('articleHeaderContainer');
     if(header){
       header.innerHTML =
         '<div style="text-align:center; padding:40px 0;">' +
           '<h1 style="font-size:1.8rem; margin-bottom:14px;">Article not found</h1>' +
           '<p style="color:var(--text-secondary); margin-bottom:24px;">This post may have been moved or the link is missing its <code>?post=</code> slug.</p>' +
-          '<a href="zyanix-blog-page.html" class="btn btn-primary">Back to Blog</a>' +
+          '<a href="blog.html" class="btn btn-primary">Back to Blog</a>' +
         '</div>';
     }
   }

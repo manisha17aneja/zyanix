@@ -124,6 +124,8 @@
     if(!el){ el = document.createElement('style'); el.id = 'zx-palette-style'; document.head.appendChild(el); }
     el.textContent = css;
     document.documentElement.setAttribute('data-palette', key);
+    var tc = document.querySelector('meta[name="theme-color"]');
+    if(tc) tc.setAttribute('content', p.light['--orange'] || '#F1652A');
   }
 
   var current = pick();

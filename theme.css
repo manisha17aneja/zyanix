@@ -505,3 +505,32 @@ body.zx-nav-open{ overflow:hidden; }
 }
 body.zx-nav-open #zx-palette-fab, body.zx-nav-open .zx-contact-tab{ display:none; }
 @media (min-width:521px){ header .nav-links .nav-cta-mobile{ display:none; } }
+
+.skip-link{ position:absolute; left:-9999px; top:8px; z-index:1000; background:var(--orange); color:#fff; padding:10px 16px; border-radius:8px; font-weight:700; }
+.skip-link:focus{ left:12px; }
+main:focus{ outline:none; }
+
+/* ============================================================
+   FIX 4 — Bigger mega menus that scale with screen size (desktop only)
+   ============================================================ */
+@media (min-width: 1101px){
+  .nav-links .mega-menu{ width:min(1280px, 94vw); }
+  .nav-links .mega-menu--industries{ width:min(1100px, 92vw); }
+  .mega-menu-inner{ grid-template-columns:clamp(260px, 24vw, 340px) 1fr; border-radius:20px; }
+  .mega-promo{ padding:clamp(32px, 3vw, 48px) clamp(28px, 2.6vw, 42px); }
+  .mega-promo h4{ font-size:clamp(1.15rem, 1.5vw, 1.5rem); }
+  .mega-promo p{ font-size:clamp(.85rem, .95vw, 1rem); }
+  .mega-links{ grid-template-columns:repeat(3, 1fr); gap:clamp(20px, 2.4vw, 40px); padding:clamp(32px, 3vw, 48px) clamp(28px, 3vw, 48px); }
+  .mega-col h5{ font-size:clamp(.75rem, .8vw, .85rem); margin-bottom:18px; }
+  .mega-col ul{ gap:clamp(12px, 1vw, 16px); }
+  .mega-col a{ font-size:clamp(.86rem, .95vw, 1rem); }
+  .mega-menu-inner--industries{ padding:clamp(28px, 2.6vw, 44px) clamp(30px, 3vw, 48px); }
+  .industries-grid{ grid-template-columns:repeat(3, 1fr); gap:clamp(10px, 1vw, 16px); }
+  .industry-card{ padding:clamp(12px, 1vw, 18px); }
+  .industry-icon{ width:clamp(38px, 3vw, 48px); height:clamp(38px, 3vw, 48px); }
+  .industry-text strong{ font-size:clamp(.86rem, .95vw, 1rem); }
+  .industry-text span{ font-size:clamp(.76rem, .82vw, .88rem); }
+}
+@media (min-width: 1101px) and (max-width: 1280px){
+  .industries-grid{ grid-template-columns:repeat(2, 1fr); }
+}

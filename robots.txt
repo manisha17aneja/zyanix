@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /_source-svg/
+Disallow: /tools/
+
+Sitemap: https://www.zyanix.com/sitemap.xml

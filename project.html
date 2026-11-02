@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --orange:#F1652A; --orange-dark:#d9541f; --orange-soft:#FDE6DA;
+    --bg:#F7F3EC; --bg-alt:#F1ECE3; --card-bg:#FFFFFF;
+    --text-primary:#1E1B18; --text-secondary:#5B564F; --text-muted:#8A8478;
+    --border:#E7E0D5; --nav-bg:rgba(247,243,236,0.9);
+    --shadow: 0 10px 30px rgba(30,27,24,0.06); --icon-bg:#FBE7DC;
+    --footer-bg:#1B1815; --footer-text:#CFC9C0; --dark-panel:#14110F;
+  }
+  [data-theme="dark"]{
+    --bg:#0E0C0A; --bg-alt:#141110; --card-bg:#1A1613;
+    --text-primary:#F5F1EA; --text-secondary:#B6AFA5; --text-muted:#847D72;
+    --border:#2A2521; --nav-bg:rgba(14,12,10,0.85);
+    --shadow: 0 10px 30px rgba(0,0,0,0.5); --icon-bg:#2A1D14;
+    --footer-bg:#0A0908; --footer-text:#B6AFA5; --dark-panel:#0A0908;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background:var(--bg); color:var(--text-primary); transition:background .3s ease, color .3s ease; -webkit-font-smoothing:antialiased; overflow-x:hidden;}
+  img{max-width:100%; display:block;}
+  a{color:inherit; text-decoration:none;}
+  ul{list-style:none;}
+  .wrap{width:100%; max-width:1800px; margin:0 auto; padding:0 clamp(24px, 5vw, 90px);}
+  section{position:relative;}
+  .btn{display:inline-flex; align-items:center; gap:8px; font-weight:600; font-size:.95rem; padding:13px 24px; border-radius:8px; border:1px solid transparent; cursor:pointer; transition:transform .15s ease, box-shadow .15s ease, background .2s ease, border-color .2s ease; white-space:nowrap;}
+  .btn:active{transform:translateY(1px);}
+  .btn-primary{background:var(--orange); color:#fff;}
+  .btn-primary:hover{background:var(--orange-dark); box-shadow:0 8px 20px rgba(var(--accent-rgb),0.35);}
+  .btn-outline{background:transparent; color:var(--text-primary); border-color:var(--border);}
+  .btn-outline:hover{border-color:var(--orange); color:var(--orange);}
+  .btn svg{width:16px; height:16px; flex-shrink:0;}
+  header{position:sticky; top:0; z-index:100; background:var(--nav-bg); backdrop-filter:blur(10px); border-bottom:1px solid var(--border);}
+  .nav{display:flex; align-items:center; justify-content:space-between; padding:18px 0;}
+  .logo{display:flex; align-items:center; gap:8px; font-weight:800; font-size:1.25rem;}
+  .logo-mark{width:32px; height:32px; border-radius:8px; background:var(--orange); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:1.1rem;}
+  .nav-links{display:flex; align-items:center; gap:30px;}
+  .nav-links a{font-size:.95rem; font-weight:500; color:var(--text-secondary); position:relative; padding-bottom:6px; transition:color .2s ease;}
+  .nav-links a:hover{color:var(--text-primary);}
+  .nav-links a.active{color:var(--orange);}
+  .nav-links a.active::after{content:''; position:absolute; left:0; right:0; bottom:-2px; height:2px; background:var(--orange); border-radius:2px;}
+  .nav-right{display:flex; align-items:center; gap:16px;}
+  .theme-toggle{width:44px; height:44px; border-radius:50%; border:1px solid var(--border); background:var(--card-bg); display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; transition:border-color .2s ease, transform .2s ease;}
+  .theme-toggle:hover{border-color:var(--orange); transform:rotate(15deg);}
+  .theme-toggle svg{width:20px; height:20px; stroke:var(--text-primary);}
+  .theme-toggle .sun{display:none;}
+  [data-theme="dark"] .theme-toggle .sun{display:block;}
+  [data-theme="dark"] .theme-toggle .moon{display:none;}
+  .menu-toggle{display:none; background:none; border:none; cursor:pointer; padding:4px;}
+  .menu-toggle svg{width:26px; height:26px; stroke:var(--text-primary);}
+  .section-head{text-align:center; max-width:640px; margin:0 auto 50px;}
+  .eyebrow{color:var(--orange); font-weight:700; font-size:.82rem; letter-spacing:.02em; margin-bottom:10px; display:block;}
+  .section-head h2{font-size:2.2rem; font-weight:800; letter-spacing:-0.01em; margin-bottom:14px;}
+  .section-head h2 .accent{color:var(--orange);}
+  .section-head p{color:var(--text-secondary); line-height:1.7; font-size:1rem;}
+  .crumb-row{display:flex; justify-content:center; gap:10px; font-size:.85rem; color:var(--text-muted); margin-bottom:18px; flex-wrap:wrap;}
+  .crumb-row a{color:var(--orange); font-weight:600;}
+  .tag-row{display:flex; gap:8px; flex-wrap:wrap; justify-content:center;}
+  .tag{font-size:.72rem; font-weight:600; padding:4px 10px; border-radius:20px; background:var(--icon-bg); color:var(--orange-dark);}
+  [data-theme="dark"] .tag{color:var(--accent-light);}
+
+  /* SECTION 1: Project header */
+  .article-header{padding:50px 0 0; text-align:center;}
+  .article-header h1{
+    font-size:2.6rem; font-weight:800; line-height:1.25; letter-spacing:-0.01em;
+    max-width:880px; margin:18px auto 14px;
+  }
+  .client-name{color:var(--text-secondary); font-size:1.05rem; font-weight:600; margin-bottom:26px;}
+  .article-cover{max-width:1100px; margin:0 auto; border-radius:18px; overflow:hidden; border:1px solid var(--border); box-shadow:var(--shadow);}
+  .article-cover img{width:100%; height:auto; object-fit:contain; background:var(--icon-bg);}
+
+  /* SECTION 2: Results strip */
+  .results-strip{padding:50px 0 10px;}
+  .results-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px; max-width:800px; margin:0 auto;}
+  .result-item{background:var(--card-bg); border:1px solid var(--border); border-radius:14px; padding:26px 10px; text-align:center;}
+  .result-item .num{font-size:1.8rem; font-weight:800; color:var(--orange);}
+  .result-item .lbl{font-size:.85rem; color:var(--text-secondary); margin-top:6px;}
+
+  /* SECTION 3: Article body */
+  .article-body-section{padding:50px 0 90px;}
+  .article-layout{display:grid; grid-template-columns:0.7fr 2.3fr; gap:60px; max-width:1100px; margin:0 auto;}
+  .article-toc{position:sticky; top:100px; align-self:start;}
+  .article-toc h5{font-size:.8rem; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--text-muted); margin-bottom:14px;}
+  .article-toc ul{display:flex; flex-direction:column; gap:10px;}
+  .article-toc a{font-size:.86rem; color:var(--text-secondary); border-left:2px solid var(--border); padding-left:14px; transition:color .2s ease, border-color .2s ease;}
+  .article-toc a:hover{color:var(--orange); border-color:var(--orange);}
+  .article-content{font-size:1.02rem; line-height:1.85; color:var(--text-secondary);}
+  .article-content h2{font-size:1.5rem; font-weight:800; color:var(--text-primary); margin:38px 0 16px;}
+  .article-content p{margin-bottom:22px;}
+  .article-content ul{list-style:disc; padding-left:22px; margin-bottom:22px; display:flex; flex-direction:column; gap:8px;}
+  .article-content img{border-radius:14px; margin:30px 0; width:100%; height:auto; object-fit:contain; border:1px solid var(--border); background:var(--icon-bg);}
+  .pull-quote{
+    border-left:3px solid var(--orange); background:var(--bg-alt); border-radius:0 12px 12px 0;
+    padding:22px 26px; margin:30px 0; font-size:1.1rem; font-weight:600; color:var(--text-primary); font-style:italic;
+  }
+  .share-row{display:flex; align-items:center; gap:12px; margin-top:40px; padding-top:26px; border-top:1px solid var(--border);}
+  .share-row span{font-size:.85rem; font-weight:700; color:var(--text-secondary);}
+  .share-row a{width:38px; height:38px; border-radius:50%; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; transition:border-color .2s ease;}
+  .share-row a:hover{border-color:var(--orange);}
+  .share-row svg{width:16px; height:16px; stroke:var(--text-secondary);}
+
+  /* SECTION 4: Testimonial spotlight */
+  .spotlight{background:var(--bg-alt); padding:70px 0;}
+  .spotlight-card{
+    max-width:800px; margin:0 auto; text-align:center; background:var(--card-bg);
+    border:1px solid var(--border); border-radius:18px; padding:44px 40px;
+  }
+  .spotlight-quote{color:var(--orange); font-size:2.6rem; font-weight:800; line-height:1; margin-bottom:12px; display:block;}
+  .spotlight-card p{font-size:1.1rem; line-height:1.7; color:var(--text-primary); font-weight:500; margin-bottom:24px;}
+  .spotlight-author{display:flex; align-items:center; justify-content:center; gap:14px;}
+  .spotlight-author img{width:50px; height:50px; border-radius:50%; object-fit:cover; border:2px solid var(--border);}
+  .sa-name{font-weight:700; font-size:.92rem;}
+  .sa-role{font-size:.8rem; color:var(--text-muted);}
+
+  /* SECTION 5: Related projects */
+  .related-posts{padding:90px 0;}
+  .related-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:26px;}
+  .blog-card{background:var(--card-bg); border:1px solid var(--border); border-radius:16px; overflow:hidden; transition:transform .2s ease, box-shadow .2s ease;}
+  .blog-card:hover{transform:translateY(-5px); box-shadow:var(--shadow);}
+  .blog-thumb{height:190px; overflow:hidden;}
+  .blog-thumb img{width:100%; /*height:100%;*/ object-fit:cover; transition:transform .35s ease; background:var(--icon-bg);}
+  .blog-card:hover .blog-thumb img{transform:scale(1.07);}
+  .blog-body{padding:20px;}
+  .blog-body .tag-row{justify-content:flex-start; margin-bottom:12px;}
+  .blog-body h4{font-size:1rem; font-weight:700; line-height:1.4;}
+
+  /* SECTION 6: CTA */
+  .cta-outer{padding:0 clamp(24px, 5vw, 90px) 90px;}
+  .cta-band{max-width:1800px; margin:0 auto; border-radius:20px; background:var(--dark-panel); padding:54px 60px; display:flex; align-items:center; justify-content:space-between; gap:30px; flex-wrap:wrap; position:relative; overflow:hidden;}
+  .cta-band::after{content:''; position:absolute; right:-60px; bottom:-60px; width:260px; height:260px; background:radial-gradient(circle, rgba(var(--accent-rgb),0.5), transparent 70%);}
+  .cta-band .eyebrow{color:var(--accent-light);}
+  .cta-band h3{color:#fff; font-size:1.8rem; font-weight:800; margin-bottom:10px;}
+  .cta-band p{color:#C9C3B8; font-size:.95rem;}
+  .cta-content{position:relative; z-index:1; max-width:560px;}
+  .cta-band .btn{position:relative; z-index:1;}
+
+  footer{background:var(--footer-bg); color:var(--footer-text); padding:44px 0 26px;}
+  .footer-inner{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px; padding-bottom:26px; border-bottom:1px solid rgba(255,255,255,0.08);}
+  .footer-logo{display:flex; align-items:center; gap:8px; font-weight:800; font-size:1.15rem; color:#fff;}
+  .footer-links{display:flex; gap:22px; flex-wrap:wrap;}
+  .footer-links a{font-size:.88rem; color:var(--footer-text); transition:color .2s ease;}
+  .footer-links a:hover{color:#fff;}
+  .footer-social{display:flex; gap:14px;}
+  .footer-social a{width:36px; height:36px; border-radius:50%; border:1px solid rgba(255,255,255,0.12); display:flex; align-items:center; justify-content:center;}
+  .footer-social svg{width:16px; height:16px; stroke:var(--footer-text);}
+  .footer-bottom{display:flex; justify-content:space-between; padding-top:20px; font-size:.8rem; color:var(--text-muted); flex-wrap:wrap; gap:10px;}
+
+  @media (max-width: 1180px){ .related-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width: 980px){
+    .nav-links{display:none;} .menu-toggle{display:flex;}
+    .article-layout{grid-template-columns:1fr;}
+    .article-toc{position:static; margin-bottom:20px;}
+    .article-header h1{font-size:1.9rem;}
+    .article-cover img{height:auto;}
+    .results-grid{grid-template-columns:1fr; max-width:320px;}
+  }
+  @media (max-width: 640px){
+    .related-grid{grid-template-columns:1fr;}
+    .cta-band{flex-direction:column; align-items:flex-start; padding:34px 26px;}
+    .footer-inner, .footer-bottom{flex-direction:column; align-items:flex-start;}
+  }
+</style>
+<link rel="stylesheet" href="theme.css">
+<script src="industries.js"></script>
+<script src="services.js"></script>
+<script src="seo.js"></script>
+<script src="layout.js"></script>
+<script src="palettes.js"></script>
+<!--SEO:START-->
+<title>Case Study | Zyanix</title>
+<meta name="description" content="Read how Zyanix helped clients launch successful digital products, with results, timelines and technology details.">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta property="og:site_name" content="Zyanix">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Case Study | Zyanix">
+<meta property="og:description" content="Read how Zyanix helped clients launch successful digital products, with results, timelines and technology details.">
+<meta property="og:image" content="https://www.zyanix.com/images/og-default.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Case Study | Zyanix">
+<meta name="twitter:description" content="Read how Zyanix helped clients launch successful digital products, with results, timelines and technology details.">
+<meta name="twitter:image" content="https://www.zyanix.com/images/og-default.jpg">
+<meta name="theme-color" content="#F1652A">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- title, description, canonical, Open Graph and JSON-LD for the item being shown are filled in by seo.js -->
+<!--SEO:END-->
+</head>
+<body data-theme="light">
+
+<div id="site-header"></div>
+<script>ZyanixLayout.renderHeader('case-studies');</script>
+<!--ZXNAV:START-->
+<noscript><nav aria-label="Site"><ul><li><a href="index.html">Home</a></li><li><a href="services.html">Services</a></li><li><a href="industries.html">Industries</a></li><li><a href="technologies.html">Technologies</a></li><li><a href="case-studies.html">Case Studies</a></li><li><a href="blog.html">Blog</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></nav></noscript>
+<!--ZXNAV:END-->
+<main>
+
+<!-- SECTION 1: PROJECT HEADER (rendered dynamically from projects.js) -->
+<section class="article-header">
+  <div class="wrap" id="projectHeaderContainer">
+    <p style="text-align:center; color:var(--text-muted);">Loading case study…</p>
+  </div>
+</section>
+
+<!-- SECTION 2: RESULTS STRIP (rendered dynamically) -->
+<section class="results-strip">
+  <div class="wrap">
+    <div class="results-grid" id="resultsContainer"></div>
+  </div>
+</section>
+
+<!-- SECTION 3: ARTICLE BODY (rendered dynamically) -->
+<section class="article-body-section">
+  <div class="wrap">
+    <div class="article-layout" id="articleBodyContainer"></div>
+  </div>
+</section>
+
+<!-- SECTION 4: TESTIMONIAL SPOTLIGHT (rendered dynamically) -->
+<section class="spotlight">
+  <div class="wrap">
+    <div class="spotlight-card" id="spotlightContainer"></div>
+  </div>
+</section>
+
+<!-- SECTION 5: RELATED PROJECTS (rendered dynamically) -->
+<section class="related-posts">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">More Work</span>
+      <h2>Related <span class="accent">Case Studies</span></h2>
+      <p>More projects from the Zyanix portfolio.</p>
+    </div>
+    <div class="related-grid" id="relatedProjectsContainer"></div>
+  </div>
+</section>
+
+<!-- SECTION 6: CTA -->
+<div class="cta-outer">
+  <div class="cta-band">
+    <div class="cta-content">
+      <span class="eyebrow">Let's Build Together</span>
+      <h3>Want Results Like These for Your Business?</h3>
+      <p>Tell us about your project and let's map out what a great launch looks like for you.</p>
+    </div>
+    <a href="contact.html" class="btn btn-primary">Start a Project
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+</div>
+
+</main>
+<div id="site-footer"></div>
+<script>ZyanixLayout.renderFooter();</script>
+
+<script src="theme.js"></script>
+<script src="projects.js"></script>
+<script src="project-detail.js"></script>
+</body>
+</html>

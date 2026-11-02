@@ -1,6 +1,6 @@
 /* ============================================================
    case-studies.js — powers the Case Studies listing page
-   (zyanix-case-studies-page.html).
+   (case-studies.html).
 
    All project data comes from projects.js (window.ZYANIX_PROJECTS)
    — add, edit, or remove a project there and this page updates
@@ -11,7 +11,7 @@
 (function(){
   function portfolioCardHTML(project){
     return (
-      '<a href="zyanix-project-detail-page.html?project=' + encodeURIComponent(project.slug) + '" class="portfolio-card" data-category="' + project.category + '">' +
+      '<a href="project.html?project=' + project.slug + '" class="portfolio-card in-view" data-category="' + project.category + '" style="opacity:1; transform:none;">' +
         '<div class="portfolio-thumb"><img src="' + project.thumb + '" alt="' + project.name + '" loading="lazy"></div>' +
         '<div class="portfolio-info">' +
           '<h4>' + project.name + '</h4>' +
@@ -32,7 +32,7 @@
         '<div class="fc-results">' +
           project.results.map(function(r){ return '<div class="fc-result"><div class="num">' + r.value + '</div><div class="lbl">' + r.label + '</div></div>'; }).join('') +
         '</div>' +
-        '<a href="zyanix-project-detail-page.html?project=' + encodeURIComponent(project.slug) + '" class="btn btn-primary">Read Full Case Study ' +
+        '<a href="project.html?project=' + project.slug + '" class="btn btn-primary">Read Full Case Study ' +
           '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>' +
         '</a>' +
       '</div>'
@@ -81,6 +81,11 @@
       gridContainer.innerHTML = rest.map(portfolioCardHTML).join('');
       var tabs = document.querySelectorAll('.filter-tab');
       var cards = gridContainer.querySelectorAll('.portfolio-card');
+      cards.forEach(function(c){
+        c.classList.add('in-view');
+        c.style.opacity = '1';
+        c.style.transform = 'none';
+      });
       tabs.forEach(function(tab){
         tab.addEventListener('click', function(){
           tabs.forEach(function(t){ t.classList.remove('active'); });
@@ -89,6 +94,11 @@
           cards.forEach(function(card){
             var show = (filter === 'All Projects') || (card.getAttribute('data-category') === filter);
             card.style.display = show ? '' : 'none';
+            if(show){
+              card.classList.add('in-view');
+              card.style.opacity = '1';
+              card.style.transform = 'none';
+            }
           });
         });
       });

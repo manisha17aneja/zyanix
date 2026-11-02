@@ -1,0 +1,814 @@
+/* ============================================================
+   project-layouts.css — Custom Distinct Layout Formats
+   for each Zyanix Case Study Detail Page.
+   ============================================================ */
+
+/* Common Badges & UI Elements */
+.layout-badge-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.badge-live-pulse {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(16, 185, 129, 0.12);
+  color: #10B981;
+  font-weight: 700;
+  font-size: 0.78rem;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.badge-live-pulse::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  animation: pulse-ring 1.8s infinite cubic-bezier(0.66, 0, 0, 1);
+}
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+.badge-tag-special {
+  display: inline-flex;
+  align-items: center;
+  background: var(--icon-bg);
+  color: var(--orange-dark);
+  font-weight: 700;
+  font-size: 0.78rem;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+}
+[data-theme="dark"] .badge-tag-special {
+  color: var(--accent-light);
+}
+
+.live-action-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin: 24px 0 34px;
+}
+.btn-live-ext {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--orange);
+  color: #fff !important;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 13px 26px;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(241, 101, 42, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-live-ext:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(241, 101, 42, 0.45);
+}
+.btn-secondary-ext {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--card-bg);
+  color: var(--text-primary) !important;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 13px 24px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.btn-secondary-ext:hover {
+  border-color: var(--orange);
+  color: var(--orange) !important;
+}
+
+/* ============================================================
+   ARCHETYPE 1: SAAS-OS (AutoFlow CRM)
+   ============================================================ */
+.saas-os-hero {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.saas-os-tabs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 20px 0 16px;
+  flex-wrap: wrap;
+}
+.saas-tab-btn {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  padding: 9px 18px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.saas-tab-btn:hover,
+.saas-tab-btn.active {
+  background: var(--orange);
+  color: #fff;
+  border-color: var(--orange);
+}
+.saas-preview-frame {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+  background: var(--card-bg);
+}
+.saas-preview-frame img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.saas-browser-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 18px;
+  background: var(--bg-alt);
+  border-bottom: 1px solid var(--border);
+}
+.saas-browser-dots {
+  display: flex;
+  gap: 6px;
+}
+.saas-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.saas-dot.r { background: #FF5F56; }
+.saas-dot.y { background: #FFBD2E; }
+.saas-dot.g { background: #27C93F; }
+.saas-browser-url {
+  flex: 1;
+  background: var(--card-bg);
+  border-radius: 6px;
+  padding: 4px 14px;
+  font-size: 0.78rem;
+  font-family: monospace;
+  color: var(--text-muted);
+  text-align: center;
+  border: 1px solid var(--border);
+}
+
+.saas-results-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.saas-result-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px 18px;
+  text-align: center;
+  position: relative;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.saas-result-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--orange);
+}
+.saas-result-card .delta-badge {
+  display: inline-block;
+  background: rgba(241, 101, 42, 0.12);
+  color: var(--orange);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+.saas-result-card .value {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--orange);
+  line-height: 1.1;
+}
+.saas-result-card .label {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-top: 8px;
+}
+.saas-result-card .sub {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* Feature Matrix for SaaS-OS */
+.saas-matrix-section {
+  margin: 40px 0;
+  padding: 34px;
+  border-radius: 18px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+}
+.saas-matrix-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.saas-matrix-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+.saas-matrix-item {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px;
+}
+.saas-matrix-item h4 {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+.saas-matrix-item p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0 !important;
+}
+
+/* ============================================================
+   ARCHETYPE 2: E-COMMERCE STORE (LuxeStore)
+   ============================================================ */
+.ecom-hero-badge-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.ecom-speed-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(16, 185, 129, 0.1);
+  color: #10B981;
+  font-weight: 700;
+  font-size: 0.82rem;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.ecom-comparison-box {
+  max-width: 1000px;
+  margin: 30px auto;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.ecom-comp-head {
+  padding: 18px 24px;
+  background: var(--bg-alt);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.ecom-comp-head h3 {
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+.ecom-comp-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.ecom-comp-table th,
+.ecom-comp-table td {
+  padding: 16px 22px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.9rem;
+}
+.ecom-comp-table th {
+  background: var(--card-bg);
+  font-weight: 700;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.ecom-comp-table tr:last-child td {
+  border-bottom: none;
+}
+.ecom-comp-table .bad {
+  color: #EF4444;
+  font-weight: 600;
+}
+.ecom-comp-table .good {
+  color: #10B981;
+  font-weight: 700;
+}
+.ecom-comp-table .gain {
+  background: rgba(16, 185, 129, 0.1);
+  color: #10B981;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+/* ============================================================
+   ARCHETYPE 3: EDTECH FUNNEL (EduLead)
+   ============================================================ */
+.funnel-hero-banner {
+  background: linear-gradient(135deg, rgba(2, 132, 199, 0.08), rgba(79, 70, 229, 0.08));
+  border: 1px solid rgba(2, 132, 199, 0.2);
+  border-radius: 16px;
+  padding: 22px 28px;
+  max-width: 900px;
+  margin: 20px auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.funnel-hero-left h4 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+.funnel-hero-left p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+.funnel-hero-badge {
+  background: #0284C7;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 8px 16px;
+  border-radius: 8px;
+}
+
+.funnel-steps-container {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 30px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+}
+.funnel-steps-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin-bottom: 24px;
+  text-align: center;
+}
+.funnel-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  position: relative;
+}
+.funnel-step-card {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  position: relative;
+  text-align: center;
+}
+.funnel-step-card .num-badge {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #0284C7;
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 10px;
+}
+.funnel-step-card .name {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+.funnel-step-card .metric {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #0284C7;
+  margin-bottom: 6px;
+}
+.funnel-step-card .desc {
+  font-size: 0.74rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* ============================================================
+   ARCHETYPE 4: TWO-SIDED MARKETPLACE (Auto Marketplace)
+   ============================================================ */
+.twoside-hero-tag {
+  background: rgba(241, 101, 42, 0.12);
+  color: var(--orange);
+  font-weight: 700;
+  font-size: 0.82rem;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+}
+.twoside-section {
+  max-width: 1100px;
+  margin: 40px auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 26px;
+}
+.twoside-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 30px;
+  position: relative;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.twoside-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--orange);
+}
+.twoside-card-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.twoside-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: var(--icon-bg);
+  color: var(--orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+.twoside-card h3 {
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+.twoside-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.twoside-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+.twoside-list li::before {
+  content: '✓';
+  color: var(--orange);
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+
+/* ============================================================
+   ARCHETYPE 5: MOBILE APP FRAME (PulseFit)
+   ============================================================ */
+.mobile-hero-frame {
+  max-width: 380px;
+  margin: 30px auto;
+  border: 12px solid #1E1B18;
+  border-radius: 46px;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.22);
+  background: #000;
+  position: relative;
+}
+.mobile-notch {
+  width: 140px;
+  height: 22px;
+  background: #1E1B18;
+  border-radius: 0 0 14px 14px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+.mobile-hero-frame img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.mobile-features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 1000px;
+  margin: 40px auto;
+}
+.mobile-feature-box {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  transition: transform 0.2s ease;
+}
+.mobile-feature-box:hover {
+  transform: translateY(-3px);
+  border-color: #8B5CF6;
+}
+.mobile-feature-box h4 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+.mobile-feature-box p {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0 !important;
+}
+
+/* ============================================================
+   ARCHETYPE 6: DATA PIPELINE DASHBOARD (BrightPath)
+   ============================================================ */
+.data-sources-matrix {
+  max-width: 1100px;
+  margin: 40px auto;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 30px;
+}
+.data-sources-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.data-sources-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.data-source-pill {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+}
+.data-source-pill .head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+.data-source-pill .name {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+.data-source-pill .status {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #10B981;
+  background: rgba(16, 185, 129, 0.12);
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+.data-source-pill .tools {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+.data-source-pill .cadence {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+}
+
+/* ============================================================
+   ARCHETYPE 7: FINTECH SECURITY (PayLoop)
+   ============================================================ */
+.security-tiers-container {
+  max-width: 1000px;
+  margin: 40px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.security-tier-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px 28px;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 24px;
+  align-items: center;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.security-tier-card:hover {
+  transform: translateX(6px);
+  border-color: #4338CA;
+}
+.security-tier-name {
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #4338CA;
+}
+.security-tier-tech {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-top: 4px;
+}
+.security-tier-desc {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+/* ============================================================
+   ARCHETYPE 8: LOGISTICS FLEET (RouteWise)
+   ============================================================ */
+.telematics-timeline {
+  max-width: 1050px;
+  margin: 40px auto;
+  position: relative;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 32px;
+}
+.telematics-timeline-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin-bottom: 24px;
+}
+.telematics-steps-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+}
+.telematics-step-box {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+}
+.telematics-step-num {
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: #F59E0B;
+  background: rgba(245, 158, 11, 0.12);
+  padding: 3px 8px;
+  border-radius: 6px;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+.telematics-phase {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+.telematics-detail {
+  font-size: 0.74rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+/* ============================================================
+   ARCHETYPE 9: HEALTHTECH CARE JOURNEY (CareConnect)
+   ============================================================ */
+.patient-journey-section {
+  max-width: 1050px;
+  margin: 40px auto;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 32px;
+}
+.patient-journey-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin-bottom: 24px;
+  text-align: center;
+}
+.patient-journey-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.patient-journey-card {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.patient-journey-card:hover {
+  transform: translateY(-4px);
+  border-color: #0D9488;
+}
+.patient-journey-card .step-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #0D9488;
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12px;
+}
+.patient-journey-card .stage {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+.patient-journey-card .desc {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .saas-results-grid { grid-template-columns: repeat(2, 1fr); }
+  .funnel-steps-grid { grid-template-columns: repeat(2, 1fr); }
+  .data-sources-grid { grid-template-columns: repeat(2, 1fr); }
+  .telematics-steps-row { grid-template-columns: repeat(2, 1fr); }
+  .patient-journey-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .saas-results-grid { grid-template-columns: 1fr; }
+  .saas-matrix-grid { grid-template-columns: 1fr; }
+  .twoside-section { grid-template-columns: 1fr; }
+  .mobile-features-grid { grid-template-columns: 1fr; }
+  .data-sources-grid { grid-template-columns: 1fr; }
+  .security-tier-card { grid-template-columns: 1fr; gap: 8px; }
+  .funnel-steps-grid { grid-template-columns: 1fr; }
+  .telematics-steps-row { grid-template-columns: 1fr; }
+  .patient-journey-grid { grid-template-columns: 1fr; }
+}
