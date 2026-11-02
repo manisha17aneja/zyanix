@@ -793,26 +793,6 @@
   line-height: 1.5;
 }
 
-/* Responsive adjustments */
-@media (max-width: 1024px) {
-  .saas-results-grid { grid-template-columns: repeat(2, 1fr); }
-  .funnel-steps-grid { grid-template-columns: repeat(2, 1fr); }
-  .data-sources-grid { grid-template-columns: repeat(2, 1fr); }
-  .telematics-steps-row { grid-template-columns: repeat(2, 1fr); }
-  .patient-journey-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 768px) {
-  .saas-results-grid { grid-template-columns: 1fr; }
-  .saas-matrix-grid { grid-template-columns: 1fr; }
-  .twoside-section { grid-template-columns: 1fr; }
-  .mobile-features-grid { grid-template-columns: 1fr; }
-  .data-sources-grid { grid-template-columns: 1fr; }
-  .security-tier-card { grid-template-columns: 1fr; gap: 8px; }
-  .funnel-steps-grid { grid-template-columns: 1fr; }
-  .telematics-steps-row { grid-template-columns: 1fr; }
-  .patient-journey-grid { grid-template-columns: 1fr; }
-}
-
 /* ============================================================
    Enhanced Case Study Content Blocks
    ============================================================ */
@@ -821,7 +801,7 @@
   border-left: 4px solid var(--orange);
   border-radius: 0 14px 14px 0;
   padding: 22px 26px;
-  margin: 30px 0;
+  margin: 28px 0;
 }
 .project-callout h4 {
   font-size: 1.05rem;
@@ -837,7 +817,7 @@
 }
 
 .project-timeline-grid {
-  margin: 30px 0;
+  margin: 28px 0;
   display: grid;
   gap: 16px;
 }
@@ -859,7 +839,7 @@
 .project-tech-grid {
   margin: 28px 0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
   gap: 16px;
 }
 .project-tech-grid > div {
@@ -873,4 +853,242 @@
 .project-tech-grid > div:hover {
   transform: translateY(-3px);
   border-color: var(--orange);
+}
+
+.project-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 28px 0;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--card-bg);
+  box-shadow: var(--shadow);
+}
+.project-table-wrapper table {
+  width: 100%;
+  min-width: 540px;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+.project-table-wrapper th,
+.project-table-wrapper td {
+  padding: 14px 18px;
+  text-align: left;
+}
+
+/* ============================================================
+   Comprehensive Responsive Adjustments (Desktop, Tablet, Mobile)
+   ============================================================ */
+@media (max-width: 1024px) {
+  .saas-results-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .funnel-steps-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .data-sources-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .telematics-steps-row { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .patient-journey-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+}
+
+@media (max-width: 768px) {
+  .saas-results-grid { grid-template-columns: 1fr; gap: 12px; }
+  .saas-matrix-section { padding: 22px 18px; margin: 26px 0; border-radius: 14px; }
+  .saas-matrix-grid { grid-template-columns: 1fr; gap: 12px; }
+  .twoside-section { grid-template-columns: 1fr; gap: 18px; margin: 26px 0; }
+  .twoside-card { padding: 20px 18px; border-radius: 14px; }
+  .mobile-features-grid { grid-template-columns: 1fr; gap: 14px; margin: 26px 0; }
+  .mobile-feature-box { padding: 18px 16px; }
+  .data-sources-matrix { padding: 22px 18px; margin: 26px 0; border-radius: 14px; }
+  .data-sources-grid { grid-template-columns: 1fr; gap: 10px; }
+  .security-tiers-container { gap: 12px; margin: 26px 0; }
+  .security-tier-card { grid-template-columns: 1fr; gap: 8px; padding: 18px 16px; border-radius: 12px; }
+  .funnel-steps-container { padding: 22px 18px; margin: 26px 0; border-radius: 14px; }
+  .funnel-steps-grid { grid-template-columns: 1fr; gap: 10px; }
+  .telematics-timeline { padding: 22px 18px; margin: 26px 0; border-radius: 14px; }
+  .telematics-steps-row { grid-template-columns: 1fr; gap: 10px; }
+  .patient-journey-section { padding: 22px 18px; margin: 26px 0; border-radius: 14px; }
+  .patient-journey-grid { grid-template-columns: 1fr; gap: 10px; }
+  .ecom-comparison-box { margin: 24px auto; border-radius: 14px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .ecom-comp-table { min-width: 520px; }
+  .ecom-comp-head { padding: 14px 18px; }
+}
+
+@media (max-width: 640px) {
+  .live-action-buttons {
+    flex-direction: column;
+    width: 100%;
+    max-width: 420px;
+    margin: 18px auto 26px;
+    gap: 10px;
+  }
+  .btn-live-ext,
+  .btn-secondary-ext {
+    width: 100%;
+    justify-content: center;
+    font-size: 0.88rem;
+    padding: 12px 18px;
+    text-align: center;
+  }
+  .saas-os-tabs {
+    gap: 6px;
+    margin: 16px 0 12px;
+  }
+  .saas-tab-btn {
+    padding: 8px 12px;
+    font-size: 0.78rem;
+    flex: 1 1 calc(50% - 6px);
+    max-width: 100%;
+    text-align: center;
+  }
+  .saas-preview-frame {
+    border-radius: 12px;
+  }
+  .saas-browser-bar {
+    padding: 8px 12px;
+    gap: 6px;
+  }
+  .saas-browser-url {
+    font-size: 0.7rem;
+    padding: 3px 6px;
+    max-width: 180px;
+  }
+  .funnel-hero-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 18px 16px;
+    gap: 12px;
+    margin: 18px auto;
+  }
+  .funnel-hero-badge {
+    width: 100%;
+    text-align: center;
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
+  .funnel-step-card {
+    display: flex;
+    align-items: flex-start;
+    text-align: left;
+    gap: 12px;
+    padding: 14px;
+  }
+  .funnel-step-card .num-badge {
+    margin: 0;
+    flex-shrink: 0;
+  }
+  .mobile-hero-frame {
+    width: calc(100% - 32px);
+    max-width: 280px;
+    border-width: 8px;
+    border-radius: 34px;
+    margin: 20px auto;
+  }
+  .mobile-notch {
+    width: 90px;
+    height: 16px;
+    border-radius: 0 0 10px 10px;
+  }
+  .data-sources-title {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .telematics-step-box {
+    display: flex;
+    align-items: flex-start;
+    text-align: left;
+    gap: 12px;
+    padding: 14px;
+  }
+  .telematics-step-num {
+    margin: 0;
+    flex-shrink: 0;
+  }
+  .patient-journey-card {
+    display: flex;
+    align-items: flex-start;
+    text-align: left;
+    gap: 12px;
+    padding: 14px;
+  }
+  .patient-journey-card .step-badge {
+    margin: 0;
+    flex-shrink: 0;
+  }
+  .project-callout {
+    padding: 16px 18px;
+    margin: 20px 0;
+    border-radius: 0 10px 10px 0;
+  }
+  .project-callout h4 {
+    font-size: 0.98rem;
+  }
+  .project-callout p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  .project-timeline-grid {
+    gap: 12px;
+    margin: 22px 0;
+  }
+  .project-timeline-grid > div {
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px 14px;
+    border-radius: 12px;
+  }
+  .project-timeline-grid > div span {
+    align-self: flex-start;
+  }
+  .project-tech-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin: 20px 0;
+  }
+  .project-tech-grid > div {
+    padding: 14px 16px;
+    border-radius: 10px;
+  }
+  .badge-live-pulse,
+  .badge-tag-special {
+    font-size: 0.72rem;
+    padding: 5px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .saas-tab-btn {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+  .saas-result-card .value {
+    font-size: 1.8rem;
+  }
+  .saas-result-card .label {
+    font-size: 0.82rem;
+  }
+  .ecom-comp-table th,
+  .ecom-comp-table td {
+    padding: 10px 12px;
+    font-size: 0.78rem;
+  }
+  .twoside-card-head {
+    gap: 10px;
+  }
+  .twoside-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 0.95rem;
+  }
+  .security-tier-name {
+    font-size: 0.72rem;
+  }
+  .security-tier-tech {
+    font-size: 0.92rem;
+  }
+  .project-table-wrapper table {
+    font-size: 0.8rem;
+  }
+  .project-table-wrapper th,
+  .project-table-wrapper td {
+    padding: 10px 12px;
+  }
 }

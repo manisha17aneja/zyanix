@@ -24,7 +24,7 @@
       case 'heading':
         return '<h2 id="' + (block.id || '') + '">' + block.text + '</h2>';
       case 'subheading':
-        return '<h3 id="' + (block.id || '') + '" style="font-size:1.22rem; font-weight:700; margin:28px 0 12px; color:var(--text-primary);">' + block.text + '</h3>';
+        return '<h3 id="' + (block.id || '') + '">' + block.text + '</h3>';
       case 'paragraph':
         return '<p>' + block.text + '</p>';
       case 'list':
@@ -32,44 +32,44 @@
       case 'quote':
         return '<div class="pull-quote">' + block.text + '</div>';
       case 'image':
-        return '<figure style="margin:30px 0;"><img src="' + block.src + '" alt="' + (block.alt || '') + '" loading="lazy">' +
-               (block.caption ? '<figcaption style="text-align:center; font-size:0.84rem; color:var(--text-muted); margin-top:10px; font-style:italic;">' + block.caption + '</figcaption>' : '') +
+        return '<figure style="margin:26px 0; width:100%; max-width:100%; overflow:hidden;"><img src="' + block.src + '" alt="' + (block.alt || '') + '" loading="lazy" style="width:100%; height:auto; display:block; border-radius:14px; object-fit:contain; background:var(--icon-bg);">' +
+               (block.caption ? '<figcaption style="text-align:center; font-size:0.82rem; color:var(--text-muted); margin-top:10px; font-style:italic; padding:0 6px; word-break:break-word;">' + block.caption + '</figcaption>' : '') +
                '</figure>';
       case 'callout':
-        return '<div class="project-callout" style="background:var(--bg-alt); border-left:4px solid var(--orange); border-radius:0 12px 12px 0; padding:20px 24px; margin:28px 0;">' +
-                 (block.title ? '<h4 style="font-size:1.02rem; font-weight:700; margin-bottom:8px; color:var(--text-primary);">' + block.title + '</h4>' : '') +
-                 '<p style="margin:0; font-size:0.95rem; line-height:1.7; color:var(--text-secondary);">' + block.text + '</p>' +
+        return '<div class="project-callout">' +
+                 (block.title ? '<h4>' + block.title + '</h4>' : '') +
+                 '<p>' + block.text + '</p>' +
                '</div>';
       case 'timeline':
-        return '<div class="project-timeline-grid" style="margin:28px 0; display:grid; gap:14px;">' +
+        return '<div class="project-timeline-grid">' +
                  block.steps.map(function(s){
-                   return '<div style="background:var(--card-bg); border:1px solid var(--border); border-radius:12px; padding:18px 22px; display:flex; gap:16px; align-items:flex-start;">' +
-                            '<span style="background:var(--icon-bg); color:var(--orange-dark); font-weight:800; font-size:0.78rem; padding:4px 10px; border-radius:20px; white-space:nowrap; letter-spacing:0.02em;">' + s.phase + '</span>' +
-                            '<div><strong style="display:block; font-size:0.98rem; margin-bottom:4px; color:var(--text-primary);">' + s.title + '</strong><p style="font-size:0.88rem; color:var(--text-secondary); line-height:1.6; margin:0;">' + s.desc + '</p></div>' +
+                   return '<div>' +
+                            '<span>' + s.phase + '</span>' +
+                            '<div><strong>' + s.title + '</strong><p>' + s.desc + '</p></div>' +
                           '</div>';
                  }).join('') +
                '</div>';
       case 'tech-stack':
-        return '<div class="project-tech-grid" style="margin:26px 0; display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:14px;">' +
+        return '<div class="project-tech-grid">' +
                  block.items.map(function(item){
-                   return '<div style="background:var(--card-bg); border:1px solid var(--border); border-radius:12px; padding:18px; text-align:left;">' +
-                            '<span style="font-size:0.74rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--orange); font-weight:700; display:block; margin-bottom:6px;">' + item.category + '</span>' +
-                            '<strong style="font-size:0.98rem; color:var(--text-primary); display:block; margin-bottom:4px;">' + item.name + '</strong>' +
-                            '<span style="font-size:0.82rem; color:var(--text-muted); line-height:1.4; display:block;">' + item.detail + '</span>' +
+                   return '<div>' +
+                            '<span>' + item.category + '</span>' +
+                            '<strong>' + item.name + '</strong>' +
+                            '<span>' + item.detail + '</span>' +
                           '</div>';
                  }).join('') +
                '</div>';
       case 'table':
-        return '<div style="overflow-x:auto; margin:28px 0; border:1px solid var(--border); border-radius:14px; background:var(--card-bg);">' +
-                 '<table style="width:100%; border-collapse:collapse; font-size:0.9rem;">' +
-                   (block.headers ? '<thead style="background:var(--bg-alt); border-bottom:1px solid var(--border);"><tr>' +
-                     block.headers.map(function(h){ return '<th style="padding:14px 18px; text-align:left; font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:var(--text-muted);">' + h + '</th>'; }).join('') +
+        return '<div class="project-table-wrapper">' +
+                 '<table>' +
+                   (block.headers ? '<thead><tr>' +
+                     block.headers.map(function(h){ return '<th>' + h + '</th>'; }).join('') +
                    '</tr></thead>' : '') +
                    '<tbody>' +
                      block.rows.map(function(row){
-                       return '<tr style="border-bottom:1px solid var(--border);">' +
+                       return '<tr>' +
                          row.map(function(col, idx){
-                           return '<td style="padding:14px 18px; color:var(--text-secondary);' + (idx === 0 ? ' font-weight:600; color:var(--text-primary);' : '') + '">' + col + '</td>';
+                           return '<td' + (idx === 0 ? ' style="font-weight:700; color:var(--text-primary);"' : '') + '>' + col + '</td>';
                          }).join('') +
                        '</tr>';
                      }).join('') +
@@ -307,19 +307,21 @@
             '<h3>Performance Transformation: Monolithic vs Headless Next.js</h3>' +
             '<span class="gain">Core Web Vitals Pass</span>' +
           '</div>' +
-          '<table class="ecom-comp-table">' +
-            '<thead><tr><th>Key Metric</th><th>Legacy Monolith</th><th>Headless Next.js</th><th>Impact</th></tr></thead>' +
-            '<tbody>' +
-              project.comparison.map(function(c){
-                return '<tr>' +
-                  '<td><strong>' + c.metric + '</strong></td>' +
-                  '<td class="bad">' + c.before + '</td>' +
-                  '<td class="good">' + c.after + '</td>' +
-                  '<td><span class="gain">' + c.improvement + '</span></td>' +
-                '</tr>';
-              }).join('') +
-            '</tbody>' +
-          '</table>' +
+          '<div style="overflow-x:auto; -webkit-overflow-scrolling:touch; width:100%;">' +
+            '<table class="ecom-comp-table">' +
+              '<thead><tr><th>Key Metric</th><th>Legacy Monolith</th><th>Headless Next.js</th><th>Impact</th></tr></thead>' +
+              '<tbody>' +
+                project.comparison.map(function(c){
+                  return '<tr>' +
+                    '<td><strong>' + c.metric + '</strong></td>' +
+                    '<td class="bad">' + c.before + '</td>' +
+                    '<td class="good">' + c.after + '</td>' +
+                    '<td><span class="gain">' + c.improvement + '</span></td>' +
+                  '</tr>';
+                }).join('') +
+              '</tbody>' +
+            '</table>' +
+          '</div>' +
         '</div>';
     } else if(project.layout === 'edtech-funnel' && project.funnelSteps){
       container.className = '';
