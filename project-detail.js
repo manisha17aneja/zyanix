@@ -23,6 +23,8 @@
     switch(block.type){
       case 'heading':
         return '<h2 id="' + (block.id || '') + '">' + block.text + '</h2>';
+      case 'subheading':
+        return '<h3 id="' + (block.id || '') + '" style="font-size:1.22rem; font-weight:700; margin:28px 0 12px; color:var(--text-primary);">' + block.text + '</h3>';
       case 'paragraph':
         return '<p>' + block.text + '</p>';
       case 'list':
@@ -30,7 +32,50 @@
       case 'quote':
         return '<div class="pull-quote">' + block.text + '</div>';
       case 'image':
-        return '<img src="' + block.src + '" alt="' + (block.alt || '') + '" loading="lazy">';
+        return '<figure style="margin:30px 0;"><img src="' + block.src + '" alt="' + (block.alt || '') + '" loading="lazy">' +
+               (block.caption ? '<figcaption style="text-align:center; font-size:0.84rem; color:var(--text-muted); margin-top:10px; font-style:italic;">' + block.caption + '</figcaption>' : '') +
+               '</figure>';
+      case 'callout':
+        return '<div class="project-callout" style="background:var(--bg-alt); border-left:4px solid var(--orange); border-radius:0 12px 12px 0; padding:20px 24px; margin:28px 0;">' +
+                 (block.title ? '<h4 style="font-size:1.02rem; font-weight:700; margin-bottom:8px; color:var(--text-primary);">' + block.title + '</h4>' : '') +
+                 '<p style="margin:0; font-size:0.95rem; line-height:1.7; color:var(--text-secondary);">' + block.text + '</p>' +
+               '</div>';
+      case 'timeline':
+        return '<div class="project-timeline-grid" style="margin:28px 0; display:grid; gap:14px;">' +
+                 block.steps.map(function(s){
+                   return '<div style="background:var(--card-bg); border:1px solid var(--border); border-radius:12px; padding:18px 22px; display:flex; gap:16px; align-items:flex-start;">' +
+                            '<span style="background:var(--icon-bg); color:var(--orange-dark); font-weight:800; font-size:0.78rem; padding:4px 10px; border-radius:20px; white-space:nowrap; letter-spacing:0.02em;">' + s.phase + '</span>' +
+                            '<div><strong style="display:block; font-size:0.98rem; margin-bottom:4px; color:var(--text-primary);">' + s.title + '</strong><p style="font-size:0.88rem; color:var(--text-secondary); line-height:1.6; margin:0;">' + s.desc + '</p></div>' +
+                          '</div>';
+                 }).join('') +
+               '</div>';
+      case 'tech-stack':
+        return '<div class="project-tech-grid" style="margin:26px 0; display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:14px;">' +
+                 block.items.map(function(item){
+                   return '<div style="background:var(--card-bg); border:1px solid var(--border); border-radius:12px; padding:18px; text-align:left;">' +
+                            '<span style="font-size:0.74rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--orange); font-weight:700; display:block; margin-bottom:6px;">' + item.category + '</span>' +
+                            '<strong style="font-size:0.98rem; color:var(--text-primary); display:block; margin-bottom:4px;">' + item.name + '</strong>' +
+                            '<span style="font-size:0.82rem; color:var(--text-muted); line-height:1.4; display:block;">' + item.detail + '</span>' +
+                          '</div>';
+                 }).join('') +
+               '</div>';
+      case 'table':
+        return '<div style="overflow-x:auto; margin:28px 0; border:1px solid var(--border); border-radius:14px; background:var(--card-bg);">' +
+                 '<table style="width:100%; border-collapse:collapse; font-size:0.9rem;">' +
+                   (block.headers ? '<thead style="background:var(--bg-alt); border-bottom:1px solid var(--border);"><tr>' +
+                     block.headers.map(function(h){ return '<th style="padding:14px 18px; text-align:left; font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:var(--text-muted);">' + h + '</th>'; }).join('') +
+                   '</tr></thead>' : '') +
+                   '<tbody>' +
+                     block.rows.map(function(row){
+                       return '<tr style="border-bottom:1px solid var(--border);">' +
+                         row.map(function(col, idx){
+                           return '<td style="padding:14px 18px; color:var(--text-secondary);' + (idx === 0 ? ' font-weight:600; color:var(--text-primary);' : '') + '">' + col + '</td>';
+                         }).join('') +
+                       '</tr>';
+                     }).join('') +
+                   '</tbody>' +
+                 '</table>' +
+               '</div>';
       default:
         return '';
     }
@@ -248,6 +293,15 @@
     } else if(project.layout === 'ecommerce-store' && project.comparison){
       container.className = '';
       container.innerHTML =
+        '<div class="results-grid" style="margin-bottom:28px;">' +
+          project.results.map(function(r){
+            return '<div class="result-item">' +
+              '<div class="num">' + r.value + '</div>' +
+              '<div class="lbl">' + r.label + '</div>' +
+              (r.delta ? '<div style="font-size:0.75rem; color:var(--orange); font-weight:700; margin-top:4px;">' + r.delta + '</div>' : '') +
+            '</div>';
+          }).join('') +
+        '</div>' +
         '<div class="ecom-comparison-box">' +
           '<div class="ecom-comp-head">' +
             '<h3>Performance Transformation: Monolithic vs Headless Next.js</h3>' +
@@ -270,6 +324,15 @@
     } else if(project.layout === 'edtech-funnel' && project.funnelSteps){
       container.className = '';
       container.innerHTML =
+        '<div class="results-grid" style="margin-bottom:28px;">' +
+          project.results.map(function(r){
+            return '<div class="result-item">' +
+              '<div class="num">' + r.value + '</div>' +
+              '<div class="lbl">' + r.label + '</div>' +
+              (r.delta ? '<div style="font-size:0.75rem; color:var(--orange); font-weight:700; margin-top:4px;">' + r.delta + '</div>' : '') +
+            '</div>';
+          }).join('') +
+        '</div>' +
         '<div class="funnel-steps-container">' +
           '<h3 class="funnel-steps-title">5-Stage Visual Admissions Funnel</h3>' +
           '<div class="funnel-steps-grid">' +
@@ -535,6 +598,72 @@
     }
   }
 
+  function findProject(slug, projects){
+    if(!slug || !slug.trim()){
+      return projects.find(function(p){ return p.featured; }) || projects[0];
+    }
+    var s = slug.trim().toLowerCase();
+
+    // 1. Exact slug match
+    var exact = projects.find(function(p){ return p.slug.toLowerCase() === s; });
+    if(exact) return exact;
+
+    // 2. Direct alias mapping
+    var aliases = {
+      'a': 'autoflow-automation-platform',
+      'autoflow': 'autoflow-automation-platform',
+      'crm': 'autoflow-automation-platform',
+      'dealership': 'autoflow-automation-platform',
+      'ecom': 'ecommerce-store-platform',
+      'ecommerce': 'ecommerce-store-platform',
+      'luxe': 'ecommerce-store-platform',
+      'luxestore': 'ecommerce-store-platform',
+      'store': 'ecommerce-store-platform',
+      'edu': 'edulead-crm-platform',
+      'edulead': 'edulead-crm-platform',
+      'edtech': 'edulead-crm-platform',
+      'market': 'auto-marketplace-platform',
+      'marketplace': 'auto-marketplace-platform',
+      'auto-market': 'auto-marketplace-platform',
+      'nextgen': 'auto-marketplace-platform',
+      'fit': 'fitness-mobile-app',
+      'fitness': 'fitness-mobile-app',
+      'pulsefit': 'fitness-mobile-app',
+      'gym': 'fitness-mobile-app',
+      'analytics': 'business-analytics-dashboard',
+      'dashboard': 'business-analytics-dashboard',
+      'bi': 'business-analytics-dashboard',
+      'brightpath': 'business-analytics-dashboard',
+      'fintech': 'fintech-payments-app',
+      'pay': 'fintech-payments-app',
+      'payloop': 'fintech-payments-app',
+      'payments': 'fintech-payments-app',
+      'logistics': 'logistics-tracking-platform',
+      'fleet': 'logistics-tracking-platform',
+      'routewise': 'logistics-tracking-platform',
+      'tracking': 'logistics-tracking-platform',
+      'telehealth': 'telehealth-booking-app',
+      'health': 'telehealth-booking-app',
+      'careconnect': 'telehealth-booking-app',
+      'clinic': 'telehealth-booking-app'
+    };
+    if(aliases[s]){
+      var byAlias = projects.find(function(p){ return p.slug === aliases[s]; });
+      if(byAlias) return byAlias;
+    }
+
+    // 3. Prefix match (e.g. starts with 'a' or 'auto')
+    var prefix = projects.find(function(p){ return p.slug.toLowerCase().indexOf(s) === 0; });
+    if(prefix) return prefix;
+
+    // 4. Substring match
+    var sub = projects.find(function(p){ return p.slug.toLowerCase().indexOf(s) !== -1; });
+    if(sub) return sub;
+
+    // 5. Fallback gracefully
+    return projects[0];
+  }
+
   function init(){
     var header = document.getElementById('projectHeaderContainer');
     if(!header) return;
@@ -543,7 +672,7 @@
     if(!projects || !projects.length){ renderLoadError(); return; }
 
     var slug = getSlugFromUrl();
-    var project = slug ? projects.find(function(p){ return p.slug === slug; }) : projects.find(function(p){ return p.featured; });
+    var project = findProject(slug, projects);
     if(!project){ renderNotFound(); return; }
 
     renderHeader(project);
